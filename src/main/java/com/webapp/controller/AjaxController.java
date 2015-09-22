@@ -10,7 +10,7 @@ public class AjaxController {
 	
 	@RequestMapping(value="/view", method=RequestMethod.GET)
 	public String getView() {
-		System.out.println("test!!1234");
+		System.out.println("test!!123456");
 		
 		return "ajax/view";
 	}
