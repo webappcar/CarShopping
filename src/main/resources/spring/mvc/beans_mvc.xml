@@ -7,11 +7,10 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
-<!-- <mvc:default-servlet-handler/> -->
+<mvc:default-servlet-handler/>
 
 <!-- HandlerMapping & HandlerAdapter -->
 <mvc:annotation-driven/>
-<context:component-scan base-package="com.shoppingmall"/>
 
 <!-- ViewResolver -->
 <mvc:view-resolvers>
@@ -22,9 +21,9 @@
 <mvc:view-controller path="/home" view-name="home"/>
 
 <!-- Resource Mapping -->
-<!-- <mvc:resources location="/WEB-INF/img/" mapping="/img/**" cache-period="0"/> -->
-<!-- <mvc:resources location="/WEB-INF/js/"  mapping="/js/**" cache-period="0"/> -->
-<!-- <mvc:resources location="/WEB-INF/css/" mapping="/css/**" cache-period="0"/> -->
+<mvc:resources location="/WEB-INF/img/" mapping="/img/**" cache-period="0"/>
+<mvc:resources location="/WEB-INF/js/"  mapping="/js/**" cache-period="0"/>
+<mvc:resources location="/WEB-INF/css/" mapping="/css/**" cache-period="0"/>
 
 </beans>
 
