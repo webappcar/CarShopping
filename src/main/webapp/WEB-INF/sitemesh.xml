@@ -19,5 +19,5 @@
   </mapping>
 
   <!-- Exclude path from decoration. -->
-  <mapping path="/study/*" exclude="true"/>
+  <mapping path="" exclude="true"/>
 </sitemesh>
