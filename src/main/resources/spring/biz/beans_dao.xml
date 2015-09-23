@@ -27,7 +27,7 @@
 	<property name="dataSource" ref="dataSource"/>
 	<property name="mapperLocations">
 		<list>
-			<value>classpath:com/webapp/mapper/Mapper.xml</value>
+			<value>classpath:com/shoppingmall/mapper/Mapper.xml</value>
 		</list>
 	</property>
 <!-- 	<property name="typeAliases"> -->
@@ -55,6 +55,6 @@
 
 
 <tx:annotation-driven transaction-manager="transactionManager" order="10"/>
-<aop:aspectj-autoproxy/>
+<aop:aspectj-autoproxy proxy-target-class="true" />
 
 </beans>

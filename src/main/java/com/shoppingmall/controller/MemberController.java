@@ -1,17 +1,17 @@
-package com.webapp.controller;
+package com.shoppingmall.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/ajax")
-public class AjaxController {
+@RequestMapping("/member")
+public class MemberController {
 	
-	@RequestMapping(value="/view", method=RequestMethod.GET)
+	@RequestMapping("/list")
 	public String getView() {
 		
-		return "ajax/view";
+		return "member/member_list";
 	}
 
 }

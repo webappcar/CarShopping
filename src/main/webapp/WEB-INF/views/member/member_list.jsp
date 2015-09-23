@@ -9,7 +9,8 @@
 <%@ include file="/WEB-INF/views/common.jspf" %>
 </head>
 <body>
-<h1>Car Shopping Home...!</h1>
+<h1>Car Shopping Home...member...</h1><br>
+Member List
 
 </body>
 </html>
