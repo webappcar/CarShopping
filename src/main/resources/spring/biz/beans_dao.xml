@@ -27,14 +27,14 @@
 	<property name="dataSource" ref="dataSource"/>
 	<property name="mapperLocations">
 		<list>
-			<value>classpath:com/shoppingmall/mapper/Mapper.xml</value>
+			<value>classpath:com/shoppingmall/mapper/MemberMapper.xml</value>
 		</list>
 	</property>
-<!-- 	<property name="typeAliases"> -->
-<!-- 		<list> -->
-<!-- 			<value>com.webapp.model.Member</value> -->
-<!-- 		</list> -->
-<!-- 	</property> -->
+	<property name="typeAliases">
+		<list>
+			<value>com.shoppingmall.model.Member</value>
+		</list>
+	</property>
 	<property name="databaseIdProvider">
 		<bean id="vendorIdProvider" class="org.apache.ibatis.mapping.VendorDatabaseIdProvider">
 			<property name="properties">
@@ -51,8 +51,35 @@
 	<constructor-arg ref="sqlSessionFactory"/>
 </bean>
 
-<!-- Mapper & Dao setting -->
+<!-- MemberMapper -->
+<bean id="memberMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+	  p:mapperInterface="com.shoppingmall.mapper.MemberMapper"
+	  p:sqlSessionFactory-ref="sqlSessionFactory"/> 
 
+<!-- IdGeneratorMapper -->
+<bean id="idGeneratorMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+	  p:mapperInterface="com.shoppingmall.mapper.IdGeneratorMapper"
+	  p:sqlSessionFactory-ref="sqlSessionFactory"/>	
+	  
+<!-- SpringMemberDao -->
+<bean id="springMemberDao" class="com.shoppingmall.dao.SpringMemberDao">
+	<property name="template" ref="jdbcTemplate"/>
+	<property name="useGeneratorTable" value="false"/>
+</bean>
+
+<!-- MybatisMemberDao -->
+<bean id="mybatisMemberDao" class="com.shoppingmall.dao.MybatisMemberDao">
+	<property name="memberMapper" ref="memberMapper"/>
+	<property name="idGeneratorMapper" ref="idGeneratorMapper"/>
+	<property name="useGeneratorTable" value="false"/>
+</bean>
+
+<bean id="member" class="com.shoppingmall.model.Member" scope="prototype">
+	<property name="email" value="admin@shoppingmall.com"/>
+	<property name="password" value="1234"/>
+	<property name="name" value="관리자"/>
+<!-- 	<property name="regdate" value="2011/01/11 12:30:10"/> -->
+</bean>
 
 <tx:annotation-driven transaction-manager="transactionManager" order="10"/>
 <aop:aspectj-autoproxy proxy-target-class="true" />

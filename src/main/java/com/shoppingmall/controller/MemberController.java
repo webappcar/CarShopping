@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/member")
 public class MemberController {
 	
-	@RequestMapping("/list")
+	@RequestMapping("/member_list")
 	public String getView() {
 		
 		return "member/member_list";

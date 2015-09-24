@@ -10,7 +10,9 @@
 </head>
 <body>
 <h1>Car Shopping Home...member...</h1><br>
-Member List
-
+Member List<br><br>
+<c:forEach var="memberlist" items="${memberlist}">
+	${memberlist.name} - ${memberlist.id}<br>
+</c:forEach>
 </body>
 </html>
