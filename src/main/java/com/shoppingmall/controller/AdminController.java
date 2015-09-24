@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.shoppingmall.command.Fuel;
+import com.shoppingmall.command.ProductCommand;
 
 @Controller
 @RequestMapping("/admin")
@@ -30,6 +31,13 @@ public class AdminController {
 		fuels.add(new Fuel("hybrid",messageSource.getMessage("shoppingmall.productregist.fuel.hybrid", null, locale)));
 		fuels.add(new Fuel("electric", messageSource.getMessage("shoppingmall.productregist.fuel.electric", null, locale)));
 		return fuels;
+	}
+	
+	@ModelAttribute("productinsert")
+	public ProductCommand getProduct(){
+		ProductCommand product = new ProductCommand();
+
+		return product;
 	}
 	
 	@RequestMapping("/memberPage")
