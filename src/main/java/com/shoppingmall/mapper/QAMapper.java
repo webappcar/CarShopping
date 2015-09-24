@@ -1,6 +1,12 @@
 package com.shoppingmall.mapper;
 
+import java.util.List;
+
+import com.shoppingmall.model.QA;
+
 public interface QAMapper {
+	
+	List<QA> selectAll();
 
 	public int getListSize();		
 	public int getPageNum();
