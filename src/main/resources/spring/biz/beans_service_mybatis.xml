@@ -26,7 +26,7 @@
 <!-- </bean> -->
 
 <!-- MemberRegisterService -->
-<bean id="memberRegisterService" class="com.shoppingmall.service.MemberListService">
+<bean id="memberRegisterService" class="com.shoppingmall.service.MemberRegisterService">
 	<property name="memberDao" ref="mybatisMemberDao"/>
 </bean>
 
