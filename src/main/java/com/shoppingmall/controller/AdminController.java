@@ -19,6 +19,12 @@ public class AdminController {
 		return "admin/adminProductPage";
 	}
 	
+	@RequestMapping("/productInsert")
+	public String productInsert(){
+		
+		return "product/productInsert";
+	}
+	
 	@RequestMapping("/orderPage")
 	public String adminOrderPage(){
 		

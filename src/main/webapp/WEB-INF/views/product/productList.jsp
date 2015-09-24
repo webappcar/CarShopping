@@ -4,13 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>adminProductPage</title>
-<%@ include file="/WEB-INF/views/common.jspf" %>
-
+<title>Insert title here</title>
 </head>
 <body>
-	<H1>어드민 상품페이지</H1>
-	
-	<a href="productInsert">상품등록</a>
+
 </body>
 </html>
