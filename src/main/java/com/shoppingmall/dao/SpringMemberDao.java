@@ -136,7 +136,7 @@ public class SpringMemberDao implements MemberDao {
 	
 	@Override
 	public int selectTotalCount() {
-		return template.queryForObject("select count(*) from member", Integer.class);
+		return template.queryForObject("select count(*) from user_info", Integer.class);
 	}
 
 	@Override
@@ -269,9 +269,6 @@ public class SpringMemberDao implements MemberDao {
 		// TODO Auto-generated method stub
 		
 	}
-
-
-
 
 	
 }

@@ -56,6 +56,11 @@
 	  p:mapperInterface="com.shoppingmall.mapper.MemberMapper"
 	  p:sqlSessionFactory-ref="sqlSessionFactory"/> 
 
+<!-- QAMapper -->
+<bean id="qaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+	  p:mapperInterface="com.shoppingmall.mapper.QAMapper"
+	  p:sqlSessionFactory-ref="sqlSessionFactory"/>
+	  
 <!-- IdGeneratorMapper -->
 <bean id="idGeneratorMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
 	  p:mapperInterface="com.shoppingmall.mapper.IdGeneratorMapper"
