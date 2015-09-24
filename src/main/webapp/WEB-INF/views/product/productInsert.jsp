@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,7 +25,7 @@ $(function(){
 </head>
 <body>
 	<div id="productinsert">
-		<form class="form-horizontal" role="form">
+		<form:form commandName="productregist" action="" cssClass="form-horizental">
 			<div class="form-group">
 				<h1>상품 등록</h1>
 			</div>
@@ -45,13 +48,11 @@ $(function(){
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3" for="fuel">사용연료 :</label>
+				<label class="control-label col-sm-3" for="fuel">
+					<spring:message code="shoppingmall.productregist.fuel"/>
+				</label>
 				<div class="checkbox col-sm-9">
-	  				<label><input type="checkbox" value="디젤">디젤</label>
-	  				<label><input type="checkbox" value="가솔린">가솔린</label>
-	  				<label><input type="checkbox" value="LPG">LPG</label>
-	  				<label><input type="checkbox" value="하이브리드">하이브리드</label>
-	  				<label><input type="checkbox" value="전기">전기</label>
+	  				<form:checkboxes items="${fuel}" path="fuel" itemLabel="label" itemValue="code"/>
 				</div>
 			</div>
 			<div class="form-group">
@@ -85,7 +86,7 @@ $(function(){
 			</div>
 			<input type="submit" class="btn btn-default" value="등록"/>
 			<input type="button" class="btn btn-default" id="cancel" value="취소"/>
-		</form>
+		</form:form>
 	</div>
 </body>
 </html>
