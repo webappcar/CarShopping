@@ -28,7 +28,7 @@ public class MemberListService {
 	
 	PlatformTransactionManager tm;
 	
-	@Transactional(isolation=Isolation.READ_COMMITTED,
+	/*@Transactional(isolation=Isolation.READ_COMMITTED,
 				   propagation=Propagation.REQUIRED,
 				   readOnly=true,
 				   rollbackFor=Exception.class)
@@ -46,6 +46,6 @@ public class MemberListService {
 		paging.setMembers(members);
 		
 		return paging;
-	}
+	}*/
 	
 }

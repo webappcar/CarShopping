@@ -40,6 +40,11 @@
 <!-- 	<property name="memberDao" ref="mybatisMemberDao"/> -->
 <!-- </bean> -->
 
+<!-- QAListService -->
+<bean id="qaListService" class="com.shoppingmall.service.QAListService">
+	<property name="qaDao" ref="mybatisQaDao"/>
+</bean>
+
 <!-- AuthService -->
 <!-- <bean id="authService" class="com.webapp.service.AuthService"> -->
 <!-- 	<property name="memberDao" ref="mybatisMemberDao"/> -->
