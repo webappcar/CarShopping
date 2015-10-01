@@ -1,6 +1,8 @@
 package com.shoppingmall.command;
 
-import java.util.Date;
+import java.util.Arrays;
+
+import com.shoppingmall.model.Product;
 
 public class ProductCommand {
 	int car_id;
@@ -14,6 +16,24 @@ public class ProductCommand {
 	String car_image;
 	int stock;
 	String car_desc;
+	
+	public Product getProduct(){
+		Product p = new Product();
+		p.setCar_id(this.car_id);
+		p.setCar_name(this.car_name);
+		p.setPrice(this.price);
+		p.setEfficiency(this.efficiency);
+		p.setFuel(Arrays.toString(fuel));
+		System.out.println(p.getFuel());
+		p.setCompany(this.company);
+		p.setGubun(this.gubun);
+		p.setYear(this.year);
+		p.setCar_image(this.car_image);
+		p.setStock(this.stock);
+		p.setCar_desc(this.car_desc);
+		return p;
+	}
+	
 	public int getCar_id() {
 		return car_id;
 	}

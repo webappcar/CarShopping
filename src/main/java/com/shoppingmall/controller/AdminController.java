@@ -11,6 +11,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.shoppingmall.command.Fuel;
@@ -93,19 +94,30 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/insertProduct")
-	public String insert(Product product){
+	public String insert(ProductCommand command){
 		
-		service.insertProduct(product);
+		service.insertProduct(command.getProduct());
 		
 		return "redirect:/admin/productPage";
 	}
 	
 	@RequestMapping("/productModify")
-	public String productModify(){
+	public String productModify(int car_id, Model model){
+
+		Product product = service.selectOneProduct(car_id);
+
+		model.addAttribute("product", product);
 		
 		return "admin/product/productModify";
 	}
 	
+	@RequestMapping("/modifyProduct")
+	public String modifyProduct(ProductCommand command){
+		
+		service.modifyProduct(command.getProduct());
+		
+		return "redirect:/admin/productPage";
+	}
 	
 	/*
 	 * Admin Order

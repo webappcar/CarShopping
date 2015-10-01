@@ -23,6 +23,12 @@ public class ProductService {
 	}
 	
 	@Transactional
+	public Product selectOneProduct(int car_id){
+		
+		return dao.selectOneProduct(car_id);
+	}
+	
+	@Transactional
 	public List<Product> selectProducts(String company, String gubun){
 		
 		return dao.selectProducts(company, gubun);
@@ -32,5 +38,10 @@ public class ProductService {
 	public int insertProduct(Product product){
 		
 		return dao.insertProduct(product);
+	}
+	
+	public int modifyProduct(Product product){
+		
+		return dao.modifyProduct(product);
 	}
 }

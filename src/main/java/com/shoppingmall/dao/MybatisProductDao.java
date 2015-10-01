@@ -18,7 +18,13 @@ public class MybatisProductDao implements ProductDao{
 		// TODO Auto-generated method stub
 		return mapper.selectProduct();
 	}
-
+	
+	@Override
+	public Product selectOneProduct(int car_id) {
+		// TODO Auto-generated method stub
+		return mapper.selectOneProduct(car_id);
+	}
+	
 	@Override
 	public List<Product> selectProducts(String company, String gubun) {
 		// TODO Auto-generated method stub
@@ -30,5 +36,13 @@ public class MybatisProductDao implements ProductDao{
 		// TODO Auto-generated method stub
 		return mapper.insertProduct(product);
 	}
+
+	@Override
+	public int modifyProduct(Product product) {
+		// TODO Auto-generated method stub
+		return mapper.modifyProduct(product);
+	}
+
+	
 
 }

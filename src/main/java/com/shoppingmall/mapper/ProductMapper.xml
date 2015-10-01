@@ -29,6 +29,11 @@
 		where company=#{company} and gubun=#{gubun}
 	</select>
 	
+	<select id="selectOneProduct" resultMap="productResultMap" parameterType="int">
+		<include refid="product"/>
+		where car_id=#{car_id}
+	</select>
+	
 	<insert id="insertProduct" parameterType="com.shoppingmall.model.Product">
 		insert into car_info(car_id, car_name, price, efficiency, fuel, company, gubun, year, car_image, stock, car_desc)
 		values(#{car_id, jdbcType=INTEGER},
@@ -43,4 +48,19 @@
 			   #{stock, jdbcType=INTEGER},
 			   #{car_desc, jdbcType=VARCHAR})
 	</insert>
+	
+	<update id="modifyProduct" parameterType="com.shoppingmall.model.Product">
+		update car_info 
+		set car_name=#{car_name, jdbcType=VARCHAR},
+			price=#{price, jdbcType=INTEGER},
+			efficiency=#{efficiency, jdbcType=VARCHAR},
+			fuel=#{fuel, jdbcType=VARCHAR},
+			company=#{company, jdbcType=VARCHAR},
+			gubun=#{gubun, jdbcType=VARCHAR},
+			year=#{year, jdbcType=VARCHAR},
+			car_image=#{car_image, jdbcType=VARCHAR},
+			stock=#{stock, jdbcType=INTEGER},
+			car_desc=#{car_desc, jdbcType=VARCHAR}
+		where car_id=#{car_id, jdbcType=INTEGER}
+	</update>
 </mapper>

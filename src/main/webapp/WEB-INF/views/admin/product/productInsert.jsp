@@ -69,7 +69,9 @@ $(function(){
 					<div class="checkbox">
 						<c:forEach var="f" items="${fuel}">
 							<label for="${f.code}" class="checkbox-inline">
-								<input id="${f.code}" name="fuel" type="checkbox" class="checkbox"/> ${f.label}
+								<input id="${f.code}" name="fuel" 
+								value="<spring:message code='shoppingmall.productregist.fuel.${f.code}'/>" 
+								type="checkbox" class="checkbox"/> ${f.label}
 							</label>
 						</c:forEach>
 	  				</div>
@@ -90,7 +92,6 @@ $(function(){
 				<div class="col-sm-9">
 					<select id="gubun" name="gubun" class="form-control">
 						<option value="대형">대형</option>
-						<option value="중형">중형</option>
 						<option value="준중형">준중형</option>
 						<option value="소형">소형</option>
 					</select>

@@ -8,7 +8,7 @@ public class Product {
 	private String car_name;
 	private int price;
 	private String efficiency;
-	private String[] fuel;
+	private String fuel;
 	private String company;
 	private String gubun;
 	private String year;
@@ -41,10 +41,10 @@ public class Product {
 		this.efficiency = efficiency;
 	}
 	
-	public String[] getFuel() {
+	public String getFuel() {
 		return fuel;
 	}
-	public void setFuel(String[] fuel) {
+	public void setFuel(String fuel) {
 		this.fuel = fuel;
 	}
 	public String getCompany() {
