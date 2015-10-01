@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shoppingmall.mapper.ProductMapper">
+
+	<resultMap type="com.shoppingmall.model.Product" id="productResultMap">
+		<id property="car_id" column="car_id"/>
+		<id property="car_name" column="car_name"/>
+		<id property="price" column="price"/>
+		<id property="efficienty" column="efficienty"/>
+		<id property="fuel" column="fuel"/>
+		<id property="company" column="company"/>
+		<id property="gubun" column="gubun"/>
+		<id property="year" column="year"/>
+		<id property="car_image" column="car_image"/>
+		<id property="stock" column="stock"/>
+		<id property="car_desc" column="car_desc"/>
+	</resultMap>
+	
+	<sql id="product">
+		select * from car_info
+	</sql>
+	
+	<select id="selectProduct" resultMap="productResultMap">
+		<include refid="product"/>	
+	</select>
+	
+	<select id="selectProducts" resultMap="productResultMap" parameterType="String">
+		<include refid="product"/>
+		where company=#{company} and divide=#{divide}
+	</select>
+</mapper>

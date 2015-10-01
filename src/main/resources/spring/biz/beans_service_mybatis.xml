@@ -50,6 +50,9 @@
 <!-- 	<property name="memberDao" ref="mybatisMemberDao"/> -->
 <!-- </bean> -->
 
-
+<!-- ProductService -->
+<bean id="productService" class="com.shoppingmall.service.ProductService">
+	<property name="productDao" ref="mybatisProductDao"/>
+</bean>
 
 </beans>

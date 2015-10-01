@@ -29,6 +29,7 @@
 		<list>
 <!-- 			<value>classpath:com/shoppingmall/mapper/MemberMapper.xml</value> -->
 <!-- 			<value>classpath:com/shoppingmall/mapper/QAMapper.xml</value> -->
+			<value>classpath:com/shoppingmall/mapper/ProductMapper.xml</value>
 		</list>
 	</property>
 	<property name="typeAliases">
@@ -98,6 +99,17 @@
 <bean id="mybatisQaDao" class="com.shoppingmall.dao.MybatisQaDao">
 	<property name="qaMapper" ref="qaMapper"/>
 </bean>
+
+<!-- ProductMapper -->
+<bean id="productMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+	  p:mapperInterface="com.shoppingmall.mapper.ProductMapper"
+	  p:sqlSessionFactory-ref="sqlSessionFactory"/>
+
+<!-- MybatisProductDao -->
+<bean id="mybatisProductDao" class="com.shoppingmall.dao.MybatisProductDao">
+	<property name="productMapper" ref="productMapper"/>
+</bean>
+
 
 <tx:annotation-driven transaction-manager="transactionManager" order="10"/>
 <aop:aspectj-autoproxy proxy-target-class="true" />

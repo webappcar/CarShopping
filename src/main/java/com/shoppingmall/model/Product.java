@@ -1,19 +1,20 @@
-package com.shoppingmall.command;
+package com.shoppingmall.model;
 
 import java.util.Date;
 
-public class ProductCommand {
-	int car_id;
-	String car_name;
-	int price;
-	String efficiency;
-	String fuel;
-	String company;
-	String gubun;
-	String year;
-	String car_image;
-	int stock;
-	String car_desc;
+public class Product {
+	
+	private int car_id;
+	private String car_name;
+	private int price;
+	private String efficiency;
+	private String fuel;
+	private String company;
+	private String gubun;
+	private String year;
+	private String car_image;
+	private int stock;
+	private String car_desc;
 	public int getCar_id() {
 		return car_id;
 	}
@@ -80,7 +81,6 @@ public class ProductCommand {
 	public void setCar_desc(String car_desc) {
 		this.car_desc = car_desc;
 	}
-	
-	
 
+	
 }

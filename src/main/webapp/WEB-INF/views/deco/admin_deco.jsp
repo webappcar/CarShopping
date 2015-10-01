@@ -22,11 +22,11 @@
 	  <header class="w3-container">
 	  	<h5>운영자메뉴</h5>
 	  </header>
+	  <a href="/index">메인으로</a>
 	  <a href="memberPage">회원관리</a>		
 	  <a href="productPage">상품관리</a>		
 	  <a href="orderPage">주문관리</a>		
-	  <a href="boardPage">게시판관리</a>		
-	  <a href="#">등등등</a>		
+	  <a href="boardPage">게시판관리</a>				
 	</nav>
 	
 	<div id="adminmain">

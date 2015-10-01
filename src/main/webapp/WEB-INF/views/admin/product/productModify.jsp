@@ -102,8 +102,16 @@ $(function(){
 					<input type="file" class="form-control" id="imagefile" placeholder="전송할 이미지 파일">
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="carinfo">
+					<spring:message code="shoppingmall.productregist.carinfo"/>
+				</label>
+				<div class="col-sm-9">
+					<form:textarea path="carinfo" cssClass="form-control" rows="10"/>
+				</div>
+			</div>
 			<input type="submit" class="btn btn-default" value="등록"/>
-			<input type="button" class="btn btn-default" id="cancel" value="취소"/>
+			<input type="button" class="btn btn-default" onclick="history.back();" value="취소"/>
 		</form:form>
 	</div>
 </body>

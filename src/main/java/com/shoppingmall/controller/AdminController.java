@@ -4,14 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.shoppingmall.command.Fuel;
 import com.shoppingmall.command.ProductCommand;
+import com.shoppingmall.model.Product;
+import com.shoppingmall.service.ProductService;
 
 @Controller
 @RequestMapping("/admin")
@@ -19,6 +24,9 @@ public class AdminController {
 
 	@Autowired
 	MessageSource messageSource;
+	
+	@Autowired
+	ProductService service;
 	
 	@ModelAttribute("fuel")
 	public List<Fuel> getFuel(){
@@ -51,7 +59,13 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/productPage")
-	public String adminProductPage(){
+	public String adminProductPage(Model model){
+		
+		List<Product> list = service.selectProduct();
+		
+		System.out.println(list.get(1));
+		
+		model.addAttribute("product", list);
 		
 		return "admin/adminProductPage";
 	}
@@ -76,6 +90,8 @@ public class AdminController {
 	
 	@RequestMapping("/productInsert")
 	public String productInsert(){
+		
+		
 		
 		return "admin/product/productInsert";
 	}
