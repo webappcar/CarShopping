@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shoppingmall.mapper.MemberMapper">
+<mapper namespace="com.shoppingmall.mapper.QAMapper">
 
 <resultMap type="com.shoppingmall.model.QA" id="qaResultMap">
 	<id property="writing_id" column="writing_id"/>
@@ -13,5 +13,53 @@
 	<id property="regdate" column="register_date"/>
 </resultMap>
 
+<sql id="qa">
+	select * from  
+		(select a.*, rownum rn from 
+			(select a.*, b.name from qa a, user_info b 
+			where a.id=b.id order by group_id desc, order_no asc)
+		a)
+</sql>
+
+<select id="selectAll" 
+		resultMap="qaResultMap">
+	<include refid="qa"/>
+</select>
+
+<!-- <select id="selectQA" 
+		resultMap="qaResultMap">
+	select * from  
+		(select a.*, rownum rn from 
+			(select a.*, b.name from qa a, user_info b 
+			where a.id=b.id order by group_id desc, order_no asc)
+		a)
+	where rn between 1 and 5
+</select> -->
+
+<select id="selectQA" 
+		parameterType="Integer" 
+		resultMap="qaResultMap" databaseId="oracle">
+	select * from  
+		(select a.*, rownum rn from 
+			(select a.*, b.name from qa a, user_info b 
+			where a.id=b.id order by group_id desc, order_no asc)
+		a)
+	where rn between #{firstItem} and #{lastItem}
+</select>
+
+<!-- <select id="select" 
+		parameterType="hashmap" 
+		resultMap="qaResultMap" databaseId="oracle">
+	select * from  
+		(select a.*, rownum rn from 
+			(select a.*, b.name from qa a, user_info b 
+			where a.id=b.id order by group_id desc, order_no asc)
+		a)
+	where rn between #{firstItem} and #{lastItem}
+</select> -->
+
+<select id="countAll" resultType="int">
+	select count(*) from qa
+</select>
 
 </mapper>

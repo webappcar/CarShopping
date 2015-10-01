@@ -28,11 +28,12 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.util.Assert;
 
 import com.shoppingmall.model.Member;
+import com.shoppingmall.model.QA;
 import com.shoppingmall.util.Password;
 
-public class SpringMemberDao implements MemberDao {
+public class SpringQaDao implements QaDao {
 
-	static Log log = LogFactory.getLog(SpringMemberDao.class);
+	static Log log = LogFactory.getLog(SpringQaDao.class);
 	
 	final static String oracle="Oracle";
 	final static String mysql="MySQL";
@@ -40,11 +41,6 @@ public class SpringMemberDao implements MemberDao {
 	boolean useGeneratorTable = false;
 	String DB_VENDER;
 	JdbcTemplate template;
-	
-	public void setUseGeneratorTable(boolean use) {
-		this.useGeneratorTable = use;
-		log.info("useGeneratorTable = " + use);
-	}
 	
 	public void setTemplate(JdbcTemplate template) throws SQLException  {
 		this.template = template;
@@ -68,49 +64,52 @@ public class SpringMemberDao implements MemberDao {
 		}
 	}
 	
-	RowMapper<Member> memberMapper = new RowMapper<Member>() {
+	RowMapper<QA> qaMapper = new RowMapper<QA>() {
 
 		@Override
-		public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Member m = new Member();
-			m.setId(rs.getString("id"));
-			m.setEmail(rs.getString("email"));
-			m.setPassword(rs.getString("password"));
-			m.setName(rs.getString("name"));
-			//m.setRegdate(rs.getDate("regdate"));
+		public QA mapRow(ResultSet rs, int rowNum) throws SQLException {
+			QA q = new QA();
+			q.setWriting_id(rs.getInt("writing_id"));
+			q.setGroup_id(rs.getInt("group_id"));
+			q.setOrder_no(rs.getInt("order_no"));			
+			q.setLevel_no(rs.getInt("level_no"));
+			q.setParent_id(rs.getInt("parent_id"));
+			q.setId(rs.getString("id"));
+			q.setName(rs.getString("name"));
+			q.setTitle(rs.getString("title"));
+			q.setRegdate(rs.getString("register_date"));
 			
-			return m;
+			return q;
 		}
 	};
 	
 	@Override
-	public List<Member> selectAll() {
+	public int countAll() {
+
+		return 0;
+	}
+	
+	@Override
+	public List<QA> selectAll() {
 		// Weaving(위빙)
-		return template.query(SELECT_ALL, memberMapper);
+		return template.query(SELECT_ALL, qaMapper);
 		
 	}
 
+
 	@Override
-	public List<Member> select(Map<String, Object> index) {
-		List<Member> list = new ArrayList<Member>();
+	public List<QA> selectQA(Map<String, Object> index) {
+		List<QA> list = new ArrayList<QA>();
 		
-		switch (DB_VENDER) {
-		case oracle:
-			int firstItem = (int)index.get("firstItem");
-			int lastItem = (int)index.get("lastItem");
-			list = template.query(PAGING_ORACLE, memberMapper, firstItem, lastItem);
-			break;
-		case mysql:
-			int offset = (int)index.get("offset");
-			int count = (int)index.get("count");
-			list = template.query(PAGING_MYSQL, memberMapper, offset, count);
-			break;	
-		}
+		int firstItem = (int)index.get("firstItem");
+		int lastItem = (int)index.get("lastItem");
+		list = template.query(PAGING_ORACLE, qaMapper, firstItem, lastItem);
+		
 		return list;
 	}
 
 	@Override
-	public List<Member> select(int firstItem, int lastItem) {
+	public List<QA> selectQA(int firstItem, int lastItem) {
 		Map<String, Object> index = new HashMap<String, Object>();
 		index.put("firstItem", firstItem);
 		index.put("lastItem", lastItem);
@@ -118,10 +117,11 @@ public class SpringMemberDao implements MemberDao {
 		int count = lastItem - firstItem + 1;
 		index.put("offset", offset);
 		index.put("count", count);
-		return this.select(index);
+		
+		return this.selectQA(index);
 	}
 	
-	
+/*	
 	@Override
 	public Member selectById(String id) {
 		Member m = template.queryForObject(SELECT_BY_ID, memberMapper, id);
@@ -269,6 +269,6 @@ public class SpringMemberDao implements MemberDao {
 		// TODO Auto-generated method stub
 		
 	}
-
+*/
 	
 }

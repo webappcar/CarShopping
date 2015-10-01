@@ -14,11 +14,13 @@
 </resultMap>
 
 <sql id="member">
-	select id, 
-		   email, 
-		   password, 
-		   name, 
-		   regdate 
+	select id,
+			password,
+			name,
+			nickname,
+			phone,
+			email,
+			address
 	  from user_info
 </sql>
 
@@ -35,8 +37,7 @@
 	       outer.id,
 	       outer.email,
 	       outer.password,
-	       outer.name,
-	       outer.regdate
+	       outer.name
 	  from (select rownum rn, inner.*
 		      from (select m.* 
 			          from user_info m
@@ -80,18 +81,22 @@
 	insert into user_info
 	(
 		id,
-		email,
 		password,
 		name,
-		regdate
+		nickname,
+		phone,
+		email,
+		address
 	)
 	values
 	(
 		#{id},
-		#{email},
 		#{password},
 		#{name},
-		#{regdate}
+		#{nickname},
+		#{phone},
+		#{email},
+		#{address}
 	)
 </insert>
 	

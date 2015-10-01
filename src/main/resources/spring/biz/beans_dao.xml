@@ -27,7 +27,8 @@
 	<property name="dataSource" ref="dataSource"/>
 	<property name="mapperLocations">
 		<list>
-			<value>classpath:com/shoppingmall/mapper/MemberMapper.xml</value>
+<!-- 			<value>classpath:com/shoppingmall/mapper/MemberMapper.xml</value> -->
+<!-- 			<value>classpath:com/shoppingmall/mapper/QAMapper.xml</value> -->
 		</list>
 	</property>
 	<property name="typeAliases">
@@ -50,6 +51,7 @@
 <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 	<constructor-arg ref="sqlSessionFactory"/>
 </bean>
+
 
 <!-- MemberMapper -->
 <bean id="memberMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
@@ -79,6 +81,22 @@
 	<property name="password" value="1234"/>
 	<property name="name" value="관리자"/>
 <!-- 	<property name="regdate" value="2011/01/11 12:30:10"/> -->
+</bean>
+
+
+<!-- QAMapper -->
+<bean id="qaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+	  p:mapperInterface="com.shoppingmall.mapper.QAMapper"
+	  p:sqlSessionFactory-ref="sqlSessionFactory"/>
+
+<!-- SpringQaDao -->
+<bean id="springQaDao" class="com.shoppingmall.dao.SpringQaDao">
+	<property name="template" ref="jdbcTemplate"/>
+</bean>
+
+<!-- MybatisQaDao -->
+<bean id="mybatisQaDao" class="com.shoppingmall.dao.MybatisQaDao">
+	<property name="qaMapper" ref="qaMapper"/>
 </bean>
 
 <tx:annotation-driven transaction-manager="transactionManager" order="10"/>

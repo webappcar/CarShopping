@@ -7,6 +7,7 @@ public class QA {
 	private int level_no;		// size=5
 	private int parent_id;		// size=5
  	private String id;			// size=15
+ 	private String name;		// size=15
  	private String title;		// size=100
  	private String regdate;		// size=20
  	
@@ -45,6 +46,12 @@ public class QA {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getName() {
+		return id;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getTitle() {
 		return title;
