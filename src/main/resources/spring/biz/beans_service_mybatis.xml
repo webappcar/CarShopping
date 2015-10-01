@@ -45,6 +45,11 @@
 	<property name="qaDao" ref="mybatisQaDao"/>
 </bean>
 
+<!-- QAWritingService -->
+<bean id="qaWritingService" class="com.shoppingmall.service.QAWritingService">
+	<property name="qaDao" ref="mybatisQaDao"/>
+</bean>
+
 <!-- AuthService -->
 <!-- <bean id="authService" class="com.webapp.service.AuthService"> -->
 <!-- 	<property name="memberDao" ref="mybatisMemberDao"/> -->

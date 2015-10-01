@@ -22,8 +22,16 @@ public class QAListService {
 	}
 	
 	@Transactional
+	public QA getSelect(int writing_id) {
+		//System.out.println("firstItem = " + firstItem + ", " + "lastItem = " + lastItem);
+		
+		return dao.select(writing_id);
+	}
+	
+	@Transactional
 	public List<QA> getList(int firstItem, int lastItem) {
-		System.out.println("firstItem = " + firstItem + ", " + "lastItem = " + lastItem);
+		//System.out.println("firstItem = " + firstItem + ", " + "lastItem = " + lastItem);
+		
 		return dao.selectQA(firstItem, lastItem);
 	}
 	

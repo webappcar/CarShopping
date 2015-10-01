@@ -1,7 +1,10 @@
 package com.shoppingmall.controller;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -17,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shoppingmall.model.QA;
+import com.shoppingmall.model.QAContent;
 import com.shoppingmall.service.QAListService;
+import com.shoppingmall.service.QAWritingService;
 
 @Controller
 @RequestMapping("/qa")
@@ -29,11 +34,14 @@ public class QAController {
 	@Autowired
 	QAListService listService;
 	
-	@RequestMapping("/list/{page}")
-	public String getList1(@PathVariable String page, Model model) {
-		log.info("getList()...page = "+page);
+	@Autowired
+	QAWritingService writingService;
+	
+	@RequestMapping("/list/{pageNo}")
+	public String getList(@PathVariable String pageNo, Model model) {
+		log.info("getList()...page = "+pageNo);
 		
-		int currentPage = Integer.parseInt(page);
+		int currentPage = Integer.parseInt(pageNo);
 		
 		int count = listService.getListTotal();
 		int totalPageCount = 0;
@@ -48,23 +56,150 @@ public class QAController {
 		
 		int number = count - (currentPage-1)*10 + 1;
 		
-		List<QA> qalist = listService.getList(startRow, endRow);
+		List<QA> qalist = listService.getList(startRow, endRow);	
+				
+		model.addAttribute("qalist", qalist);	
 		
-		
-		
-		model.addAttribute("qalist", qalist);
-		
-		
-	    model.addAttribute("page", page);	
+	    model.addAttribute("pageNo", pageNo);	
 	    model.addAttribute("count", count);
 	    model.addAttribute("number", number);
 	    
 	    model.addAttribute("startRow", startRow);
-	    model.addAttribute("endRow", endRow);
-		
-		
+	    model.addAttribute("endRow", endRow);		
 		
 		return "qa/qa_list";
+	}
+	
+	@RequestMapping("/view/{article_num}")
+	public String getView(@PathVariable String article_num, @RequestParam("pageNo") String pageNo, Model model) {
+	//@RequestParam("pageNo") String pageNo, //required 조건이 없으면 기본값은 true, 즉 필수 파라미터 이다. 파라미터 pageNo가 존재하지 않으면 Exception 발생.
+	//@RequestParam(value="pageNo", required=false) String pageNo){ //파라미터 pageNo가 존재하지 않으면 String pageNo는 null.
+
+		System.out.println(article_num+", "+pageNo);
+		
+		int id = Integer.parseInt(article_num);
+		
+		QA qaContentList = writingService.selectContentQA(id);
+		QAContent qaContent = writingService.selectQA(id);
+		
+		model.addAttribute("qaContentList", qaContentList);
+		model.addAttribute("qaContent", qaContent);
+		model.addAttribute("pageNo", pageNo);	
+		
+		return "qa/qa_view";
+	}
+	
+	@RequestMapping("/write")
+	public String writeQA(@RequestParam("pageNo") String pageNo, @RequestParam(value="parent_id", required=false) String parent_id, Model model) {
+		
+		QA parentList = null;
+		String title = "";
+		
+		if(parent_id != null){
+			parentList = listService.getSelect(Integer.parseInt(parent_id));
+			if(parentList != null){
+				title = "[re:] " + parentList.getTitle();
+			}
+		}
+		
+		model.addAttribute("parentList", parentList);
+		model.addAttribute("title", title);
+		
+		model.addAttribute("parent_id", parent_id);
+		model.addAttribute("pageNo", pageNo);
+		
+		return "qa/qa_write";
+	}
+	
+	@RequestMapping("/insert")
+	public String qaInsert(Model model, HttpServletRequest request) {
+		String pageNo= request.getParameter("pageNo");
+		String parentId= request.getParameter("parent_id");
+		String groupId = request.getParameter("group_id");
+		String levelNo=request.getParameter("level_no");
+		String orderNo=request.getParameter("order_no");
+		
+		System.out.println("pageNo - "+pageNo);
+		System.out.println("parentId - "+parentId);
+		System.out.println("groupId - "+groupId);
+		System.out.println("levelNo - "+levelNo);
+		System.out.println("orderNo - "+orderNo);
+		
+		model.addAttribute("pageNo", pageNo);
+		
+		try {
+			QA qa = new QA();
+			QAContent qaContent = new QAContent();
+			
+			if(parentId ==  null){//원글이기 때문에 부모번호없음(0)
+				qa.setParent_id(0);
+				qa.setGroup_id(0);//나중에 1이 증가함
+				qa.setLevel_no(0);
+				qa.setOrder_no(0);
+			}else{
+				qa.setParent_id(Integer.parseInt(parentId));
+				qa.setGroup_id(Integer.parseInt(groupId));
+				qa.setLevel_no(Integer.parseInt(levelNo));
+				qa.setOrder_no(Integer.parseInt(orderNo));
+			}
+			
+			GregorianCalendar gc = new GregorianCalendar();
+			String today = gc.get(Calendar.YEAR) + "/" + (gc.get(Calendar.MONTH)+1) + "/" + gc.get(Calendar.DATE);
+			
+			qa.setRegdate(today);
+			
+			//qa.setId(request.getParameter("id"));
+			qa.setId("goodmv");
+			qa.setTitle(request.getParameter("qa_title"));
+			qaContent.setQa_content(request.getParameter("qa_content"));
+			
+			int result = writingService.insertQA(qa, qaContent);
+			
+		} catch(Exception e){
+			e.printStackTrace();			
+		}
+/*		
+		try{
+			Writing writing= new Writing();
+			
+			String parentId= request.getParameter("parent_id");
+			String groupId = request.getParameter("group_id");
+			String levelNo=request.getParameter("level_no");
+			String orderNo=request.getParameter("order_no");
+//			String writingId=request.getParameter("writingid");
+			if(parentId ==  null){//원글이기 때문에 부모번호없음(0)
+				writing.setParentid(0);
+				writing.setGroupid(0);//나중에 1이 증가함
+				writing.setLevelno(0);
+				writing.setOrderno(0);
+			}else{
+				writing.setParentid(Integer.parseInt(parentId));
+				writing.setGroupid(Integer.parseInt(groupId));
+				writing.setLevelno(Integer.parseInt(levelNo));
+				writing.setOrderno(Integer.parseInt(orderNo));
+			}
+
+			GregorianCalendar gc = new GregorianCalendar();
+			String today = gc.get(Calendar.YEAR) + "/" + (gc.get(Calendar.MONTH)+1) + "/" + gc.get(Calendar.DATE);
+			
+			writing.setRegisterdate(today);
+			WritingManager manager = WritingManager.getInstance();
+			//writing.setId(request.getParameter("id"));
+			writing.setId("admin");
+			writing.setTitle(request.getParameter("qa_title"));
+			writing.setQacontent(request.getParameter("qa_content"));
+			manager.insert(writing);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			
+		}
+		String resultPage = "QA_input_result.jsp?page="+pageNum;
+		//System.out.println("resultPage = "+resultPage);
+		RequestDispatcher rd= request.getRequestDispatcher(resultPage);
+		rd.forward(request, response);
+		*/
+		return "qa/qa_write_result";
 	}
 	
 	
@@ -90,9 +225,8 @@ public class QAController {
 	
 	
 	
-	
 	@RequestMapping("/list3")
-	public String getList(@RequestParam String pageNo, Model model, HttpServletRequest request) {
+	public String getList1(@RequestParam String pageNo, Model model, HttpServletRequest request) {
 		
 		int count = listService.getListTotal();
 		//String pageNo = page;
@@ -129,10 +263,6 @@ public class QAController {
 
 	
 	
-	@RequestMapping("/view")
-	public String getView() {
-		
-		return "qa/qa_view";
-	}
+	
 
 }
