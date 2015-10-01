@@ -25,4 +25,10 @@ public class MybatisProductDao implements ProductDao{
 		return mapper.selectProducts(company, gubun);
 	}
 
+	@Override
+	public int insertProduct(Product product) {
+		// TODO Auto-generated method stub
+		return mapper.insertProduct(product);
+	}
+
 }

@@ -6,7 +6,7 @@
 		<id property="car_id" column="car_id"/>
 		<id property="car_name" column="car_name"/>
 		<id property="price" column="price"/>
-		<id property="efficienty" column="efficienty"/>
+		<id property="efficiency" column="efficiency"/>
 		<id property="fuel" column="fuel"/>
 		<id property="company" column="company"/>
 		<id property="gubun" column="gubun"/>
@@ -26,6 +26,21 @@
 	
 	<select id="selectProducts" resultMap="productResultMap" parameterType="String">
 		<include refid="product"/>
-		where company=#{company} and divide=#{divide}
+		where company=#{company} and gubun=#{gubun}
 	</select>
+	
+	<insert id="insertProduct" parameterType="com.shoppingmall.model.Product">
+		insert into car_info(car_id, car_name, price, efficiency, fuel, company, gubun, year, car_image, stock, car_desc)
+		values(#{car_id, jdbcType=INTEGER},
+		 	   #{car_name, jdbcType=VARCHAR},
+		       #{price, jdbcType=INTEGER},
+		   	   #{efficiency, jdbcType=VARCHAR},
+		       #{fuel, jdbcType=VARCHAR}, 
+			   #{company, jdbcType=VARCHAR},
+			   #{gubun, jdbcType=VARCHAR},
+			   #{year, jdbcType=VARCHAR},
+			   #{car_image, jdbcType=VARCHAR},
+			   #{stock, jdbcType=INTEGER},
+			   #{car_desc, jdbcType=VARCHAR})
+	</insert>
 </mapper>

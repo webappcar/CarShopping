@@ -27,4 +27,10 @@ public class ProductService {
 		
 		return dao.selectProducts(company, gubun);
 	}
+	
+	@Transactional
+	public int insertProduct(Product product){
+		
+		return dao.insertProduct(product);
+	}
 }

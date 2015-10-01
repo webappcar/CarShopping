@@ -62,9 +62,7 @@ public class AdminController {
 	public String adminProductPage(Model model){
 		
 		List<Product> list = service.selectProduct();
-		
-		System.out.println(list.get(1));
-		
+
 		model.addAttribute("product", list);
 		
 		return "admin/adminProductPage";
@@ -90,10 +88,16 @@ public class AdminController {
 	
 	@RequestMapping("/productInsert")
 	public String productInsert(){
-		
-		
-		
+
 		return "admin/product/productInsert";
+	}
+	
+	@RequestMapping("/insertProduct")
+	public String insert(Product product){
+		
+		service.insertProduct(product);
+		
+		return "redirect:/admin/productPage";
 	}
 	
 	@RequestMapping("/productModify")

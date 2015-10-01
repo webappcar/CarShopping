@@ -8,6 +8,6 @@ public interface ProductMapper {
 	
 	List<Product> selectProduct();
 	List<Product> selectProducts(String company, String gubun);
-//	int insertProduct();
+	int insertProduct(Product product);
 //	int modifyProduct();
 }

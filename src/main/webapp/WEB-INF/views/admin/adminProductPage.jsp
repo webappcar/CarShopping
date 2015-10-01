@@ -27,14 +27,14 @@
 			<tbody>
 				<c:forEach var="product" items="${product}">
 					<tr>
-						<td>${product.productCode}</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>7</td>
-						<td>8</td>
+						<td>${product.car_id}</td>
+						<td>${product.car_name }</td>
+						<td>${product.price }</td>
+						<td>${product.efficiency }</td>
+						<td>${product.fuel }</td>
+						<td>${product.company }</td>
+						<td>${product.gubun }</td>
+						<td>${product.year }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
