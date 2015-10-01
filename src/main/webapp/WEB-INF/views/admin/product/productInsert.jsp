@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>productInsert</title>
 <%@ include file="/WEB-INF/views/common.jspf" %>
 
 <style type="text/css">
@@ -17,14 +15,14 @@
 <script type="text/javascript">
 $(function(){
 	$('#showday').datepicker({
-		dateFormat:"yy-mm-dd"
+		dateFormat:"yy-mm"
 	});
 });
 </script>
 
 </head>
 <body>
-	<div id="productinsert">
+	<div id="productregist">
 		<form:form commandName="productinsert" action="">
 			<div class="form-group">
 				<h1>상품 등록</h1>
@@ -34,7 +32,7 @@ $(function(){
 					<spring:message code="shoppingmall.productregist.productname"/>
 				</label>
 			    <div class="col-sm-9">
-			    	<input type="text" id="productName" name="productName" value=""/>
+			    	<form:input path="productName" cssClass="form-control" />
 			    </div>
 			</div>
 			<div class="form-group">
@@ -42,7 +40,7 @@ $(function(){
 					<spring:message code="shoppingmall.productregist.price"/>
 				</label>
 				<div class="col-sm-9">
-					<input type="text" id="price" name="price" value=""/>
+					<form:input path="price" cssClass="form-control" />
 				</div>
 			</div>
 			<div class="form-group">
@@ -50,7 +48,7 @@ $(function(){
 					<spring:message code="shoppingmall.productregist.mileage"/>
 				</label>
 				<div class="col-sm-9">
-					<input type="text" id="mileage" name="mileage" value=""/>
+					<form:input path="mileage" cssClass="form-control" />
 				</div>
 			</div>
 			<div>
@@ -101,7 +99,7 @@ $(function(){
 					<spring:message code="shoppingmall.productregist.imagefile"/>
 				</label>
 				<div class="col-sm-9">
-					<input type="file" class="form-control" id="imagefile" placeholder="전송할 이미지 파일">
+					<input type="file" class="form-control" id="imagefile">
 				</div>
 			</div>
 			<input type="submit" class="btn btn-default" value="등록"/>

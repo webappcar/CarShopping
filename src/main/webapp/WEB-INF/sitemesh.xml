@@ -3,6 +3,7 @@
 <sitemesh>
 	<mapping>
 		<path>/index</path>
+		<path>/member/productView</path>
 		<decorator>/WEB-INF/views/deco/main_deco.jsp</decorator>
 		<decorator>/WEB-INF/views/deco/logo_deco.jsp</decorator>
 	</mapping>

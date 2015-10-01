@@ -55,22 +55,37 @@
 		</div>
 	
 	<!-- 로그인 -->
-	<div class="form-group" id="logindiv">
-		<div class="col-sm-9" >
-			AD or 아무거나
-		</div>
-		<div class="col-sm-3">
-			<div>
-				<input type="text" class="form-control" id="loginid" placeholder="아이디"/>
-				<input type="password" class="form-control" id="password" placeholder="비밀번호"/>
-			</div>
-			<div>
-				<span><a href="/memberJoin">회원가입</a></span>
-				<button id="loginbtn">로그인</button>
-			</div>
-		</div>
-	</div>
+<!-- 	<div class="form-group" id="logindiv"> -->
+<!-- 		<div class="col-sm-9" > -->
+<!-- 			AD or 아무거나 -->
+<!-- 		</div> -->
+<!-- 		<div class="col-sm-3"> -->
+<!-- 			<div> -->
+<!-- 				<input type="text" class="form-control" id="loginid" placeholder="아이디"/> -->
+<!-- 				<input type="password" class="form-control" id="password" placeholder="비밀번호"/> -->
+<!-- 			</div> -->
+<!-- 			<div> -->
+<!-- 				<span><a href="/memberJoin">회원가입</a></span> -->
+<!-- 				<button id="loginbtn">로그인</button> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 		
+		<div class="form-group">
+			<div class="col-sm-9">
+				AD or 아무거나
+			</div>
+			<div class="col-sm-3">
+				<div>
+					NickName 님 환영합니다.
+				</div>
+				<div>
+					로그아웃
+					장바구니
+					정보수정
+				</div>
+			</div>
+		</div>
 		
 	<sitemesh:write property="body"/>
 	

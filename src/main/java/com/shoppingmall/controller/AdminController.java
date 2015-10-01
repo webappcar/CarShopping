@@ -40,6 +40,10 @@ public class AdminController {
 		return product;
 	}
 	
+	/*
+	 * Admin MainPage
+	 */
+	
 	@RequestMapping("/memberPage")
 	public String adminMemberPage(){
 		
@@ -52,11 +56,6 @@ public class AdminController {
 		return "admin/adminProductPage";
 	}
 	
-	@RequestMapping("/productInsert")
-	public String productInsert(){
-		
-		return "product/productInsert";
-	}
 	
 	@RequestMapping("/orderPage")
 	public String adminOrderPage(){
@@ -68,5 +67,39 @@ public class AdminController {
 	public String adminBoardPage(){
 		
 		return "admin/adminBoardPage";
+	}
+	
+	
+	/*
+	 * Admin Product
+	 */
+	
+	@RequestMapping("/productInsert")
+	public String productInsert(){
+		
+		return "admin/product/productInsert";
+	}
+	
+	@RequestMapping("/productModify")
+	public String productModify(){
+		
+		return "admin/product/productModify";
+	}
+	
+	
+	/*
+	 * Admin Order
+	 */
+	
+	@RequestMapping("/orderModify")
+	public String orderModify(){
+		
+		return "admin/order/orderModify";
+	}
+	
+	@RequestMapping("/orderRefund")
+	public String orderRefund(){
+		
+		return "admin/order/orderRefund";
 	}
 }

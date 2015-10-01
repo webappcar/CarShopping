@@ -13,5 +13,10 @@ public class MemberController {
 		
 		return "member/member_list";
 	}
-
+	
+	@RequestMapping("/productView")
+	public String productView(){
+		
+		return "user/memberProductView";
+	}
 }

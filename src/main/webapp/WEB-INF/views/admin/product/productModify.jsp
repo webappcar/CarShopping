@@ -1,40 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>productInsert</title>
+<title>productModify</title>
 <%@ include file="/WEB-INF/views/common.jspf" %>
 
 <style type="text/css">
-	#productinsert{width:550px; text-align: center;}
+	#productregist{width:550px; text-align: center;}
 </style>
 
 <script type="text/javascript">
 $(function(){
 	$('#showday').datepicker({
-		dateFormat:"yy-mm-dd"
+		dateFormat:"yy-mm"
 	});
 });
 </script>
 
 </head>
 <body>
-	<div id="productinsert">
+	<div id="productregist">
 		<form:form commandName="productinsert" action="">
 			<div class="form-group">
-				<h1>상품 등록</h1>
+				<h1>상품 수정</h1>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3" for="productName">
 					<spring:message code="shoppingmall.productregist.productname"/>
 				</label>
 			    <div class="col-sm-9">
-			    	<form:input path="productName" cssClass="form-control" />
+			    	<input type="text" class="form-control" id="productName" name="productName" value=""/>
 			    </div>
 			</div>
 			<div class="form-group">
@@ -42,7 +40,7 @@ $(function(){
 					<spring:message code="shoppingmall.productregist.price"/>
 				</label>
 				<div class="col-sm-9">
-					<form:input path="price" cssClass="form-control" />
+					<input type="text" class="form-control" id="price" name="price" value=""/>
 				</div>
 			</div>
 			<div class="form-group">
@@ -50,7 +48,7 @@ $(function(){
 					<spring:message code="shoppingmall.productregist.mileage"/>
 				</label>
 				<div class="col-sm-9">
-					<form:input path="mileage" cssClass="form-control" />
+					<input type="text" class="form-control" id="mileage" name="mileage" value=""/>
 				</div>
 			</div>
 			<div>
@@ -101,7 +99,7 @@ $(function(){
 					<spring:message code="shoppingmall.productregist.imagefile"/>
 				</label>
 				<div class="col-sm-9">
-					<input type="file" class="form-control" id="imagefile">
+					<input type="file" class="form-control" id="imagefile" placeholder="전송할 이미지 파일">
 				</div>
 			</div>
 			<input type="submit" class="btn btn-default" value="등록"/>
