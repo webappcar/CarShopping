@@ -29,6 +29,7 @@ import org.springframework.util.Assert;
 
 import com.shoppingmall.model.Member;
 import com.shoppingmall.model.QA;
+import com.shoppingmall.model.QAContent;
 import com.shoppingmall.util.Password;
 
 public class SpringQaDao implements QaDao {
@@ -83,6 +84,18 @@ public class SpringQaDao implements QaDao {
 		}
 	};
 	
+	RowMapper<QAContent> qaContentMapper = new RowMapper<QAContent>() {
+
+		@Override
+		public QAContent mapRow(ResultSet rs, int rowNum) throws SQLException {
+			QAContent qa_content = new QAContent();
+			qa_content.setWriting_id(rs.getInt("writing_id"));
+			qa_content.setQa_content(rs.getString("qa_content"));
+			
+			return qa_content;
+		}
+	};
+	
 	@Override
 	public int countAll() {
 
@@ -95,7 +108,12 @@ public class SpringQaDao implements QaDao {
 		return template.query(SELECT_ALL, qaMapper);
 		
 	}
-
+	
+	@Override
+	public QA select(int writing_id) {
+		//List<QA> list = qaMapper.select(writing_id);
+		return null;
+	}
 
 	@Override
 	public List<QA> selectQA(Map<String, Object> index) {
@@ -106,6 +124,12 @@ public class SpringQaDao implements QaDao {
 		list = template.query(PAGING_ORACLE, qaMapper, firstItem, lastItem);
 		
 		return list;
+	}
+	
+	@Override
+	public QA selectQAContent(int writing_id) {
+		//List<QA> list = qaMapper.	//.selectQAContent(writing_id);
+		return null;
 	}
 
 	@Override
@@ -119,6 +143,36 @@ public class SpringQaDao implements QaDao {
 		index.put("count", count);
 		
 		return this.selectQA(index);
+	}
+	
+	@Override
+	public QAContent selectQAById(int id) {
+		
+		return null;
+	}
+	
+	@Override
+	public int selectMaxGroupId() {
+		
+		return 0;
+		
+	}
+	
+	@Override
+	public int selectMaxOrderNo(int writing_id) {
+		
+		return 0;		
+	}
+	
+	@Override
+	public void updateOrderNo(int group_id, int order_no) {
+		//
+	}
+	
+	@Override
+	public int insertQA(QA qa, QAContent qaContent) {
+		
+		return 0;
 	}
 	
 /*	

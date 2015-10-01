@@ -7,10 +7,16 @@
 	<id property="group_id" column="group_id"/>
 	<id property="order_no" column="order_no"/>
 	<id property="level_no" column="level_no"/>
-	<id property="parent_id" column="nickname"/>
+	<id property="parent_id" column="parent_id"/>
 	<id property="id" column="id"/>
+	<id property="name" column="name"/>
 	<id property="title" column="title"/>
 	<id property="regdate" column="register_date"/>
+</resultMap>
+
+<resultMap type="com.shoppingmall.model.QAContent" id="qaContentResultMap">
+	<id property="writing_id" column="writing_id"/>
+	<id property="qa_content" column="qa_content"/>
 </resultMap>
 
 <sql id="qa">
@@ -26,15 +32,11 @@
 	<include refid="qa"/>
 </select>
 
-<!-- <select id="selectQA" 
-		resultMap="qaResultMap">
-	select * from  
-		(select a.*, rownum rn from 
-			(select a.*, b.name from qa a, user_info b 
-			where a.id=b.id order by group_id desc, order_no asc)
-		a)
-	where rn between 1 and 5
-</select> -->
+<select id="select" 
+		parameterType="Integer" 
+		resultMap="qaResultMap" databaseId="oracle">		
+	select writing_id,group_id,order_no,level_no,parent_id,id,title,register_date from qa where writing_id = #{writing_id}
+</select>
 
 <select id="selectQA" 
 		parameterType="Integer" 
@@ -47,19 +49,44 @@
 	where rn between #{firstItem} and #{lastItem}
 </select>
 
-<!-- <select id="select" 
-		parameterType="hashmap" 
+<select id="selectQAContent" 
+		parameterType="Integer" 
 		resultMap="qaResultMap" databaseId="oracle">
 	select * from  
 		(select a.*, rownum rn from 
 			(select a.*, b.name from qa a, user_info b 
 			where a.id=b.id order by group_id desc, order_no asc)
 		a)
-	where rn between #{firstItem} and #{lastItem}
-</select> -->
+	where writing_id = #{writing_id}
+</select>
+
+<select id="selectQAById" 
+		parameterType="Integer" 
+		resultMap="qaContentResultMap" databaseId="oracle">
+	select * from qa_content where writing_id = #{id}
+</select>
+
+<select id="selectMaxGroupId" resultType="int" databaseId="oracle">
+	select max(GROUP_ID) from qa
+</select>
+
+<select id="selectMaxOrderNo"
+		parameterType="Integer"  
+		resultType="int" databaseId="oracle">
+	select max(order_no) from qa where writing_id= #{id}
+</select>
 
 <select id="countAll" resultType="int">
 	select count(*) from qa
 </select>
+
+<update id="updateOrderNo" parameterType="Integer" databaseId="oracle">
+	update qa
+	<set>
+		order_no = #{order_no} +1
+	</set>
+	where group_id = #{group_id}
+	  and order_no >= #{order_no} 
+</update>
 
 </mapper>

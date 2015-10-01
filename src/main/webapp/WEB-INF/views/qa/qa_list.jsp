@@ -8,8 +8,8 @@
 <%! static int PAGE_SIZE = 10;%> 
 <%
 
-String pageNum = (String)request.getAttribute("page");
-int currentPage = Integer.parseInt(pageNum);
+String pageNo = (String)request.getAttribute("pageNo");
+int currentPage = Integer.parseInt(pageNo);
 
 int count = (Integer)request.getAttribute("count");
 int number = (Integer)request.getAttribute("number");
@@ -28,11 +28,11 @@ int endRow = (Integer)request.getAttribute("endRow");
 <body>
 <h1>Car Shopping Home...qa...</h1><br>
 QA List<br><br>
-${requestScope.page}, ${requestScope.count}
+${requestScope.pageNo}, ${requestScope.count}
 
 <br><br>
 
-<c:set var="pageNum" value="<%= pageNum %>"/>
+<c:set var="pageNum" value="<%= pageNo %>"/>
 <c:set var="num" value="<%=number %>"/>
 
 <table width="80%" cellpadding="10" align="center" border="0">
@@ -69,20 +69,22 @@ ${requestScope.page}, ${requestScope.count}
 				<td>
 				</td>	
 			<tr bgcolor="#f0f0f0">
-				<td align="center">${num - status.count}</td>
+				<td align="center">${num - status.count}</td>				
+				
 				<td><a href="javascript:goView(${qalist.writing_id })">${qalist.title }</a></td>
+<%-- 				<td><a href="/qa/view/${qalist.writing_id}">${qalist.title }</a></td> --%>
 				
 				<!--td>
 				<a href="QA_contentView.jsp?id=${writing.writingid}&page=${pageNum}">${writing.title}</a>
 				</td-->
 <%-- 				<td align="center">${qalist.name}</td> --%>
-				<td align="center">${qalist.name}</td>
+				<td align="center">${qalist.name} - ${qalist.id}</td>
 				<td align="center">${qalist.regdate }</td>
 			</tr>
 		</c:forEach>
 		</c:if>
 			<tr><td align="right" colspan="4">
-				<a href="QA_input.jsp">[문의등록]</a>
+				<a href="javascript:goWrite()">[문의등록]</a>
 			</td></tr>
 		</table>
 	</td></tr>
@@ -111,8 +113,7 @@ ${requestScope.page}, ${requestScope.count}
 			<c:forEach var="pageNo" begin="${startPage }"
 									end = "${endPage }">
 			<c:if test="${currentPage == pageNo }"><font size="4" style="font-weight: bolder;"  ></c:if>
-			<a href="/qa/list/${pageNo}">[${pageNo }]</a>
-<%-- 			<a href="javascript:goPage(${pageNo })">[${pageNo }]</a> --%>
+			<a href="javascript:goPage(${pageNo })">[${pageNo }]</a>
 			<c:if test="${currentPage == pageNo }"></font></c:if>
 			</c:forEach>
 			<c:if test="${endPage < pageCount }">
@@ -127,10 +128,18 @@ ${requestScope.page}, ${requestScope.count}
 		document.move.submit();
 	}
 	function goView(id){
-		document.move.action = "QA_contentView.jsp?id="+id;
+		document.move.action = "/qa/view/"+id;
+		document.move.submit();
+	}
+	function goWrite(){
+		document.move.action = "/qa/write";
 		document.move.submit();
 	}
 </script>
+<form name="move" method="post">
+<input type="hidden" name="id" value="" />
+<input type="hidden" name="pageNo" value="${pageNo}" />
+</form>
 
 <%-- <c:forEach var="qalist" items="${qalist}"> --%>
 <%-- 	${qalist.id} - ${qalist.title}<br> --%>

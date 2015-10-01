@@ -3,14 +3,26 @@ package com.shoppingmall.mapper;
 import java.util.List;
 import java.util.Map;
 
-import com.shoppingmall.model.Member;
 import com.shoppingmall.model.QA;
+import com.shoppingmall.model.QAContent;
 
 public interface QAMapper {
 	
 	int countAll();
+	
 	List<QA> selectAll();
 	List<QA> selectQA(Map<String, Object> index);
+	
+	QA select(int writing_id);
+	QA selectQAContent(int writing_id);
+	QAContent selectQAById(int id);
+	
+	int insertQA(QA qa, QAContent qaContent);
+	
+	int selectMaxGroupId();
+	int selectMaxOrderNo(int writing_id);
+	
+	void updateOrderNo(int group_id, int order_no);
 	
 	//List<QA> select(Map<String, Object> index);
 

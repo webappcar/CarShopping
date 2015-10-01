@@ -4,16 +4,27 @@ import java.util.List;
 
 import com.shoppingmall.mapper.QAMapper;
 import com.shoppingmall.model.QA;
+import com.shoppingmall.model.QAContent;
 
 public interface QaDao extends QAMapper {
 	
-	//List<QA> select(int firstItem, int lastItem);
-	List<QA> selectQA(int firstItem, int lastItem);
+	List<QA> selectQA(int firstItem, int lastItem);	// 리스트용
+	QA select(int writing_id);
+	QA selectQAContent(int writing_id);		// 본문용
+	
+	QAContent selectQAById(int id);
+	
+	int insertQA(QA qa, QAContent qaContent);
+	
+	int selectMaxGroupId();
+	int selectMaxOrderNo(int writing_id);
+	
+	void updateOrderNo(int group_id, int order_no);
 	
 	/*
 	 * QA DML
 	 */
-/*	static final String SELECT_QA =
+	static final String SELECT_QA =
 						" select writing_id,   " + 
 						"        group_id,     " +
 						"	     order_no,     " +
@@ -28,7 +39,7 @@ public interface QaDao extends QAMapper {
 
 	static final String SELECT_BY_ID = SELECT_QA +
 						"  where writing_id = ?     ";
-	
+/*	
 	static final String INSERT_QA =
 						"	insert into qa  " +
 						"	(                  " +
@@ -60,9 +71,6 @@ public interface QaDao extends QAMapper {
 						" where writing_id = ?";
 */	
 	
-	static final String SELECT_QA = "";
-	static final String SELECT_ALL = "";
-	static final String SELECT_BY_ID = "";
 	static final String INSERT_QA = "";
 	static final String DELETE_QA = "";
 	static final String DELETE_QA_BY_ID = "";
