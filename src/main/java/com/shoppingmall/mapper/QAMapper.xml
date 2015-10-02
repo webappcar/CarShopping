@@ -2,159 +2,178 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.shoppingmall.mapper.QAMapper">
 
-<resultMap type="com.shoppingmall.model.QA" id="qaResultMap">
-	<id property="writing_id" column="writing_id"/>
-	<id property="group_id" column="group_id"/>
-	<id property="order_no" column="order_no"/>
-	<id property="level_no" column="level_no"/>
-	<id property="parent_id" column="parent_id"/>
-	<id property="id" column="id"/>
-	<id property="name" column="name"/>
-	<id property="title" column="title"/>
-	<id property="register_date" column="register_date"/>
-</resultMap>
-
-<resultMap type="com.shoppingmall.model.QAContent" id="qaContentResultMap">
-	<id property="writing_id" column="writing_id"/>
-	<id property="qa_content" column="qa_content"/>
-</resultMap>
-
-<sql id="qa">
-	select * from  
-		(select a.*, rownum rn from 
-			(select a.*, b.name from qa a, user_info b 
-			where a.id=b.id order by group_id desc, order_no asc)
-		a)
-</sql>
-
-<select id="selectAll" 
-		resultMap="qaResultMap">
-	<include refid="qa"/>
-</select>
-
-<select id="select" 
-		parameterType="Integer" 
-		resultMap="qaResultMap" databaseId="oracle">		
-	select writing_id,group_id,order_no,level_no,parent_id,id,title,register_date from qa where writing_id = #{writing_id}
-</select>
-
-<select id="selectQA" 
-		parameterType="hashmap" 
-		resultMap="qaResultMap" databaseId="oracle">
-	select * from  
-		(select a.*, rownum rn from 
-			(select a.*, b.name from qa a, user_info b 
-			where a.id=b.id order by group_id desc, order_no asc)
-		a)
-	where rn between #{firstItem} and #{lastItem}
-</select>
-
-<select id="selectQAContent" 
-		parameterType="Integer" 
-		resultMap="qaResultMap" databaseId="oracle">
-	select * from  
-		(select a.*, rownum rn from 
-			(select a.*, b.name from qa a, user_info b 
-			where a.id=b.id order by group_id desc, order_no asc)
-		a)
-	where writing_id = #{writing_id}
-</select>
-
-<select id="selectQAById" 
-		parameterType="Integer" 
-		resultMap="qaContentResultMap" databaseId="oracle">
-	select * from qa_content where writing_id = #{id}
-</select>
-
-<select id="selectMaxGroupId" resultType="int" databaseId="oracle">
-	select max(GROUP_ID) from qa
-</select>
-
-<select id="selectMaxOrderNo"
-		parameterType="Integer"  
-		resultType="int" databaseId="oracle">
-	select max(order_no) from qa where writing_id= #{id}
-</select>
-
-<select id="countAll" resultType="int">
-	select count(*) from qa
-</select>
-
-<select id="selectSequenceNo"
-		parameterType="String"  
-		resultType="int" databaseId="oracle">
-	select sequence_no from sequence where table_name = #{table_name}
-</select>
-
-<update id="updateOrderNo" parameterType="com.shoppingmall.model.QA" databaseId="oracle">
-	update qa
-	<set>
-		order_no = #{order_no} +1
-	</set>
-	where group_id = #{group_id} and order_no >= #{order_no} 
-</update>
-
-<update id="updateSequence" parameterType="com.shoppingmall.model.Sequence" databaseId="oracle">
-	update sequence
-	<set>
-		sequence_no = ${sequence_no}
-	</set>
-	where table_name = '${table_name}'
-</update>
-
-<insert id="insertQA" parameterType="com.shoppingmall.model.QA" databaseId="oracle">
-	insert into qa
-	(
-		writing_id,
-		group_id,
-		order_no,
-		level_no,
-		parent_id,
-		id,
-		title,
-		register_date
-	)
-	values
-	(
-		#{writing_id},
-		#{group_id},
-		#{order_no},
-		#{level_no},
-		#{parent_id},
-		#{id},
-		#{title},
-		#{register_date}
-	)
-</insert>
-
-<insert id="insertQAContentValue" parameterType="com.shoppingmall.model.QAContent" databaseId="oracle">
-	insert into qa_content
-	(
-		writing_id,
-		qa_content
-	)
-	values
-	(
-		#{writing_id},
-		#{qa_content}
-	)
-</insert>
-
-<update id="updateQA" parameterType="com.shoppingmall.model.QA" databaseId="oracle">
-	update qa
-	<set>
-		title = #{title},
-		register_date = #{register_date}
-	</set>
-	where writing_id = #{writing_id}
-</update>
-
-<update id="updateQAContent" parameterType="com.shoppingmall.model.QAContent" databaseId="oracle">
-	update qa_content
-	<set>
-		qa_content = #{qa_content}
-	</set>
-	where writing_id = #{writing_id}
-</update>
+	<resultMap type="com.shoppingmall.model.QA" id="qaResultMap">
+		<id property="writing_id" column="writing_id"/>
+		<id property="group_id" column="group_id"/>
+		<id property="order_no" column="order_no"/>
+		<id property="level_no" column="level_no"/>
+		<id property="parent_id" column="parent_id"/>
+		<id property="id" column="id"/>
+		<id property="name" column="name"/>
+		<id property="title" column="title"/>
+		<id property="register_date" column="register_date"/>
+	</resultMap>
+	
+	<resultMap type="com.shoppingmall.model.QAContent" id="qaContentResultMap">
+		<id property="writing_id" column="writing_id"/>
+		<id property="qa_content" column="qa_content"/>
+	</resultMap>
+	
+	<sql id="qa">
+		select * from  
+			(select a.*, rownum rn from 
+				(select a.*, b.name from qa a, user_info b 
+				where a.id=b.id order by group_id desc, order_no asc)
+			a)
+	</sql>
+	
+	<select id="countAll" resultType="int">
+		select count(*) from qa
+	</select>
+	
+	<select id="selectAll" 
+			resultMap="qaResultMap">
+		<include refid="qa"/>
+	</select>
+	
+	<select id="select" 
+			parameterType="Integer" 
+			resultMap="qaResultMap" databaseId="oracle">		
+		select writing_id,group_id,order_no,level_no,parent_id,id,title,register_date from qa where writing_id = #{writing_id}
+	</select>
+	
+	<select id="selectQAChild" 
+			parameterType="Integer" 
+			resultType="int" databaseId="oracle">		
+		select count(*) from qa where parent_id = #{writing_id}
+	</select>
+	
+	<select id="selectQA" 
+			parameterType="hashmap" 
+			resultMap="qaResultMap" databaseId="oracle">
+		select * from  
+			(select a.*, rownum rn from 
+				(select a.*, b.name from qa a, user_info b 
+				where a.id=b.id order by group_id desc, order_no asc)
+			a)
+		where rn between #{firstItem} and #{lastItem}
+	</select>
+	
+	<select id="selectQAContent" 
+			parameterType="Integer" 
+			resultMap="qaResultMap" databaseId="oracle">
+		select * from  
+			(select a.*, rownum rn from 
+				(select a.*, b.name from qa a, user_info b 
+				where a.id=b.id order by group_id desc, order_no asc)
+			a)
+		where writing_id = #{writing_id}
+	</select>
+	
+	<select id="selectQAById" 
+			parameterType="Integer" 
+			resultMap="qaContentResultMap" databaseId="oracle">
+		select * from qa_content where writing_id = #{id}
+	</select>
+	
+	<select id="selectMaxGroupId" resultType="int" databaseId="oracle">
+		select max(GROUP_ID) from qa
+	</select>
+	
+	<select id="selectMaxOrderNo"
+			parameterType="Integer"  
+			resultType="int" databaseId="oracle">
+		select max(order_no) from qa where writing_id= #{id}
+	</select>
+	
+	<select id="countSequenceAll"
+			parameterType="String"  
+			resultType="int" databaseId="oracle">
+		select count(*) from sequence where table_name = #{table_name}
+	</select>
+	
+	<select id="selectSequenceNo"
+			parameterType="String"  
+			resultType="int" databaseId="oracle">
+		select sequence_no from sequence where table_name = #{table_name}
+	</select>
+	
+	<insert id="insertSequence" parameterType="com.shoppingmall.model.Sequence" databaseId="oracle">
+		insert into sequence (sequence_no,table_name) values (1,#{table_name})
+	</insert>
+	
+	<update id="updateOrderNo" parameterType="com.shoppingmall.model.QA" databaseId="oracle">
+		update qa
+		<set>
+			order_no = #{order_no} +1
+		</set>
+		where group_id = #{group_id} and order_no >= #{order_no} 
+	</update>
+	
+	<update id="updateSequence" parameterType="com.shoppingmall.model.Sequence" databaseId="oracle">
+		update sequence
+		<set>
+			sequence_no = ${sequence_no}
+		</set>
+		where table_name = '${table_name}'
+	</update>
+	
+	<insert id="insertQA" parameterType="com.shoppingmall.model.QA" databaseId="oracle">
+		insert into qa
+		(
+			writing_id,
+			group_id,
+			order_no,
+			level_no,
+			parent_id,
+			id,
+			title,
+			register_date
+		)
+		values
+		(
+			#{writing_id},
+			#{group_id},
+			#{order_no},
+			#{level_no},
+			#{parent_id},
+			#{id},
+			#{title},
+			#{register_date}
+		)
+	</insert>
+	
+	<insert id="insertQAContentValue" parameterType="com.shoppingmall.model.QAContent" databaseId="oracle">
+		insert into qa_content
+		(
+			writing_id,
+			qa_content
+		)
+		values
+		(
+			#{writing_id},
+			#{qa_content}
+		)
+	</insert>
+	
+	<update id="updateQA" parameterType="com.shoppingmall.model.QA" databaseId="oracle">
+		update qa
+		<set>
+			title = #{title}
+		</set>
+		where writing_id = #{writing_id}
+	</update>
+	
+	<update id="updateQAContent" parameterType="com.shoppingmall.model.QAContent" databaseId="oracle">
+		update qa_content
+		<set>
+			qa_content = #{qa_content}
+		</set>
+		where writing_id = #{writing_id}
+	</update>
+	
+	<delete id="deleteQA" parameterType="Integer">
+		delete from qa where writing_id = #{writing_id}
+	</delete>
 
 </mapper>

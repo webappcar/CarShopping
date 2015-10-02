@@ -15,6 +15,7 @@
 
 <%
 	String pageNo = (String)request.getAttribute("pageNo");
+	String countQA = (String)request.getAttribute("countQA");
 	String parent_id = (String)request.getAttribute("parent_id");
 	String title= (String)request.getAttribute("title");
 %>

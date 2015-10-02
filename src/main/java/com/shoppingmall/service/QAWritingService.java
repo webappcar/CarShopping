@@ -12,6 +12,10 @@ public class QAWritingService {
 	
 	QaDao dao;
 	
+	public int countAll() {
+		return dao.countAll();
+	}
+	
 	public void setQaDao(QaDao dao) {
 		this.dao = dao;
 	}
@@ -26,6 +30,12 @@ public class QAWritingService {
 	public QAContent selectQA(int id) {
 		
 		return dao.selectQAById(id);
+	}
+	
+	@Transactional
+	public int selectQAChild(int id) {
+		
+		return dao.selectQAChild(id);
 	}
 	
 	@Transactional
@@ -48,6 +58,11 @@ public class QAWritingService {
 	@Transactional
 	public void updateQAContent(QAContent qa_content) {
 		dao.updateQAContent(qa_content);
+	}
+	
+	@Transactional
+	public void deleteQA(int writing_id) {
+		dao.deleteQA(writing_id);
 	}
 
 }

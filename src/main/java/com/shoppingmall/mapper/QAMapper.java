@@ -18,6 +18,7 @@ public interface QAMapper {
 	QA selectQAContent(int writing_id);
 	QAContent selectQAById(int id);
 	
+	int selectQAChild(int writing_id);
 	int insertQA(QA qa);
 	int insertQAContentValue(QAContent qaContent);
 	
@@ -29,9 +30,12 @@ public interface QAMapper {
 	int selectSequenceNo(String tableName);
 	void updateSequence(Sequence sequence);
 	void insertSequence(Sequence sequence);
+	int countSequenceAll(String tableName);
 	
 	void updateQA(QA qa);
 	void updateQAContent(QAContent qa_content);
+	
+	void deleteQA(int writing_id);
 	
 	//List<QA> select(Map<String, Object> index);
 

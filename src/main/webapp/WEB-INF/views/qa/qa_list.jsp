@@ -27,8 +27,8 @@ int endRow = (Integer)request.getAttribute("endRow");
 </head>
 <body>
 <h1>Car Shopping Home...qa...</h1><br>
-QA List<br><br>
-${requestScope.pageNo}, ${requestScope.count}
+
+<%-- ${requestScope.pageNo}, ${requestScope.count} --%>
 
 <br><br>
 
@@ -40,11 +40,11 @@ ${requestScope.pageNo}, ${requestScope.count}
 	<tr><td>
 		<c:if test="<%= count > 0%>">
 		<table width="100%" cellpadding="1" cellspacing="0">
-			<tr>
+			<%-- <tr>
 				<td align="right">
 					<b><%=startRow %>~<%=endRow %>&nbsp;/&nbsp;<%= count %></b>
 				</td>
-			</tr>
+			</tr> --%>
 		</table>
 		</c:if>
 	</td></tr>
@@ -84,7 +84,7 @@ ${requestScope.pageNo}, ${requestScope.count}
 		</c:forEach>
 		</c:if>
 			<tr><td align="right" colspan="4">
-				<a href="javascript:goWrite()">[문의등록]</a>
+				<a href="javascript:goWrite()">[글쓰기]</a>
 			</td></tr>
 		</table>
 	</td></tr>

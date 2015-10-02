@@ -8,7 +8,6 @@
 <%
 	String pageNo = (String)request.getAttribute("pageNo");
 	session.getAttribute("ID");
-
 %>
 <c:set var="pageNo" value="<%= pageNo %>"/>
 <c:if test="${sessionScope.ID == null }">

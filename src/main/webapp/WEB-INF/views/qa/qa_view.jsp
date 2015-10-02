@@ -41,7 +41,7 @@
 			<td colspan="2">
 			<a href="javascript:goReply()">[답글달기]</a>
 			<a href="javascript:goUpdate(${qaContentList.writing_id})">[수정]</a>
-			<a href="javascript:goDelete()">[삭제]</a>
+			<a href="javascript:goDelete(${qaContentList.writing_id})">[삭제]</a>
 			<a href="javascript:goList()">[목록]</a>
 			</td>
 		</tr>
@@ -62,8 +62,8 @@ function goUpdate(id){
 	document.move.action = "/qa/update/"+id;
 	document.move.submit();
 }
-function goDelete(){
-	document.move.action="QA_delete.jsp";
+function goDelete(id){
+	document.move.action="/qa/delete/"+id;
 	document.move.submit();
 }
 function goList(){

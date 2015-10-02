@@ -14,6 +14,7 @@ public interface QaDao extends QAMapper {
 	QA selectQAContent(int writing_id);		// 본문용
 	
 	QAContent selectQAById(int id);
+	int selectQAChild(int writing_id);
 	
 	int insertQA(QA qa);
 	int insertQAContent(QAContent qaContent, int newId);
@@ -27,6 +28,9 @@ public interface QaDao extends QAMapper {
 	int selectSequenceNo(String tableName);
 	void updateSequence(Sequence sequence);
 	void insertSequence(Sequence sequence);
+	int countSequenceAll(String tableName);
+	
+	void deleteQA(int writing_id);
 	
 	/*
 	 * QA DML

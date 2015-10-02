@@ -214,19 +214,54 @@ public class QAController {
 		qaContent.setWriting_id(Integer.parseInt(writing_id));
 		qaContent.setQa_content(qa_content);
 		
-		GregorianCalendar gc = new GregorianCalendar();
-		String today = gc.get(Calendar.YEAR) + "/" + (gc.get(Calendar.MONTH)+1) + "/" + gc.get(Calendar.DATE);
-		qa.setRegister_date(today);
-		
 		writingService.updateQA(qa);
 		writingService.updateQAContent(qaContent);		
 	
 		return "qa/qa_update_result";
 	}
 	
+	@RequestMapping("/delete/{article_num}")
+	public String confirmDelete(@PathVariable String article_num, @RequestParam("pageNo") String pageNo, Model model) {
 	
+		System.out.println(article_num+", "+pageNo);
+		
+		int id = Integer.parseInt(article_num);
+		
+		QA qaContentList = writingService.selectContentQA(id);
+		QAContent qaContent = writingService.selectQA(id);
+		
+		model.addAttribute("qaContentList", qaContentList);
+		model.addAttribute("qaContent", qaContent);
+		model.addAttribute("pageNo", pageNo);	
+		
+		return "qa/qa_delete";
+	}
 	
-	
+	@RequestMapping("/deleteQA")
+	public String qaDelete(Model model, HttpServletRequest request) {
+		String pageNo= request.getParameter("pageNo");
+		String writing_id= request.getParameter("writing_id");
+		
+		System.out.println("pageNo - "+pageNo);
+		System.out.println("writing_id - "+writing_id);
+		
+		int id = Integer.parseInt(writing_id);
+		int isChild = 0;
+		isChild = writingService.selectQAChild(id);
+		
+		if(isChild==0) {
+			writingService.deleteQA(id);
+		} else {
+			System.out.println("답글있음");
+		}
+		
+		System.out.println("isChild - "+isChild);
+		
+		model.addAttribute("isChild", isChild);
+		model.addAttribute("pageNo", pageNo);
+		
+		return "qa/qa_delete_result";
+	}
 	
 	
 	
