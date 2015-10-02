@@ -25,32 +25,30 @@
 	<!-- 메뉴 -->
 		<div id="cssmenu" class="w3-container align-center">
 			<ul>
-				<li><a href="#">Home</a></li>
+				<li><a href="/index">Home</a></li>
 				<li class="active has-sub"><a href="#">대형</a>
 					<ul>
-						<li class="has-sub"><a href="#">회사1</a></li>
-						<li class="has-sub"><a href="#">회사2</a></li>
-					</ul>
-				</li>
-				<li class="active has-sub"><a href="#">중형</a>
-					<ul>
-						<li class="has-sub"><a href="#">회사1</a></li>
-						<li class="has-sub"><a href="#">회사2</a></li>
+						<li class="has-sub"><a href="#">기아자동차</a></li>
+						<li class="has-sub"><a href="#">쉐보레</a></li>
+						<li class="has-sub"><a href="#">현대자동차</a></li>
 					</ul>
 				</li>
 				<li class="active has-sub"><a href="#">준중형</a>
 					<ul>
-						<li class="has-sub"><a href="#">회사1</a></li>
-						<li class="has-sub"><a href="#">회사2</a></li>
+						<li class="has-sub"><a href="#">기아자동차</a></li>
+						<li class="has-sub"><a href="#">쉐보레</a></li>
+						<li class="has-sub"><a href="#">현대자동차</a></li>
 					</ul>
 				</li>
 				<li class="active has-sub"><a href="#">소형</a>
 					<ul>
-						<li class="has-sub"><a href="#">회사1</a></li>
-						<li class="has-sub"><a href="#">회사2</a></li>
+						<li class="has-sub"><a href="#">기아자동차</a></li>
+						<li class="has-sub"><a href="#">쉐보레</a></li>
+						<li class="has-sub"><a href="#">현대자동차</a></li>
 					</ul>
 				</li>
 				<li><a href="/QA/list">QnA</a></li>
+				<li><a href="/admin/memberPage">AdminPage</a></li>
 			</ul>
 		</div>
 	

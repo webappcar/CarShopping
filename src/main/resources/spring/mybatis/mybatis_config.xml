@@ -21,7 +21,6 @@
   <databaseIdProvider type="DB_VENDOR">
   	<property name="MySQL" value="mysql"/>
   </databaseIdProvider>
-  
 <!--   <mappers> -->
 <!--     <mapper resource="com/webapp/mapper/MemberMapper.xml"/> -->
 <!--     <mapper resource="com/webapp/mapper/IdGeneratorMapper.xml"/> -->

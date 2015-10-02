@@ -1,38 +1,20 @@
-package com.shoppingmall.command;
+package com.shoppingmall.model;
 
-import java.util.Arrays;
+import java.util.Date;
 
-import com.shoppingmall.model.Product;
-
-public class ProductCommand {
-	int car_id;
-	String car_name;
-	int price;
-	String efficiency;
-	String[] fuel;
-	String company;
-	String gubun;
-	String year;
-	String car_image;
-	int stock;
-	String car_desc;
+public class Product {
 	
-	public Product getProduct(){
-		Product p = new Product();
-		p.setCar_id(this.car_id);
-		p.setCar_name(this.car_name);
-		p.setPrice(this.price);
-		p.setEfficiency(this.efficiency);
-		p.setFuel(Arrays.toString(fuel));
-		System.out.println(p.getFuel());
-		p.setCompany(this.company);
-		p.setGubun(this.gubun);
-		p.setYear(this.year);
-		p.setCar_image(this.car_image);
-		p.setStock(this.stock);
-		p.setCar_desc(this.car_desc);
-		return p;
-	}
+	private int car_id;
+	private String car_name;
+	private int price;
+	private String efficiency;
+	private String fuel;
+	private String company;
+	private String gubun;
+	private String year;
+	private String car_image;
+	private int stock;
+	private String car_desc;
 	
 	public int getCar_id() {
 		return car_id;
@@ -59,10 +41,10 @@ public class ProductCommand {
 		this.efficiency = efficiency;
 	}
 	
-	public String[] getFuel() {
+	public String getFuel() {
 		return fuel;
 	}
-	public void setFuel(String[] fuel) {
+	public void setFuel(String fuel) {
 		this.fuel = fuel;
 	}
 	public String getCompany() {
@@ -101,7 +83,6 @@ public class ProductCommand {
 	public void setCar_desc(String car_desc) {
 		this.car_desc = car_desc;
 	}
-	
-	
 
+	
 }

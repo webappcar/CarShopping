@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shoppingmall.mapper.ProductMapper">
+
+	<resultMap type="com.shoppingmall.model.Product" id="productResultMap">
+		<id property="car_id" column="car_id"/>
+		<id property="car_name" column="car_name"/>
+		<id property="price" column="price"/>
+		<id property="efficiency" column="efficiency"/>
+		<id property="fuel" column="fuel"/>
+		<id property="company" column="company"/>
+		<id property="gubun" column="gubun"/>
+		<id property="year" column="year"/>
+		<id property="car_image" column="car_image"/>
+		<id property="stock" column="stock"/>
+		<id property="car_desc" column="car_desc"/>
+	</resultMap>
+	
+	<sql id="product">
+		select * from car_info
+	</sql>
+	
+	<select id="selectProduct" resultMap="productResultMap">
+		<include refid="product"/>	
+	</select>
+	
+	<select id="selectProducts" resultMap="productResultMap" parameterType="String">
+		<include refid="product"/>
+		where company=#{company} and gubun=#{gubun}
+	</select>
+	
+	<select id="selectOneProduct" resultMap="productResultMap" parameterType="int">
+		<include refid="product"/>
+		where car_id=#{car_id}
+	</select>
+	
+	<insert id="insertProduct" parameterType="com.shoppingmall.model.Product">
+		insert into car_info(car_id, car_name, price, efficiency, fuel, company, gubun, year, car_image, stock, car_desc)
+		values(#{car_id, jdbcType=INTEGER},
+		 	   #{car_name, jdbcType=VARCHAR},
+		       #{price, jdbcType=INTEGER},
+		   	   #{efficiency, jdbcType=VARCHAR},
+		       #{fuel, jdbcType=VARCHAR}, 
+			   #{company, jdbcType=VARCHAR},
+			   #{gubun, jdbcType=VARCHAR},
+			   #{year, jdbcType=VARCHAR},
+			   #{car_image, jdbcType=VARCHAR},
+			   #{stock, jdbcType=INTEGER},
+			   #{car_desc, jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="modifyProduct" parameterType="com.shoppingmall.model.Product">
+		update car_info 
+		set car_name=#{car_name, jdbcType=VARCHAR},
+			price=#{price, jdbcType=INTEGER},
+			efficiency=#{efficiency, jdbcType=VARCHAR},
+			fuel=#{fuel, jdbcType=VARCHAR},
+			company=#{company, jdbcType=VARCHAR},
+			gubun=#{gubun, jdbcType=VARCHAR},
+			year=#{year, jdbcType=VARCHAR},
+			car_image=#{car_image, jdbcType=VARCHAR},
+			stock=#{stock, jdbcType=INTEGER},
+			car_desc=#{car_desc, jdbcType=VARCHAR}
+		where car_id=#{car_id, jdbcType=INTEGER}
+	</update>
+</mapper>

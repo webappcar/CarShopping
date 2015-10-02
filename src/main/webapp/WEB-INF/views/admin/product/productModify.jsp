@@ -9,30 +9,30 @@
 <%@ include file="/WEB-INF/views/common.jspf" %>
 
 <style type="text/css">
-	#productregist{width:550px; text-align: center;}
+	#productmodify{width:550px; text-align: center;}
 </style>
 
 <script type="text/javascript">
 $(function(){
-	$('#showday').datepicker({
-		dateFormat:"yy-mm"
+	$('#year').datepicker({
+		dateFormat:"yy"
 	});
 });
 </script>
 
 </head>
 <body>
-	<div id="productregist">
-		<form:form commandName="productinsert" action="">
+	<div id="productmodify">
+		<form:form commandName="productinsert" action="modifyProduct?car_id=${product.car_id}">
 			<div class="form-group">
-				<h1>상품 수정</h1>
+				<h1>상품 등록</h1>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3" for="productName">
+				<label class="control-label col-sm-3" for="car_name">
 					<spring:message code="shoppingmall.productregist.productname"/>
 				</label>
 			    <div class="col-sm-9">
-			    	<input type="text" class="form-control" id="productName" name="productName" value=""/>
+			    	<form:input path="car_name" cssClass="form-control" value="${product.car_name}"/>
 			    </div>
 			</div>
 			<div class="form-group">
@@ -40,15 +40,15 @@ $(function(){
 					<spring:message code="shoppingmall.productregist.price"/>
 				</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" id="price" name="price" value=""/>
+					<form:input path="price" cssClass="form-control" value="${product.price}"/>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3" for="mileage">
-					<spring:message code="shoppingmall.productregist.mileage"/>
+				<label class="control-label col-sm-3" for="efficiency">
+					<spring:message code="shoppingmall.productregist.mileage" />
 				</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" id="mileage" name="mileage" value=""/>
+					<form:input path="efficiency" cssClass="form-control" value="${product.efficiency}"/>
 				</div>
 			</div>
 			<div>
@@ -59,7 +59,9 @@ $(function(){
 					<div class="checkbox">
 						<c:forEach var="f" items="${fuel}">
 							<label for="${f.code}" class="checkbox-inline">
-								<input id="${f.code}" type="checkbox" value="" class="checkbox"/> ${f.label}
+								<input id="${f.code}" name="fuel" 
+								value="<spring:message code='shoppingmall.productregist.fuel.${f.code}'/>" 
+								type="checkbox" class="checkbox"/> ${f.label}
 							</label>
 						</c:forEach>
 	  				</div>
@@ -70,40 +72,55 @@ $(function(){
 					<spring:message code="shoppingmall.productregist.company"/>
 				</label>
 				<div class="col-sm-9">
-					<form:input path="company" cssClass="form-control" />
+					<form:input path="company" cssClass="form-control" value="${product.company}"/>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3" for="divide">
+				<label class="control-label col-sm-3" for="gubun">
 					<spring:message code="shoppingmall.productregist.divide"/>
 				</label>
 				<div class="col-sm-9">
-					<select id="divide" class="form-control">
-						<option value="대형">대형</option>
-						<option value="중형">중형</option>
-						<option value="준중형">준중형</option>
-						<option value="소형">소형</option>
+					<select id="gubun" class="form-control">
+						<option value="대형" <c:if test="${product.gubun eq '대형'}">selected</c:if>>대형</option>
+						<option value="준중형" <c:if test="${product.gubun eq '준중형'}">selected</c:if>>준중형</option>
+						<option value="소형" <c:if test="${product.gubun eq '소형'}">selected</c:if>>소형</option>
 					</select>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3" for="showday">
+				<label class="control-label col-sm-3" for="year">
 					<spring:message code="shoppingmall.productregist.showday"/>
 				</label>
 				<div class="col-sm-9">
-					<form:input path="showday" cssClass="form-control" />
+					<form:input path="year" cssClass="form-control" value="${product.year}"/>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3" for="imagefile">
+				<label class="control-label col-sm-3" for="car_image">
 					<spring:message code="shoppingmall.productregist.imagefile"/>
 				</label>
 				<div class="col-sm-9">
-					<input type="file" class="form-control" id="imagefile" placeholder="전송할 이미지 파일">
+					<input type="file" class="form-control" id="car_image" name="car_image">
 				</div>
 			</div>
-			<input type="submit" class="btn btn-default" value="등록"/>
-			<input type="button" class="btn btn-default" id="cancel" value="취소"/>
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="stock">
+					<spring:message code="shoppingmall.productregist.stock"/>
+				</label>
+				<div class="col-sm-9">
+					<form:input path="stock" cssClass="form-control" value="${product.stock}"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="car_desc">
+					<spring:message code="shoppingmall.productregist.carinfo"/>
+				</label>
+				<div class="col-sm-9">
+					<form:textarea path="car_desc" cssClass="form-control" rows="10"/>
+				</div>
+			</div>
+			<input type="submit" class="btn btn-default" value="수정"/>
+			<input type="button" class="btn btn-default" onclick="history.back();" value="취소"/>
 		</form:form>
 	</div>
 </body>
