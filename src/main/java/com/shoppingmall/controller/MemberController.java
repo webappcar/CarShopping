@@ -2,6 +2,8 @@ package com.shoppingmall.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,10 @@ import com.shoppingmall.exception.AlreadyExistingMemberException;
 import com.shoppingmall.model.Member;
 import com.shoppingmall.service.MemberListService;
 import com.shoppingmall.service.MemberRegisterService;
+import com.shoppingmall.service.AuthService;
+import com.shoppingmall.exception.IdPassswordNotMatchException;
+import com.shoppingmall.model.AuthInfo;
+import com.shoppingmall.command.LoginCommand;
 
 @Controller
 @RequestMapping("/member")
@@ -31,7 +37,10 @@ public class MemberController {
 	MemberListService listService;
 	
 	@Autowired
-	MemberRegisterService service;
+	MemberRegisterService registerService;
+	
+	@Autowired
+	AuthService authService;
 	
 	//@Autowired
 	//MemberCommandValidator validator;
@@ -40,6 +49,48 @@ public class MemberController {
 	public MemberCommand getMemberCommand() {
 		MemberCommand member = new MemberCommand();
 		return member;
+	}
+	
+	@RequestMapping(value={"/login"}, method=RequestMethod.GET)
+	public String loginForm(@ModelAttribute("login") LoginCommand command) {
+		log.info("loginForm()...");
+		command.setRemember(true);
+		
+		return "member/loginForm";
+	}
+	
+	@RequestMapping(value={"/login"}, method=RequestMethod.POST)
+	public String login(@ModelAttribute("login") LoginCommand login, 
+												 Errors errors,
+												 HttpSession session) {
+		
+		log.info("login()... " + login);
+		/*
+		 * validation
+		 */
+		
+		if (errors.hasErrors()) {
+			errors.reject("idPasswordNotMatch");
+			return "member/loginForm";
+		}
+		
+		/*
+		 * login process
+		 */
+		try {
+			AuthInfo auth = authService.authenticate(login.getId(), login.getPassword());
+			
+			session.setAttribute("auth", auth);
+			
+		} catch (IdPassswordNotMatchException ex) {
+			
+			//errors.reject("idPasswordNotMatch");
+			log.info("idPasswordNotMatch~~~~~~~~~~~~~~~~~~~");
+			
+			return "member/loginForm";
+		}
+		
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/list")
@@ -81,7 +132,7 @@ public class MemberController {
 		 * DB 등록
 		 */
 		try {
-			service.register(command.getMember());
+			registerService.register(command.getMember());
 		} catch (AlreadyExistingMemberException e) {
 			log.error("Member Existing...", e);
 			errors.reject("duplicate");

@@ -33,6 +33,7 @@ function validate(form){
 </head>
 <body>
 <form action="/qa/insert" method="post" onsubmit="return validate()">
+<!-- <form action="/qa/insert" method="post" enctype="multipart/form-data" onsubmit="return validate()"> -->
 <input type="hidden" name="pageNo" value="${pageNo}" />
 <input type="hidden" name="level_no" value="${ parentList.level_no+1}"  />
 <input type="hidden" name="order_no" value="${ parentList.order_no+1}"  />
@@ -56,6 +57,10 @@ function validate(form){
 				<td>작성자</td>
 <%-- 				<td><input type="text" size="20" name="id" value="${sessionScope.ID }" ></td> --%>
 				<td><input type="text" size="20" name="id" value="${sessionScope.ID }" ></td>
+			</tr>
+			<tr>
+				<td>썸네일 이미지</td>
+				<td><input type="file" name="image" /></td>
 			</tr>
 			<tr>
 				<td>내용</td>

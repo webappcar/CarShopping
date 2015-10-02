@@ -67,18 +67,11 @@ int endRow = (Integer)request.getAttribute("endRow");
 			<c:forEach var="qalist" items="${qalist}" varStatus="status">
 			<tr bgcolor="#f0f0f0">
 				<td>
-				</td>	
+				</td>
 			<tr bgcolor="#f0f0f0">
-				<td align="center">${num - status.count}</td>				
-				
+				<td align="center">${num - status.count}</td>
 				<td><a href="javascript:goView(${qalist.writing_id })">${qalist.title }</a></td>
-<%-- 				<td><a href="/qa/view/${qalist.writing_id}">${qalist.title }</a></td> --%>
-				
-				<!--td>
-				<a href="QA_contentView.jsp?id=${writing.writingid}&page=${pageNum}">${writing.title}</a>
-				</td-->
-<%-- 				<td align="center">${qalist.name}</td> --%>
-				<td align="center">${qalist.name} - ${qalist.id}</td>
+				<td align="center">${qalist.name}</td>
 				<td align="center">${qalist.register_date }</td>
 			</tr>
 		</c:forEach>

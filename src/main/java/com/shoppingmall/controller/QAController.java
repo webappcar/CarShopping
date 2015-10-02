@@ -1,5 +1,6 @@
 package com.shoppingmall.controller;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Calendar;
@@ -26,6 +27,8 @@ import com.shoppingmall.model.QA;
 import com.shoppingmall.model.QAContent;
 import com.shoppingmall.service.QAListService;
 import com.shoppingmall.service.QAWritingService;
+import com.shoppingmall.util.ImageUtil;
+import com.shoppingmall.util.MultipartUploading;
 import com.shoppingmall.util.SequenceManager;
 
 @Controller
@@ -60,10 +63,9 @@ public class QAController {
 		
 		int number = count - (currentPage-1)*10 + 1;
 		
-		List<QA> qalist = listService.getList(startRow, endRow);	
+		List<QA> qalist = listService.getList(startRow, endRow);
 				
-		model.addAttribute("qalist", qalist);	
-		
+		model.addAttribute("qalist", qalist);			
 	    model.addAttribute("pageNo", pageNo);	
 	    model.addAttribute("count", count);
 	    model.addAttribute("number", number);
@@ -116,12 +118,21 @@ public class QAController {
 	}
 	
 	@RequestMapping("/insert")
-	public String qaInsert(Model model, HttpServletRequest request) {
+	public String qaInsert(Model model, HttpServletRequest request) throws Exception {
 		String pageNo= request.getParameter("pageNo");
 		String parentId= request.getParameter("parent_id");
 		String groupId = request.getParameter("group_id");
 		String levelNo=request.getParameter("level_no");
 		String orderNo=request.getParameter("order_no");
+		
+	/*	MultipartUploading multiPart = new MultipartUploading(request);
+		String image = multiPart.getFileName("image");
+		String newPath ="c:/CarImage/" + image;
+		multiPart.saveFile("image", newPath);
+		String tmpPath = "c:/CarImage/small." + image;
+		File newFile = new File(tmpPath);
+		File srcFile = new File(newPath);
+		ImageUtil.resize(srcFile, newFile, 50, ImageUtil.RATIO);*/
 		
 		System.out.println("pageNo - "+pageNo);
 		System.out.println("parentId - "+parentId);

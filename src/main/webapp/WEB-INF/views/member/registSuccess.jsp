@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>registSuccess.jsp</title>
+<title>회원 가입 성공</title>
 <%@ include file="/WEB-INF/views/common.jspf" %>
 </head>
 <body>

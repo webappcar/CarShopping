@@ -48,40 +48,7 @@ public interface QaDao extends QAMapper {
 	
 	static final String SELECT_ALL = SELECT_QA;
 
-	static final String SELECT_BY_ID = SELECT_QA +
-						"  where writing_id = ?     ";
-/*	
-	static final String INSERT_QA =
-						"	insert into qa  " +
-						"	(                  " +
-						"		writing_id,    " +
-						"        group_id,     " +
-						"	     order_no,     " +
-						"        level_no,     " +
-						"	     parent_id,    " +			
-						"        id,     	   " +
-						"	     title, 	   " +						
-						"	     register_date " +
-						"	)                   " +
-						"	values              " +
-						"	(                   " +
-						"		?,              " +		// #{writing_id}
-						"		?,              " +		// #{group_id}
-						"		?,              " +		// #{order_no}
-						"		?,              " +		// #{level_no}
-						"		?,              " +		// #{parent_id}
-						"		?,              " +		// #{user_id}
-						"		?,              " +		// #{title}
-						"		?               " +		// #{register_date}						
-						"	)                   ";
-	
-	static final String DELETE_QA = " delete from qa ";
-	
-	static final String DELETE_QA_BY_ID = 
-						DELETE_QA +
-						" where writing_id = ?";
-*/	
-	
+	static final String SELECT_BY_ID = SELECT_QA + " where writing_id = ?";
 	static final String INSERT_QA = "";
 	static final String DELETE_QA = "";
 	static final String DELETE_QA_BY_ID = "";

@@ -51,9 +51,9 @@
 </bean>
 
 <!-- AuthService -->
-<!-- <bean id="authService" class="com.webapp.service.AuthService"> -->
-<!-- 	<property name="memberDao" ref="mybatisMemberDao"/> -->
-<!-- </bean> -->
+<bean id="authService" class="com.shoppingmall.service.AuthService">
+	<property name="memberDao" ref="mybatisMemberDao"/>
+</bean>
 
 <!-- ProductService -->
 <bean id="productService" class="com.shoppingmall.service.ProductService">
