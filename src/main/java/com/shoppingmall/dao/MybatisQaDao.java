@@ -1,23 +1,14 @@
 package com.shoppingmall.dao;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-/*import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.JdbcUpdateAffectedIncorrectNumberOfRowsException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.util.Assert;
-
-import com.shoppingmall.mapper.IdGeneratorMapper;
-import com.shoppingmall.mapper.MemberMapper;
-import com.shoppingmall.model.Member;
-import com.shoppingmall.util.Password;*/
 import com.shoppingmall.model.QA;
 import com.shoppingmall.model.QAContent;
+import com.shoppingmall.model.Sequence;
 import com.shoppingmall.mapper.QAMapper;
 
 public class MybatisQaDao implements QaDao {
@@ -25,6 +16,10 @@ public class MybatisQaDao implements QaDao {
 	static Log log = LogFactory.getLog(MybatisQaDao.class);
 	
 	QAMapper qaMapper;
+	QaDao dao;
+	
+	//SequenceManager seqManager;
+	Sequence sequence = new Sequence();
 	
 	public void setQaMapper(QAMapper mapper) {
 		qaMapper = mapper;
@@ -84,8 +79,7 @@ public class MybatisQaDao implements QaDao {
 	public int selectMaxGroupId() {
 		int maxGroupId = qaMapper.selectMaxGroupId();
 		
-		return maxGroupId;
-		
+		return maxGroupId;		
 	}
 	
 	@Override
@@ -96,39 +90,37 @@ public class MybatisQaDao implements QaDao {
 	}
 	
 	@Override
-	public void updateOrderNo(int group_id, int order_no) {
-		qaMapper.updateOrderNo(group_id, order_no);
+	public void updateOrderNo(QA qa) {
+		qaMapper.updateOrderNo(qa);
 	}
 	
 	@Override
-	public int insertQA(QA qa, QAContent qaContent) {
+	public int selectSequenceNo(String table_name) {
+		return qaMapper.selectSequenceNo(table_name);		
+	}
+	
+	@Override
+	public void updateSequence(Sequence sequence) {
+		qaMapper.updateSequence(sequence);
+	}
+	
+	@Override
+	public void insertSequence(Sequence sequence) {
+		qaMapper.insertSequence(sequence);
+	}
+	
+	@Override
+	public int insertQA(QA qa) {
 		
 		try {
 			if(qa.getParent_id() == 0){//답글이 아닌경우
-				/*rsGroup = stmtGroup.executeQuery(
-					"select max(GROUP_ID) from qa");				
-				if(rsGroup.next()){
-					maxGroup = rsGroup.getInt(1);
-				}				
-				writing.setGroupid(maxGroup);
-				writing.setOrderno(0);*/
 				int maxGroup = 0;
 				maxGroup = qaMapper.selectMaxGroupId();
 				maxGroup++;//그룹 번호 증가
 				qa.setGroup_id(maxGroup);
 				qa.setOrder_no(0);
 				System.out.println("답글이 아닌경우 maxGroup = "+maxGroup);
-			} else {//답글인 경우
-				/*pstmtOrder= conn.prepareStatement("select max(order_no) from qa where writing_id=?");
-				pstmtOrder.setInt(1,writing.getParentid());
-				
-				rsOrder= pstmtOrder.executeQuery();
-				
-				if(rsOrder.next()){
-					maxOrder=rsOrder.getInt(1);
-					
-				}*/
-				
+			} else {//답글인 경우				
 				int maxOrder=0;
 				System.out.println("답글인 경우 qa.getParent_id() = "+qa.getParent_id());
 				maxOrder = qaMapper.selectMaxOrderNo(qa.getParent_id());
@@ -139,16 +131,87 @@ public class MybatisQaDao implements QaDao {
 			if(qa.getOrder_no() > 0){//출력순서가 0이상인경우
 				System.out.println("출력순서가 0이상인경우 qa.getGroup_id()="+qa.getGroup_id());
 				System.out.println("출력순서가 0이상인경우 qa.getOrder_no()="+qa.getOrder_no());
-				qaMapper.updateOrderNo(qa.getGroup_id(), qa.getOrder_no());	
+				qa.setGroup_id(qa.getGroup_id());
+				qa.setOrder_no(qa.getOrder_no());
+				qaMapper.updateOrderNo(qa);
 				System.out.println("qa.getGroup_id = "+qa.getGroup_id());
 				System.out.println("qa.getOrder_no = "+qa.getOrder_no());
 			}
+			
+			int nextId = nextId("QA");
+			System.out.println("nextId = "+nextId);
+			qa.setWriting_id(nextId);
+			
+			System.out.println("writingId - "+qa.getWriting_id());
+			System.out.println("parentId - "+qa.getParent_id());
+			System.out.println("groupId - "+qa.getGroup_id());
+			System.out.println("levelNo - "+qa.getLevel_no());
+			System.out.println("orderNo - "+qa.getOrder_no());
+			System.out.println("id - "+qa.getId());
+			System.out.println("title - "+qa.getTitle());
+			System.out.println("regdate - "+qa.getRegister_date());
+			
+			qaMapper.insertQA(qa);
 		
 		} catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		return 1;
+	}
+	
+	@Override
+	public int insertQAContent(QAContent qaContent, int newId) {
+		
+		System.out.println("writingId - "+newId);
+		System.out.println("QaContent - "+qaContent.getQa_content());
+		
+		qaContent.setWriting_id(newId);
+		qaContent.setQa_content(qaContent.getQa_content());
+		
+		qaMapper.insertQAContentValue(qaContent);
+		
+		return 1;
+	}
+	
+	public int nextId(String tableName) {
+		System.out.println("tableName = "+tableName);
+		int sequence_no = qaMapper.selectSequenceNo(tableName); //최대글번호
+		System.out.println("sequence_no --- "+sequence_no);
+		if(sequence_no > 0){ //검색결과가 있는경우
+				int id = sequence_no; id++;
+				System.out.println("new id = "+id);
+				sequence.setSequence_no(id);
+				sequence.setTable_name(tableName);
+				qaMapper.updateSequence(sequence);// 마지막 번호를 1을 증가
+
+				return id;
+		}else {//검색결과가 없는경우
+				sequence.setSequence_no(1);
+				sequence.setTable_name(tableName);
+				qaMapper.insertSequence(sequence);
+
+				return 1;
+		}
+		
+	}
+
+	@Override
+	public int insertQAContentValue(QAContent qaContent) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	@Override
+	public void updateQA(QA qa) {
+		qaMapper.updateQA(qa);
+	}
+	
+	@Override
+	public void updateQAContent(QAContent qa_content) {
+		qaMapper.updateQAContent(qa_content);
+	}
+	
 /*	
 
 	@Override

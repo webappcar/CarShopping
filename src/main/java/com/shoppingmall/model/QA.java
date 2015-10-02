@@ -9,7 +9,7 @@ public class QA {
  	private String id;			// size=15
  	private String name;		// size=15
  	private String title;		// size=100
- 	private String regdate;		// size=20
+ 	private String register_date;		// size=20
  	
 	public int getWriting_id() {
 		return writing_id;
@@ -59,11 +59,11 @@ public class QA {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getRegdate() {
-		return regdate;
+	public String getRegister_date() {
+		return register_date;
 	}
-	public void setRegdate(String regdate) {
-		this.regdate = regdate;
+	public void setRegister_date(String register_date) {
+		this.register_date = register_date;
 	}
  	
 }

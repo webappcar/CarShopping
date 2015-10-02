@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.shoppingmall.model.QA;
 import com.shoppingmall.model.QAContent;
+import com.shoppingmall.model.Sequence;
 
 public interface QAMapper {
 	
@@ -17,12 +18,20 @@ public interface QAMapper {
 	QA selectQAContent(int writing_id);
 	QAContent selectQAById(int id);
 	
-	int insertQA(QA qa, QAContent qaContent);
+	int insertQA(QA qa);
+	int insertQAContentValue(QAContent qaContent);
 	
 	int selectMaxGroupId();
 	int selectMaxOrderNo(int writing_id);
 	
-	void updateOrderNo(int group_id, int order_no);
+	void updateOrderNo(QA qa);
+	
+	int selectSequenceNo(String tableName);
+	void updateSequence(Sequence sequence);
+	void insertSequence(Sequence sequence);
+	
+	void updateQA(QA qa);
+	void updateQAContent(QAContent qa_content);
 	
 	//List<QA> select(Map<String, Object> index);
 

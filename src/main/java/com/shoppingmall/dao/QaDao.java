@@ -5,6 +5,7 @@ import java.util.List;
 import com.shoppingmall.mapper.QAMapper;
 import com.shoppingmall.model.QA;
 import com.shoppingmall.model.QAContent;
+import com.shoppingmall.model.Sequence;
 
 public interface QaDao extends QAMapper {
 	
@@ -14,12 +15,18 @@ public interface QaDao extends QAMapper {
 	
 	QAContent selectQAById(int id);
 	
-	int insertQA(QA qa, QAContent qaContent);
+	int insertQA(QA qa);
+	int insertQAContent(QAContent qaContent, int newId);
+	int insertQAContentValue(QAContent qaContent);
 	
 	int selectMaxGroupId();
 	int selectMaxOrderNo(int writing_id);
 	
-	void updateOrderNo(int group_id, int order_no);
+	void updateOrderNo(QA qa);
+	
+	int selectSequenceNo(String tableName);
+	void updateSequence(Sequence sequence);
+	void insertSequence(Sequence sequence);
 	
 	/*
 	 * QA DML

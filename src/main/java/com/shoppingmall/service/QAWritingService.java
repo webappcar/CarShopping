@@ -29,9 +29,25 @@ public class QAWritingService {
 	}
 	
 	@Transactional
-	public int insertQA(QA qa, QAContent qaContent) {
+	public int insertQA(QA qa) {
 		
-		return dao.insertQA(qa, qaContent);
+		return dao.insertQA(qa);
+	}
+	
+	@Transactional
+	public int insertQAContent(QAContent qaContent, int newId) {
+		
+		return dao.insertQAContent(qaContent, newId);				
+	}
+	
+	@Transactional
+	public void updateQA(QA qa) {
+		dao.updateQA(qa);
+	}
+	
+	@Transactional
+	public void updateQAContent(QAContent qa_content) {
+		dao.updateQAContent(qa_content);
 	}
 
 }

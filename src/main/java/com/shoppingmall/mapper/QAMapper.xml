@@ -11,7 +11,7 @@
 	<id property="id" column="id"/>
 	<id property="name" column="name"/>
 	<id property="title" column="title"/>
-	<id property="regdate" column="register_date"/>
+	<id property="register_date" column="register_date"/>
 </resultMap>
 
 <resultMap type="com.shoppingmall.model.QAContent" id="qaContentResultMap">
@@ -39,7 +39,7 @@
 </select>
 
 <select id="selectQA" 
-		parameterType="Integer" 
+		parameterType="hashmap" 
 		resultMap="qaResultMap" databaseId="oracle">
 	select * from  
 		(select a.*, rownum rn from 
@@ -80,13 +80,81 @@
 	select count(*) from qa
 </select>
 
-<update id="updateOrderNo" parameterType="Integer" databaseId="oracle">
+<select id="selectSequenceNo"
+		parameterType="String"  
+		resultType="int" databaseId="oracle">
+	select sequence_no from sequence where table_name = #{table_name}
+</select>
+
+<update id="updateOrderNo" parameterType="com.shoppingmall.model.QA" databaseId="oracle">
 	update qa
 	<set>
 		order_no = #{order_no} +1
 	</set>
-	where group_id = #{group_id}
-	  and order_no >= #{order_no} 
+	where group_id = #{group_id} and order_no >= #{order_no} 
+</update>
+
+<update id="updateSequence" parameterType="com.shoppingmall.model.Sequence" databaseId="oracle">
+	update sequence
+	<set>
+		sequence_no = ${sequence_no}
+	</set>
+	where table_name = '${table_name}'
+</update>
+
+<insert id="insertQA" parameterType="com.shoppingmall.model.QA" databaseId="oracle">
+	insert into qa
+	(
+		writing_id,
+		group_id,
+		order_no,
+		level_no,
+		parent_id,
+		id,
+		title,
+		register_date
+	)
+	values
+	(
+		#{writing_id},
+		#{group_id},
+		#{order_no},
+		#{level_no},
+		#{parent_id},
+		#{id},
+		#{title},
+		#{register_date}
+	)
+</insert>
+
+<insert id="insertQAContentValue" parameterType="com.shoppingmall.model.QAContent" databaseId="oracle">
+	insert into qa_content
+	(
+		writing_id,
+		qa_content
+	)
+	values
+	(
+		#{writing_id},
+		#{qa_content}
+	)
+</insert>
+
+<update id="updateQA" parameterType="com.shoppingmall.model.QA" databaseId="oracle">
+	update qa
+	<set>
+		title = #{title},
+		register_date = #{register_date}
+	</set>
+	where writing_id = #{writing_id}
+</update>
+
+<update id="updateQAContent" parameterType="com.shoppingmall.model.QAContent" databaseId="oracle">
+	update qa_content
+	<set>
+		qa_content = #{qa_content}
+	</set>
+	where writing_id = #{writing_id}
 </update>
 
 </mapper>

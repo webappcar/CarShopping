@@ -1,43 +1,48 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<title>ê¸€ë³´ê¸°</title>
 <%
 	String pageNo = (String)request.getAttribute("pageNo");
 	int currentPage = Integer.parseInt(pageNo);
 	session.getAttribute("ID");
 %>
+</head>
+<body>
 <c:set var="pageNo" value="<%= pageNo %>"/>
 <c:if test = "${empty qaContentList }">
-Á¸ÀçÇÏÁö ¾Ê´Â ±ÛÀÔ´Ï´Ù.
+ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê¸€ì…ë‹ˆë‹¤.
 </c:if>
 <c:if test="${!empty qaContentList}">
 		<table cellpadding="20" border="0"  width="80%" align="center">
-			<tr><td>QnA °Ô½ÃÆÇ</td></tr>
+			<tr><td>QnA ê²Œì‹œíŒ</td></tr>
 			<tr><td>
 			<table width="100%" align="center" border="1"  >
+<!-- 				<tr> -->
+<%-- 					<td width="30%">ê¸€ë²ˆí˜¸</td><td>${qaContentList.writing_id }</td> --%>
+<!-- 				</tr> -->
 				<tr>
-					<td width="30%">±Û¹øÈ£</td><td>${qaContentList.writing_id }</td>
+					<td>ì œëª©</td><td>${qaContentList.title }</td>
 				</tr>
 				<tr>
-					<td>Á¦¸ñ</td><td>${qaContentList.title }</td>
+					<td>ì‘ì„±ì</td><td>${qaContentList.name }</td>
 				</tr>
 				<tr>
-					<td>ÀÛ¼ºÀÚ</td><td>${qaContentList.name }</td>
+					<td>ì‘ì„±ì¼</td><td>${qaContentList.register_date }</td>
 				</tr>
 				<tr>
-					<td>ÀÛ¼ºÀÏ</td><td>${qaContentList.regdate }</td>
-				</tr>
-				<tr>
-					<td>±Û³»¿ë</td>
+					<td>ê¸€ë‚´ìš©</td>
 					<td><textarea rows="8" cols="70" disabled="disabled" style="background-color: white; color: black;">${qaContent.qa_content }</textarea></td>
 				</tr>
 				<tr>
 			<td colspan="2">
-			<a href="javascript:goReply()">[´ä±Û´Ş±â]</a>
-			<a href="javascript:goUpdate()">[¼öÁ¤]</a>
-			<a href="javascript:goDelete()">[»èÁ¦]</a>
-			<a href="javascript:goList()">[¸ñ·Ï]</a>
+			<a href="javascript:goReply()">[ë‹µê¸€ë‹¬ê¸°]</a>
+			<a href="javascript:goUpdate(${qaContentList.writing_id})">[ìˆ˜ì •]</a>
+			<a href="javascript:goDelete()">[ì‚­ì œ]</a>
+			<a href="javascript:goList()">[ëª©ë¡]</a>
 			</td>
 		</tr>
 		</table>
@@ -53,8 +58,8 @@ function goReply(){
 	document.move.action="/qa/write";
 	document.move.submit();
 }
-function goUpdate(){
-	document.move.action = "QA_update.jsp";
+function goUpdate(id){
+	document.move.action = "/qa/update/"+id;
 	document.move.submit();
 }
 function goDelete(){
@@ -72,3 +77,6 @@ function goList(){
 <input type="hidden" name="group_id" value="${qaContentList.group_id }"/>
 <input type="hidden" name="pageNo" value="${pageNo}" />
 </form>
+
+</body> 
+</html>

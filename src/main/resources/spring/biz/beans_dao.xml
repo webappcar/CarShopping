@@ -64,10 +64,10 @@
 	  p:sqlSessionFactory-ref="sqlSessionFactory"/>	
 	  
 <!-- SpringMemberDao -->
-<bean id="springMemberDao" class="com.shoppingmall.dao.SpringMemberDao">
-	<property name="template" ref="jdbcTemplate"/>
-	<property name="useGeneratorTable" value="false"/>
-</bean>
+<!-- <bean id="springMemberDao" class="com.shoppingmall.dao.SpringMemberDao"> -->
+<!-- 	<property name="template" ref="jdbcTemplate"/> -->
+<!-- 	<property name="useGeneratorTable" value="false"/> -->
+<!-- </bean> -->
 
 <!-- MybatisMemberDao -->
 <bean id="mybatisMemberDao" class="com.shoppingmall.dao.MybatisMemberDao">
@@ -90,9 +90,9 @@
 	  p:sqlSessionFactory-ref="sqlSessionFactory"/>
 
 <!-- SpringQaDao -->
-<bean id="springQaDao" class="com.shoppingmall.dao.SpringQaDao">
-	<property name="template" ref="jdbcTemplate"/>
-</bean>
+<!-- <bean id="springQaDao" class="com.shoppingmall.dao.SpringQaDao"> -->
+<!-- 	<property name="template" ref="jdbcTemplate"/> -->
+<!-- </bean> -->
 
 <!-- MybatisQaDao -->
 <bean id="mybatisQaDao" class="com.shoppingmall.dao.MybatisQaDao">

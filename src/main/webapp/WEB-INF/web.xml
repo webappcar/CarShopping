@@ -46,7 +46,7 @@
 		<param-value>
 			classpath:spring/biz/beans_dao.xml
 			classpath:spring/biz/beans_oracle.xml
-			classpath:spring/biz/beans_service_spring.xml
+			<!-- classpath:spring/biz/beans_service_spring.xml -->
 			classpath:spring/biz/beans_service_mybatis.xml
 		</param-value>
 	</context-param>

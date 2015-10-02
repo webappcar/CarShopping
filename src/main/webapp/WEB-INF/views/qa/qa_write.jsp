@@ -1,11 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<title>ê¸€ì“°ê¸°</title>
 <c:if test="${sessionScope.ID == null }">
 	<script>
-		//alert("·Î±×ÀÎÀ» ÇØÁÖ¼¼¿ä");
+		//alert("ë¡œê·¸ì¸ì„ í•´ì£¼ì„¸ìš”");
 		//location.href="login";
 	</script>
 </c:if>
@@ -20,12 +23,14 @@
 <script type="text/javascript">
 function validate(form){
 	if(form.title.value == ""){
-		alert("Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä."); return false;
+		alert("ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”."); return false;
 	}else if(form.qacontent.value == ""){
-		alert("³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä."); return false;
+		alert("ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”."); return false;
 	}
 }
 </script>
+</head>
+<body>
 <form action="/qa/insert" method="post" onsubmit="return validate()">
 <input type="hidden" name="pageNo" value="${pageNo}" />
 <input type="hidden" name="level_no" value="${ parentList.level_no+1}"  />
@@ -37,32 +42,34 @@ function validate(form){
 	<input type="hidden" name="parent_id" value="${ parent_id}"  />
 </c:if>
 <table width="80%" align="center"border="0" cellpadding="10">
-	<tr><td>QnA °Ô½ÃÆÇ</td></tr>
+	<tr><td>QnA ê²Œì‹œíŒ</td></tr>
 	<tr><td>
 		<table width="100%" align="center" border="1">
 			<tr>
-				<td width="30%">±ÛÁ¦¸ñ</td>
+				<td width="30%">ê¸€ì œëª©</td>
 					<td>
 					<input type="text" size="20" name="qa_title" value="<%=title%>">
 				</td>
 			</tr>
 			<tr>
-				<td>ÀÛ¼ºÀÚ</td>
+				<td>ì‘ì„±ì</td>
 <%-- 				<td><input type="text" size="20" name="id" value="${sessionScope.ID }" ></td> --%>
 				<td><input type="text" size="20" name="id" value="${sessionScope.ID }" ></td>
 			</tr>
 			<tr>
-				<td>³»¿ë</td>
+				<td>ë‚´ìš©</td>
 				<td><textarea rows="8" cols="90" name="qa_content"></textarea></td>
 			</tr>
 		</table>
 	</td></tr>	
 			<tr>
 				<td align="center" colspan="2">
-				<input type="submit" value="±Û¿Ã¸®±â"/> 
-				<input type="button" value="Ãë¼Ò" onclick="javascript:history.go(-1)"/>
+				<input type="submit" value="ê¸€ì˜¬ë¦¬ê¸°"/> 
+				<input type="button" value="ì·¨ì†Œ" onclick="javascript:history.go(-1)"/>
 				</td>
 			</tr>
 	<tr><td></td></tr>
 </table>
  </form>
+</body> 
+</html>

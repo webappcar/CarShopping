@@ -1,10 +1,13 @@
 package com.shoppingmall.controller;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -23,6 +26,7 @@ import com.shoppingmall.model.QA;
 import com.shoppingmall.model.QAContent;
 import com.shoppingmall.service.QAListService;
 import com.shoppingmall.service.QAWritingService;
+import com.shoppingmall.util.SequenceManager;
 
 @Controller
 @RequestMapping("/qa")
@@ -146,70 +150,79 @@ public class QAController {
 			GregorianCalendar gc = new GregorianCalendar();
 			String today = gc.get(Calendar.YEAR) + "/" + (gc.get(Calendar.MONTH)+1) + "/" + gc.get(Calendar.DATE);
 			
-			qa.setRegdate(today);
+			qa.setRegister_date(today);
+			
+			System.out.println("qa_title = "+request.getParameter("qa_title"));
+			System.out.println("qa_content = "+request.getParameter("qa_content"));
+			System.out.println("today = "+today);
 			
 			//qa.setId(request.getParameter("id"));
 			qa.setId("goodmv");
 			qa.setTitle(request.getParameter("qa_title"));
 			qaContent.setQa_content(request.getParameter("qa_content"));
 			
-			int result = writingService.insertQA(qa, qaContent);
+			int insertQaResult = writingService.insertQA(qa);
+			System.out.println("new_writing_id = "+qa.getWriting_id());
+			int insertContentResult = writingService.insertQAContent(qaContent, qa.getWriting_id());
 			
+			System.out.println("insertQaResult = "+insertQaResult);
+			System.out.println("insertContentResult = "+insertContentResult);
 		} catch(Exception e){
 			e.printStackTrace();			
 		}
-/*		
-		try{
-			Writing writing= new Writing();
-			
-			String parentId= request.getParameter("parent_id");
-			String groupId = request.getParameter("group_id");
-			String levelNo=request.getParameter("level_no");
-			String orderNo=request.getParameter("order_no");
-//			String writingId=request.getParameter("writingid");
-			if(parentId ==  null){//원글이기 때문에 부모번호없음(0)
-				writing.setParentid(0);
-				writing.setGroupid(0);//나중에 1이 증가함
-				writing.setLevelno(0);
-				writing.setOrderno(0);
-			}else{
-				writing.setParentid(Integer.parseInt(parentId));
-				writing.setGroupid(Integer.parseInt(groupId));
-				writing.setLevelno(Integer.parseInt(levelNo));
-				writing.setOrderno(Integer.parseInt(orderNo));
-			}
 
-			GregorianCalendar gc = new GregorianCalendar();
-			String today = gc.get(Calendar.YEAR) + "/" + (gc.get(Calendar.MONTH)+1) + "/" + gc.get(Calendar.DATE);
-			
-			writing.setRegisterdate(today);
-			WritingManager manager = WritingManager.getInstance();
-			//writing.setId(request.getParameter("id"));
-			writing.setId("admin");
-			writing.setTitle(request.getParameter("qa_title"));
-			writing.setQacontent(request.getParameter("qa_content"));
-			manager.insert(writing);
-			
-		}catch(Exception e){
-			e.printStackTrace();
-			
-		}
-		String resultPage = "QA_input_result.jsp?page="+pageNum;
-		//System.out.println("resultPage = "+resultPage);
-		RequestDispatcher rd= request.getRequestDispatcher(resultPage);
-		rd.forward(request, response);
-		*/
 		return "qa/qa_write_result";
 	}
 	
+	@RequestMapping("/update/{article_num}")
+	public String getUpdateForm(@PathVariable String article_num, @RequestParam("pageNo") String pageNo, Model model) {
 	
+		System.out.println(article_num+", "+pageNo);
+		
+		int id = Integer.parseInt(article_num);
+		
+		QA qaContentList = writingService.selectContentQA(id);
+		QAContent qaContent = writingService.selectQA(id);
+		
+		model.addAttribute("qaContentList", qaContentList);
+		model.addAttribute("qaContent", qaContent);
+		model.addAttribute("pageNo", pageNo);	
+		
+		return "qa/qa_update";
+	}
 	
+	@RequestMapping("/updateQA")
+	public String qaUpdate(Model model, HttpServletRequest request) {
+		String pageNo= request.getParameter("pageNo");
+		String writing_id= request.getParameter("writing_id");
+		String qa_title = request.getParameter("qa_title");
+		String qa_content=request.getParameter("qa_content");
+		
+		System.out.println("pageNo - "+pageNo);
+		System.out.println("writing_id - "+writing_id);
+		System.out.println("qa_title - "+qa_title);
+		System.out.println("qa_content - "+qa_content);
+		
+		model.addAttribute("pageNo", pageNo);
+		
+		QA qa = new QA();
+		QAContent qaContent = new QAContent();
+		
+		qa.setWriting_id(Integer.parseInt(writing_id));
+		qa.setTitle(qa_title);
+		
+		qaContent.setWriting_id(Integer.parseInt(writing_id));
+		qaContent.setQa_content(qa_content);
+		
+		GregorianCalendar gc = new GregorianCalendar();
+		String today = gc.get(Calendar.YEAR) + "/" + (gc.get(Calendar.MONTH)+1) + "/" + gc.get(Calendar.DATE);
+		qa.setRegister_date(today);
+		
+		writingService.updateQA(qa);
+		writingService.updateQAContent(qaContent);		
 	
-	
-	
-	
-	
-	
+		return "qa/qa_update_result";
+	}
 	
 	
 	

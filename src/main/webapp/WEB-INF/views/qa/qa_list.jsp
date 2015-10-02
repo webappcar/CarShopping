@@ -79,7 +79,7 @@ ${requestScope.pageNo}, ${requestScope.count}
 				</td-->
 <%-- 				<td align="center">${qalist.name}</td> --%>
 				<td align="center">${qalist.name} - ${qalist.id}</td>
-				<td align="center">${qalist.regdate }</td>
+				<td align="center">${qalist.register_date }</td>
 			</tr>
 		</c:forEach>
 		</c:if>

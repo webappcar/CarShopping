@@ -1,7 +1,7 @@
 package com.shoppingmall.model;
 
 public class Member {
-	private String id;				// size=15
+	private String id;			// size=15
 	private String name;		// size=15
 	private String password;	// size=64
 	private String nickname;	// size=20
