@@ -12,4 +12,5 @@ public interface ProductDao extends ProductMapper{
 	List<Product> selectProducts(String company, String gubun);
 	int insertProduct(Product product);
 	int modifyProduct(Product product);
+	int deleteProduct(int car_id);
 }

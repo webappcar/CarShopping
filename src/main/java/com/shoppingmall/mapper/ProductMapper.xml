@@ -35,7 +35,7 @@
 	</select>
 	
 	<insert id="insertProduct" parameterType="com.shoppingmall.model.Product">
-		insert into car_info(car_id, car_name, price, efficiency, fuel, company, gubun, year, car_image, stock, car_desc)
+		insert into car_info(car_id, car_name, price, efficiency, fuel, company, gubun, year, car_image, stock, car_desc, insertday)
 		values(#{car_id, jdbcType=INTEGER},
 		 	   #{car_name, jdbcType=VARCHAR},
 		       #{price, jdbcType=INTEGER},
@@ -46,7 +46,8 @@
 			   #{year, jdbcType=VARCHAR},
 			   #{car_image, jdbcType=VARCHAR},
 			   #{stock, jdbcType=INTEGER},
-			   #{car_desc, jdbcType=VARCHAR})
+			   #{car_desc, jdbcType=VARCHAR},
+			   TO_DATE(SYSDATE, 'yyyy-mm-dd'))
 	</insert>
 	
 	<update id="modifyProduct" parameterType="com.shoppingmall.model.Product">
@@ -63,4 +64,8 @@
 			car_desc=#{car_desc, jdbcType=VARCHAR}
 		where car_id=#{car_id, jdbcType=INTEGER}
 	</update>
+	
+	<delete id="deleteProduct" parameterType="int">
+		delete from car_info where car_id=#{car_id}
+	</delete>
 </mapper>

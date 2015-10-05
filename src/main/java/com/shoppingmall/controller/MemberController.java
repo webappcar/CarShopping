@@ -15,14 +15,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.shoppingmall.command.LoginCommand;
 import com.shoppingmall.exception.AlreadyExistingMemberException;
-import com.shoppingmall.model.Member;
-import com.shoppingmall.service.MemberListService;
-import com.shoppingmall.service.MemberRegisterService;
-import com.shoppingmall.service.AuthService;
 import com.shoppingmall.exception.IdPassswordNotMatchException;
 import com.shoppingmall.model.AuthInfo;
-import com.shoppingmall.command.LoginCommand;
+import com.shoppingmall.model.Member;
+import com.shoppingmall.model.Product;
+import com.shoppingmall.service.AuthService;
+import com.shoppingmall.service.MemberListService;
+import com.shoppingmall.service.MemberRegisterService;
+import com.shoppingmall.service.ProductService;
 
 @Controller
 @RequestMapping("/member")
@@ -32,6 +34,9 @@ public class MemberController {
 	
 	@Autowired
 	MessageSource messageSource;
+	
+	@Autowired
+	ProductService service;
 	
 	@Autowired
 	MemberListService listService;
@@ -103,7 +108,11 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/productView")
-	public String productView(){
+	public String productView(int car_id, Model model){
+		
+		Product product = service.selectOneProduct(car_id);
+		
+		model.addAttribute("oneProduct", product);
 		
 		return "user/memberProductView";
 	}
