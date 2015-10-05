@@ -57,7 +57,7 @@
 
 
 <select id="selectById"  
-		parameterType="int"
+		parameterType="string"
 		resultMap="memberResultMap">
 		
 	<include refid="member"/>

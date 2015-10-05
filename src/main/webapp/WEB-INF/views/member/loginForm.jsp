@@ -19,7 +19,7 @@
 <form:form commandName="login" action="login" method="post" cssClass="w3-container">
 	
 	<form:errors element="div"/>
-	<!-- Email -->
+	<!-- Id -->
 	<div class="w3-group">
 		<form:input path="id" cssClass="w3-input" required="required"/>
 		<label for="id" class="w3-label">ID</label>
@@ -31,7 +31,7 @@
 	</div>
 
 	<!-- Remember -->
-	<div>
+<%-- 	<div>
 		<label for="remember" class="w3-checkbox">
 		<c:choose>
 			<c:when test="${login.remember eq true }">
@@ -43,7 +43,7 @@
 		</c:choose>
 		<span class="w3-checkmark"></span> Remember
 		</label>
-	</div>
+	</div> --%>
 	<input class="w3-btn" type="submit" value="Login"/>
 </form:form>
 

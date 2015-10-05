@@ -7,13 +7,28 @@
 <title>글삭제</title>
 <%
 	String pageNo = (String)request.getAttribute("pageNo");
-	session.getAttribute("ID");
 %>
+<c:set var="pageNo" value="<%= pageNo %>"/>
+<c:choose>
+     <c:when test="${sessionScope.ID == null}">
+	   <script>
+		   alert("로그인을 해주세요");
+		   location.href="/member/login";
+	   </script>
+     </c:when>
+     <c:otherwise>
+         <c:if test="${sessionScope.ID != qaContentList.id }">
+	         <script>
+		         alert("권한이 없습니다.");
+		         location.href="javascript:history.go(-1)";
+	         </script>
+         </c:if>     
+     </c:otherwise>
+</c:choose>
 </head>
 <body>
 <form action="/qa/deleteQA" method="post">
 <input type="hidden" name="pageNo" value="${pageNo}" />
-<input type="hidden" name="writing_id" value="${qaContentList.writing_id }"/>
 	<table width="80%" align="center" border="0" cellpadding="10">
 		<tr><td>QnA 게시판</td></tr>
 		

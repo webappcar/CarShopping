@@ -180,12 +180,12 @@ public class MybatisQaDao implements QaDao {
 	}
 	
 	@Override
-	public int insertQAContent(QAContent qaContent, int newId) {
+	public int insertQAContent(QAContent qaContent, int writing_id) {
 		
-		System.out.println("writingId - "+newId);
+		System.out.println("writing_id - "+writing_id);
 		System.out.println("QaContent - "+qaContent.getQa_content());
 		
-		qaContent.setWriting_id(newId);
+		qaContent.setWriting_id(writing_id);
 		qaContent.setQa_content(qaContent.getQa_content());
 		
 		qaMapper.insertQAContentValue(qaContent);

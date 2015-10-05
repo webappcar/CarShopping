@@ -2,6 +2,7 @@ package com.shoppingmall.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
@@ -19,10 +20,12 @@ import com.shoppingmall.exception.AlreadyExistingMemberException;
 import com.shoppingmall.model.Member;
 import com.shoppingmall.service.MemberListService;
 import com.shoppingmall.service.MemberRegisterService;
+import com.shoppingmall.validator.MemberCommandValidator;
 import com.shoppingmall.service.AuthService;
 import com.shoppingmall.exception.IdPassswordNotMatchException;
 import com.shoppingmall.model.AuthInfo;
 import com.shoppingmall.command.LoginCommand;
+import com.shoppingmall.command.MemberCommand;
 
 @Controller
 @RequestMapping("/member")
@@ -42,8 +45,8 @@ public class MemberController {
 	@Autowired
 	AuthService authService;
 	
-	//@Autowired
-	//MemberCommandValidator validator;
+	@Autowired
+	MemberCommandValidator validator;
 	
 	@ModelAttribute("member")
 	public MemberCommand getMemberCommand() {
@@ -69,28 +72,49 @@ public class MemberController {
 		 * validation
 		 */
 		
-		if (errors.hasErrors()) {
+		/*if (errors.hasErrors()) {
 			errors.reject("idPasswordNotMatch");
-			return "member/loginForm";
-		}
+			return "member/loginForm1";
+		}*/
 		
 		/*
 		 * login process
 		 */
+		
+		System.out.println("login.getId() = "+login.getId());
+		System.out.println("login.getPassword() = "+login.getPassword());
 		try {
 			AuthInfo auth = authService.authenticate(login.getId(), login.getPassword());
 			
-			session.setAttribute("auth", auth);
+			//session.setAttribute("auth", auth);
+			session.setAttribute("ID", auth.getId());
+			session.setAttribute("NAME", auth.getName());
+			String session_id = (String) session.getAttribute("ID");
+			System.out.println("session ID -------------------> "+session_id);
 			
 		} catch (IdPassswordNotMatchException ex) {
 			
-			//errors.reject("idPasswordNotMatch");
-			log.info("idPasswordNotMatch~~~~~~~~~~~~~~~~~~~");
+			errors.reject("idPasswordNotMatch");
+			log.info("idPasswordNotMatch=====================================================");
 			
 			return "member/loginForm";
 		}
 		
-		return "redirect:/";
+		return "/index";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		log.info("logout process...");
+		
+		String session_id = (String) session.getAttribute("ID");
+		System.out.println("session ID -------------------> "+session_id);
+		String session_name = (String) session.getAttribute("NAME");
+		System.out.println("session NAME -------------------> "+session_name);
+		
+		session.invalidate();  //세션삭제
+		
+		return "/index";
 	}
 	
 	@RequestMapping("/list")

@@ -15,16 +15,23 @@ public class AuthService {
 		this.dao = dao;
 	}
 	
-	public AuthInfo authenticate(String email, String password) {
+	public AuthInfo authenticate(String id, String password) {
 
 		AuthInfo info = new AuthInfo();
 		
+		System.out.println("login.getId() ========== "+id);
+		System.out.println("login.getPassword() =========== "+password);
+		
 		try {
-			Member m = dao.selectByEmail(email);
+			Member m = dao.selectById(id);
+			
+			System.out.println("m.getId() ========== "+m.getId());
+			System.out.println("m.getName() =========== "+m.getName());
+			
 			if (!m.getPassword().equals(Password.encode(password))) {
 				throw new IdPassswordNotMatchException();
 			}
-			info.setEmail(m.getEmail());
+			info.setId(m.getId());
 			info.setName(m.getName());
 			
 		} catch (EmptyResultDataAccessException e) {

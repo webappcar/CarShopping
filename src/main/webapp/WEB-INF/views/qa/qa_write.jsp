@@ -8,8 +8,8 @@
 <title>글쓰기</title>
 <c:if test="${sessionScope.ID == null }">
 	<script>
-		//alert("로그인을 해주세요");
-		//location.href="login";
+		alert("로그인을 해주세요");
+		location.href="/member/login";
 	</script>
 </c:if>
 
@@ -23,9 +23,9 @@
 <c:set var="level_no" value=""/>
 <script type="text/javascript">
 function validate(form){
-	if(form.title.value == ""){
+	if(form.qa_title.value == ""){
 		alert("제목을 입력하세요."); return false;
-	}else if(form.qacontent.value == ""){
+	}else if(form.qa_content.value == ""){
 		alert("내용을 입력하세요."); return false;
 	}
 }
@@ -34,6 +34,7 @@ function validate(form){
 <body>
 <form action="/qa/insert" method="post" onsubmit="return validate()">
 <!-- <form action="/qa/insert" method="post" enctype="multipart/form-data" onsubmit="return validate()"> -->
+<input type="hidden" name="userId" value="${sessionScope.ID}" />
 <input type="hidden" name="pageNo" value="${pageNo}" />
 <input type="hidden" name="level_no" value="${ parentList.level_no+1}"  />
 <input type="hidden" name="order_no" value="${ parentList.order_no+1}"  />
@@ -55,13 +56,12 @@ function validate(form){
 			</tr>
 			<tr>
 				<td>작성자</td>
-<%-- 				<td><input type="text" size="20" name="id" value="${sessionScope.ID }" ></td> --%>
-				<td><input type="text" size="20" name="id" value="${sessionScope.ID }" ></td>
+				<td>${sessionScope.NAME}</td>
 			</tr>
-			<tr>
-				<td>썸네일 이미지</td>
-				<td><input type="file" name="image" /></td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<td>썸네일 이미지</td> -->
+<!-- 				<td><input type="file" name="image" /></td> -->
+<!-- 			</tr> -->
 			<tr>
 				<td>내용</td>
 				<td><textarea rows="8" cols="90" name="qa_content"></textarea></td>

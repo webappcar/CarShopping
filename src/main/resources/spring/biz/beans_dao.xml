@@ -84,7 +84,6 @@
 <!-- 	<property name="regdate" value="2011/01/11 12:30:10"/> -->
 </bean>
 
-
 <!-- QAMapper -->
 <bean id="qaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
 	  p:mapperInterface="com.shoppingmall.mapper.QAMapper"
@@ -98,6 +97,16 @@
 <!-- MybatisQaDao -->
 <bean id="mybatisQaDao" class="com.shoppingmall.dao.MybatisQaDao">
 	<property name="qaMapper" ref="qaMapper"/>
+</bean>
+
+<!-- ReviewMapper -->
+<bean id="reviewMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+	  p:mapperInterface="com.shoppingmall.mapper.ReviewMapper"
+	  p:sqlSessionFactory-ref="sqlSessionFactory"/>
+
+<!-- MybatisReviewDao -->
+<bean id="mybatisReviewDao" class="com.shoppingmall.dao.MybatisReviewDao">
+	<property name="reviewMapper" ref="reviewMapper"/>
 </bean>
 
 <!-- ProductMapper -->

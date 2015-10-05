@@ -34,7 +34,7 @@ public class MemberCommand {
  		m.setId(this.id);
  		m.setName(this.name);
  		m.setPassword(this.password);
- 		m.setName(this.nickname);
+ 		m.setNickname(this.nickname);
  		m.setPhone(this.phone);
  		m.setEmail(this.email);
  		m.setAddress(this.address); 		
