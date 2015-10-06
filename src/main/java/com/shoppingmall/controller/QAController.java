@@ -27,8 +27,6 @@ import com.shoppingmall.model.QA;
 import com.shoppingmall.model.QAContent;
 import com.shoppingmall.service.QAListService;
 import com.shoppingmall.service.QAWritingService;
-import com.shoppingmall.util.ImageUtil;
-import com.shoppingmall.util.MultipartUploading;
 import com.shoppingmall.util.SequenceManager;
 
 @Controller

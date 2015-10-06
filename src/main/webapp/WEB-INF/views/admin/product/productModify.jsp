@@ -10,14 +10,76 @@
 
 <style type="text/css">
 	#productmodify{width:550px; text-align: center;}
+	#car_image{float:left;}
+	
+	.YearDatePicker .ui-datepicker-month{display:none;}
+	.HideTodayButton .ui-datepicker-buttonpane .ui-datepicker-current{
+		visibility:hidden;
+	}
+	.hide-calendar .ui-datepicker-calendar{
+		display:none!important;
+		visibility:hidden!important
+	}
+	
+	#inputFile label {
+	  display: inline-block;
+	  padding: .5em .75em;
+	  color: #999;
+	  font-size: inherit;
+	  line-height: normal;
+	  vertical-align: middle;
+	  background-color: #fdfdfd;
+	  cursor: pointer;
+	  border: 1px solid #ebebeb;
+	  border-bottom-color: #e2e2e2;
+	  border-radius: .25em;
+	}
+
+	#inputFile input[type="file"] {  /* 파일 필드 숨기기 */
+	  position: absolute;
+	  width: 1px;
+	  height: 1px;
+	  padding: 0;
+	  margin: -1px;
+	  overflow: hidden;
+	  clip:rect(0,0,0,0);
+	  border: 0;
+	}
 </style>
 
 <script type="text/javascript">
 $(function(){
 	$('#year').datepicker({
-		dateFormat:"yy"
+		dateFormat:"yy",
+        changeYear: true,
+        showButtonPanel: true,
+        beforeShow: function (e, t) {
+            $(this).datepicker("hide");
+            $("#ui-datepicker-div").addClass("hide-calendar");
+			$("#ui-datepicker-div").addClass('YearDatePicker');
+			$("#ui-datepicker-div").addClass('HideTodayButton');
+        },
+        onClose: function(dateText, inst) { 
+            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+            $(this).datepicker('setDate', new Date(year, 1));
+        }
 	});
 });
+
+$(document).ready(function(){
+	 var fileTarget = $('#inputFile #fileUpload');
+
+	 fileTarget.on('change', function(){
+	    if(window.FileReader){
+	      var filename = $(this)[0].files[0].name;
+	    } 
+	    else {
+	      var filename = $(this).val().split('/').pop().split('\\').pop();
+	    }
+
+	    $(this).siblings('#car_image').val(filename);
+	 });
+}); 
 </script>
 
 </head>
@@ -100,7 +162,11 @@ $(function(){
 					<spring:message code="shoppingmall.productregist.imagefile"/>
 				</label>
 				<div class="col-sm-9">
-					<input type="file" class="form-control" id="car_image" name="car_image">
+					<div class="form-control" id="inputFile">
+						<input id="car_image" name="car_image" value="${product.car_image}" disabled="disabled"/>
+						<label for="fileUpload">파일찾기</label>
+						<input type="file" id="fileUpload"/>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">

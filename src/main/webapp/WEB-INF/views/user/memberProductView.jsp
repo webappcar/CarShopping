@@ -7,7 +7,7 @@
 <title>memberProductView</title>
 
 <style type="text/css">
-	table {width:550px; margin:auto; border: 1px solid red;}
+	table {width:800px; margin:auto; border: 1px solid red;}
 	table tr {border: 1px solid red;}
 </style>
 
@@ -16,32 +16,42 @@
 	<table>
 		<tbody>
 			<tr>
-				<td rowspan="8">사진</td>
-				<td>상품명</td>
+				<td rowspan="8" width="400px" align="center"><img src="/img/carimg/${oneProduct.car_image}"></td>
+				<td>상품명 : ${oneProduct.car_name}</td>
 			</tr>
 			<tr>
-				<td>연비</td>
+				<td>연비 : ${oneProduct.efficiency}</td>
 			</tr>
 			<tr>
-				<td>사용연료</td>
+				<td>사용연료 : ${oneProduct.fuel}</td>
 			</tr>
 			<tr>
-				<td>구분</td>
+				<td>구분 : ${oneProduct.gubun}</td>
 			</tr>
 			<tr>
-				<td>회사명</td>
+				<td>회사명 : ${oneProduct.company}</td>
 			</tr>
 			<tr>
-				<td>출시년도</td>
+				<td>출시년도 : ${oneProduct.year}</td>
 			</tr>
 			<tr>
-				<td>가격</td>
+				<td>가격 : ${oneProduct.price}</td>
 			</tr>
 			<tr>
-				<td>수량</td>
+				<td>수량 : ${oneProduct.stock}</td>
 			</tr>
 			<tr>
-				<td colspan="2">제품설명</td>
+				<td colspan="2" align="center">
+					<input type="button" value="주문하기">
+					<input type="button" value="장바구니에 담기">
+					<input type="button" value="취소">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					제품설명<br>
+					${oneProduct.car_desc}
+				</td>
 			</tr>
 		</tbody>
 	</table>

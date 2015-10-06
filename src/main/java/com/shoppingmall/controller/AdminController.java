@@ -1,33 +1,77 @@
 package com.shoppingmall.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.shoppingmall.command.Fuel;
 import com.shoppingmall.command.ProductCommand;
+import com.shoppingmall.model.Member;
 import com.shoppingmall.model.Product;
+import com.shoppingmall.service.MemberListService;
 import com.shoppingmall.service.ProductService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
+	
 	@Autowired
 	MessageSource messageSource;
 	
 	@Autowired
 	ProductService service;
+	
+	@Autowired
+	MemberListService mservice;
+	
+	public void paging(int total){
+		/** 현재 페이지 */
+		int nowPage = 1;
+		
+		/** 한 페이지당 출력할 게시글 수  */
+		int pageSize = 5;
+		
+	    int limit = (nowPage - 1) * pageSize;
+	    
+	    int totalCount = total;
+	    
+	    /** 현재 페이지 nowPage = 1
+		 *  한페이지당 출력할 게시글 수 pageSize = 5
+		 *  totalCount = 전체 글 갯수*/
+		
+		/** 한 블럭에 보여질 페이지 수 */
+		int recordCountPerPage = 10;
+
+	    /** 현재 블럭 */
+	    double nowBlock = (float)nowPage/recordCountPerPage;
+	    nowBlock = Math.ceil(nowBlock);
+	    
+	    /** 현재 블럭에서 시작페이지 번호 */
+	    int startPage = (int) (((nowBlock - 1) * recordCountPerPage) + 1);
+	    
+	    /** 현재 블럭에서 마지막 페이지 번호 */
+	    int endPage = startPage + recordCountPerPage - 1;
+
+	    /** 총 게시글 페이지 수 */
+	    double totalPage = (float)totalCount / pageSize;
+	    totalPage = Math.ceil(totalPage);
+
+	    endPage = endPage >= totalPage ? endPage = (int) totalPage : endPage;
+	    
+	    nowBlock = nowBlock <= 1 ? 1 : nowBlock;
+	}
 	
 	@ModelAttribute("fuel")
 	public List<Fuel> getFuel(){
@@ -54,7 +98,11 @@ public class AdminController {
 	 */
 	
 	@RequestMapping("/memberPage")
-	public String adminMemberPage(){
+	public String adminMemberPage(Model model){
+		
+		List<Member> list = mservice.getListAll();
+
+		model.addAttribute("member", list);
 		
 		return "admin/adminMemberPage";
 	}
@@ -92,11 +140,43 @@ public class AdminController {
 
 		return "admin/product/productInsert";
 	}
+
 	
-	@RequestMapping("/insertProduct")
-	public String insert(ProductCommand command){
+	@RequestMapping(value="/insertProduct", method = RequestMethod.POST)
+	public String insert(MultipartFile fileData, ProductCommand command){
+		String path = "C:\\03_src\\Spring\\CarShopping\\src\\main\\webapp\\WEB-INF\\img\\carimg";
+		File convFile = new File(path+"\\"+fileData.getOriginalFilename());
 		
-		service.insertProduct(command.getProduct());
+		String car_image = fileData.getOriginalFilename();
+		
+		command.setCar_image(car_image);
+		
+		try {
+			fileData.transferTo(convFile);
+			service.insertProduct(command.getProduct());	
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:/admin/productPage";
+	}
+	
+	@RequestMapping("/deleteProduct")
+	public String delete(int car_id, Product p){
+		String path = "C:\\03_src\\Spring\\CarShopping\\src\\main\\webapp\\WEB-INF\\img\\carimg";
+		
+		p = service.selectOneProduct(car_id);
+		
+		File convFile = new File(path+"\\"+p.getCar_image());
+		
+		convFile.delete();
+		
+		service.deleteProduct(car_id);
 		
 		return "redirect:/admin/productPage";
 	}

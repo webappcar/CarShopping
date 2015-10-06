@@ -16,7 +16,20 @@
 			hot 이미지
 		</div>
 		<div>
-			hot 상품
+			<table>
+				<tbody>
+					<tr>
+						<c:forEach var="product" items="${product}">
+							<td><img src="/img/carimg/${product.car_image}" width="220px" height="220px"></td>
+						</c:forEach>
+					</tr>
+					<tr>
+						<c:forEach var="product" items="${product}">
+							<td><a href="/member/productView?car_id=${product.car_id}">${product.car_name}</a></td>
+						</c:forEach>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 		<div>
 			new 이미지

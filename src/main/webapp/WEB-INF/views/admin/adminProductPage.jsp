@@ -17,9 +17,20 @@
         }
     }
 	
+	function productInsert(){
+		location.href = "productInsert";
+	}
+	
 	function productModify(){
 		var car_id = $('input[name=check]:checked').val();
 		location.href = "productModify?car_id="+car_id;
+	}
+	
+	function productDelete(){
+		var car_id = $('input[name=check]:checked').val();
+		if(confirm("정말 삭제하시겠습니까?")!=0) {
+			location.href = "deleteProduct?car_id="+car_id;
+		}
 	}
 </script>
 
@@ -58,7 +69,8 @@
 			</tbody>
 		</table>
 	</div>
-	<a href="productInsert">상품등록</a>
+	<input type="button" value="상품등록" onclick="productInsert();"/>
 	<input type="button" value="상품수정" onclick="productModify();"/>
+	<input type="button" value="상품삭제" onclick="productDelete();"/>
 </body>
 </html>

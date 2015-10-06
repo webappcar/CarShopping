@@ -24,14 +24,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>2</td>
-					<td>3</td>
-					<td>4</td>
-					<td>5</td>
-					<td>6</td>
-				</tr>
+				<c:forEach var="member" items="${member}">
+					<tr>
+						<td>${member.id}</td>
+						<td>${member.name}</td>
+						<td>${member.nickname}</td>
+						<td>${member.email}</td>
+						<td>${member.phone}</td>
+						<td>${member.address}</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

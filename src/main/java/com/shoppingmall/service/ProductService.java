@@ -40,8 +40,15 @@ public class ProductService {
 		return dao.insertProduct(product);
 	}
 	
+	@Transactional
 	public int modifyProduct(Product product){
 		
 		return dao.modifyProduct(product);
+	}
+	
+	@Transactional
+	public int deleteProduct(int car_id){
+		
+		return dao.deleteProduct(car_id);
 	}
 }
