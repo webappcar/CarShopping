@@ -1,9 +1,16 @@
 package com.shoppingmall.model;
 
 public class AuthInfo {
+	String id;
 	String name;
 	String email;
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}

@@ -37,25 +37,4 @@ public interface QAMapper {
 	
 	void deleteQA(int writing_id);
 	
-	//List<QA> select(Map<String, Object> index);
-
-	/*public int getListSize();		
-	public int getPageNum();
-	public void setPageNum(int pageNum);
-	
-	public boolean isFirstPage();
-	public void setFirstPage(boolean firstPage);
-	public boolean isLastPage();
-	public void setLastPage(boolean lastPage);
-	
-	public Integer[] getQaNoList();
-	public String[] getQaTitleList();
-	public String[] getQaWriterList();
-	public String[] getQaRDateList();	
-	
-	public void setQaNoList(int index, Integer qaNoList);
-	public void setQaTitleList(int index, String qaTitleList);
-	public void setQaWriterList(int index, String qaWriterList);
-	public void setQaRDateList(int index, String qaRDateList);*/
-	
 }

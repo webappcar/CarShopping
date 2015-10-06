@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shoppingmall.mapper.ReviewMapper">
+
+	<resultMap type="com.shoppingmall.model.Review" id="reviewResultMap">
+		<id property="id" column="id"/>
+		<id property="name" column="name"/>
+		<id property="nickname" column="nickname"/>
+		<id property="title" column="title"/>
+		<id property="code" column="code"/>
+		<id property="register_date" column="register_date"/>
+	</resultMap>
+
+	<resultMap type="com.shoppingmall.model.ReviewContent" id="reviewContentResultMap">
+		<id property="writing_id" column="writing_id"/>
+		<id property="review_content" column="review_content"/>
+	</resultMap>
+	
+	<select id="selectReview" 
+			parameterType="Integer" 
+			resultMap="reviewResultMap" databaseId="oracle">		
+		select a.writing_id,a.id,a.title,a.code,a.register_date,b.name from review a, user_info b where a.id=b.id and writing_id = #{writing_id}
+	</select>
+	
+	<select id="selectReviewContent" 
+			parameterType="Integer" 
+			resultMap="reviewContentResultMap" databaseId="oracle">
+		select writing_id,review_content from review_content where writing_id = #{writing_id}
+	</select>
+	
+	<insert id="insertReview" parameterType="com.shoppingmall.model.Review" databaseId="oracle">
+		insert into review
+		(
+			writing_id,
+			id,
+			nickname,
+			title,
+			code,
+			register_date
+		)
+		values
+		(
+			#{writing_id},
+			#{id},
+			#{nickname},
+			#{title},
+			#{code},
+			#{register_date}
+		)
+	</insert>
+	
+	<insert id="insertReviewContent" parameterType="com.shoppingmall.model.ReviewContent" databaseId="oracle">
+		insert into review_content
+		(
+			writing_id,
+			review_content
+		)
+		values
+		(
+			#{writing_id},
+			#{review_content}
+		)
+	</insert>
+	
+	<update id="updateReview" parameterType="com.shoppingmall.model.Review" databaseId="oracle">
+		update review
+		<set>
+			title = #{title}
+		</set>
+		where writing_id = #{writing_id}
+	</update>
+	
+	<update id="updateReviewContent" parameterType="com.shoppingmall.model.ReviewContent" databaseId="oracle">
+		update review_content
+		<set>
+			review_content = #{review_content}
+		</set>
+		where writing_id = #{writing_id}
+	</update>
+	
+	<delete id="deleteReview" parameterType="Integer">
+		delete from review where writing_id = #{writing_id}
+	</delete>
+	
+	<delete id="deleteReviewContent" parameterType="Integer">
+		delete from review_content where writing_id = #{writing_id}
+	</delete>
+	
+	<select id="countSequenceAll"
+			parameterType="String"  
+			resultType="int" databaseId="oracle">
+		select count(*) from sequence where table_name = #{table_name}
+	</select>
+	
+	<select id="selectSequenceNo"
+			parameterType="String"  
+			resultType="int" databaseId="oracle">
+		select sequence_no from sequence where table_name = #{table_name}
+	</select>
+	
+	<insert id="insertSequence" parameterType="com.shoppingmall.model.Sequence" databaseId="oracle">
+		insert into sequence (sequence_no,table_name) values (1,#{table_name})
+	</insert>
+	
+	<update id="updateSequence" parameterType="com.shoppingmall.model.Sequence" databaseId="oracle">
+		update sequence
+		<set>
+			sequence_no = ${sequence_no}
+		</set>
+		where table_name = '${table_name}'
+	</update>
+
+</mapper>

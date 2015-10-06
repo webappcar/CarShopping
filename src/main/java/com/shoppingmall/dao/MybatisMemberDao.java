@@ -92,25 +92,9 @@ public class MybatisMemberDao implements MemberDao {
 	@Override
 	public int insert(Member member) {
 		
-		int rtn=0;
 		member.setPassword(Password.encode(member.getPassword()));
 		
-		if (useGeneratorTable) {
-			Map<String, Object> idGen = idGeneratorMapper.selectByName("memberId");
-			int nextval = ((BigDecimal)idGen.get("nextval")).intValue();
-			int incval = ((BigDecimal)idGen.get("incval")).intValue();
-			int seq = nextval + incval;
-			idGen.put("nextval", seq);
-			idGeneratorMapper.update(idGen);
-			
-			//member.setId(seq);
-			rtn = memberMapper.insertGenerator(member);
-			
-		} else {
-			rtn = memberMapper.insert(member);
-		}
-		
-		return rtn;
+		return memberMapper.insert(member);
 	}
 
 	@Override

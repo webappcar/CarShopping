@@ -49,42 +49,42 @@ $(document).ready(function() {
 </head>
 <body>
 
-<h1 class="center"><a href="regist">회원가입</a></h1>
+<h1 class="center"><a href="#"><spring:message code="member.regist.title"/></a></h1>
 
 <form:form commandName="member" action="/member/memberJoin" method="post">
 	
 	<form:errors element="div"/>
 	
-	<!-- ID -->
+	<!-- Id -->
 	<div class="form-group">
-		<label for="id">아이디</label>
-		<form:input path="id" cssClass="form-control"/> <input type="button" value="중복확인">
+		<label for="id"><spring:message code="member.regist.id"/></label>
+		<form:input path="id" cssClass="form-control"/>
 		<form:errors path="id"/>
-	</div>
-	<!-- Password -->
-	<div class="form-group">
-		<label for="password">비밀번호</label>
-		<form:input path="password" cssClass="form-control"/>
-		<form:errors path="password"/>
 	</div>
 	<!-- Name -->
 	<div class="form-group">
-		<label for="name">이름</label>
+		<label for="name"><spring:message code="member.regist.name"/></label>
 		<form:input path="name" cssClass="form-control"/>
 		<form:errors path="name"/>
 	</div>
+	<!-- Password -->
+	<div class="form-group">
+		<label for="password"><spring:message code="member.regist.password"/></label>
+		<form:input path="password" cssClass="form-control"/>
+		<form:errors path="password"/>
+	</div>
 	<!-- Nick -->
 	<div class="form-group">
-		<label for="nickname">닉네임</label>
+		<label for="nickname"><spring:message code="member.regist.nickname"/></label>
 		<form:input path="nickname" cssClass="form-control"/> <input type="button" value="중복확인">
 		<form:errors path="nickname"/>
 	</div>
 	<!-- Email -->
 	<div class="form-group">
-		<label for="email">email</label>
+		<label for="email"><spring:message code="member.regist.email"/></label>
 		<form:input path="email" cssClass="form-control"/>
 		<form:errors path="email"/>
-	</div>	
+	</div>
 	<!-- Phone -->
 	<div class="form-group">
 		<label for="phone">전화번호</label>

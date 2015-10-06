@@ -1,33 +1,24 @@
 package com.shoppingmall.controller;
 
-import java.io.File;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.shoppingmall.model.QA;
 import com.shoppingmall.model.QAContent;
 import com.shoppingmall.service.QAListService;
 import com.shoppingmall.service.QAWritingService;
-import com.shoppingmall.util.SequenceManager;
 
 @Controller
 @RequestMapping("/qa")
@@ -123,15 +114,6 @@ public class QAController {
 		String levelNo=request.getParameter("level_no");
 		String orderNo=request.getParameter("order_no");
 		
-	/*	MultipartUploading multiPart = new MultipartUploading(request);
-		String image = multiPart.getFileName("image");
-		String newPath ="c:/CarImage/" + image;
-		multiPart.saveFile("image", newPath);
-		String tmpPath = "c:/CarImage/small." + image;
-		File newFile = new File(tmpPath);
-		File srcFile = new File(newPath);
-		ImageUtil.resize(srcFile, newFile, 50, ImageUtil.RATIO);*/
-		
 		System.out.println("pageNo - "+pageNo);
 		System.out.println("parentId - "+parentId);
 		System.out.println("groupId - "+groupId);
@@ -165,8 +147,8 @@ public class QAController {
 			System.out.println("qa_content = "+request.getParameter("qa_content"));
 			System.out.println("today = "+today);
 			
-			//qa.setId(request.getParameter("id"));
-			qa.setId("goodmv");
+			qa.setId(request.getParameter("userId"));
+			//qa.setId("goodmv");
 			qa.setTitle(request.getParameter("qa_title"));
 			qaContent.setQa_content(request.getParameter("qa_content"));
 			
@@ -271,55 +253,5 @@ public class QAController {
 		
 		return "qa/qa_delete_result";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping("/list3")
-	public String getList1(@RequestParam String pageNo, Model model, HttpServletRequest request) {
-		
-		int count = listService.getListTotal();
-		//String pageNo = page;
-		
-/*	    model.addAttribute("page", page);
-	    model.addAttribute("count", count);*/
-	    
-	    request.setAttribute("count", count);
-	    request.setAttribute("pageNo", pageNo);
-	    
-	    List<QA> qalist = listService.getList(2,4);
-		
-		model.addAttribute("qalist", qalist);
-	    
-	    return "qa/qa_list";
-	}
-	
-	
-	@RequestMapping(value="/list2", method = RequestMethod.POST)
-    public ModelAndView postComment(HttpServletRequest req, @RequestParam String page) {
-		int count = listService.getListTotal();
-		
-        ModelAndView result = new ModelAndView("qa/qa_list");
-        
-        result.addObject("page", page);
-        result.addObject("count", count);
-        
-        List<QA> qalist = listService.getList(2,4);
-        
-        result.addObject("qalist", qalist);
-        
-        return result;
-    }
-
-	
-	
-	
 
 }
