@@ -50,6 +50,11 @@
 	<property name="qaDao" ref="mybatisQaDao"/>
 </bean>
 
+<!-- ReviewService -->
+<!-- <bean id="reviewService" class="com.shoppingmall.service.ReviewService_tmp"> -->
+<!-- 	<property name="mybatisReviewDao" ref="mybatisReviewDao"/> -->
+<!-- </bean> -->
+
 <!-- AuthService -->
 <bean id="authService" class="com.shoppingmall.service.AuthService">
 	<property name="memberDao" ref="mybatisMemberDao"/>
