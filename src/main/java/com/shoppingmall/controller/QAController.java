@@ -1,33 +1,24 @@
 package com.shoppingmall.controller;
 
-import java.io.File;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.shoppingmall.model.QA;
 import com.shoppingmall.model.QAContent;
 import com.shoppingmall.service.QAListService;
 import com.shoppingmall.service.QAWritingService;
-import com.shoppingmall.util.SequenceManager;
 
 @Controller
 @RequestMapping("/qa")

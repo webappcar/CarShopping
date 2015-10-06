@@ -16,6 +16,7 @@ public interface ReviewMapper {
 	void updateReviewContent(ReviewContent review_content);
 	
 	void deleteReview(int writing_id);
+	void deleteReviewContent(int writing_id);
 	
 	int selectSequenceNo(String tableName);
 	void updateSequence(Sequence sequence);

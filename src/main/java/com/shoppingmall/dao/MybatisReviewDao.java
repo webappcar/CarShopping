@@ -65,6 +65,10 @@ public class MybatisReviewDao implements ReviewMapper {
 		reviewMapper.deleteReview(writing_id);
 	}
 	
+	public void deleteReviewContent(int writing_id) {
+		reviewMapper.deleteReviewContent(writing_id);
+	}
+	
 	@Override
 	public int selectSequenceNo(String table_name) {
 		return reviewMapper.selectSequenceNo(table_name);		

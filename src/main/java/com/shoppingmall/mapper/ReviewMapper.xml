@@ -62,6 +62,30 @@
 		)
 	</insert>
 	
+	<update id="updateReview" parameterType="com.shoppingmall.model.Review" databaseId="oracle">
+		update review
+		<set>
+			title = #{title}
+		</set>
+		where writing_id = #{writing_id}
+	</update>
+	
+	<update id="updateReviewContent" parameterType="com.shoppingmall.model.ReviewContent" databaseId="oracle">
+		update review_content
+		<set>
+			review_content = #{review_content}
+		</set>
+		where writing_id = #{writing_id}
+	</update>
+	
+	<delete id="deleteReview" parameterType="Integer">
+		delete from review where writing_id = #{writing_id}
+	</delete>
+	
+	<delete id="deleteReviewContent" parameterType="Integer">
+		delete from review_content where writing_id = #{writing_id}
+	</delete>
+	
 	<select id="countSequenceAll"
 			parameterType="String"  
 			resultType="int" databaseId="oracle">

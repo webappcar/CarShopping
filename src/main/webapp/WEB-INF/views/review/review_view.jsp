@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>리뷰보기</title>
 <%
-	String pageNo = (String)request.getAttribute("pageNo");
-	int currentPage = 1;//Integer.parseInt(pageNo);
+	String pageNo = "1";//(String)request.getAttribute("pageNo");
+	int currentPage = Integer.parseInt(pageNo);
 %>
 </head>
 <body>
@@ -35,9 +35,9 @@
 				</tr>
 				<tr>
 			<td colspan="2">
-			<a href="javascript:goUpdate(${qaContentList.writing_id})">[수정]</a>
-			<a href="javascript:goDelete(${qaContentList.writing_id})">[삭제]</a>
-			<a href="javascript:goList()">[목록]</a>
+			<a href="javascript:goUpdate(${review.writing_id})">[수정]</a>
+			<a href="javascript:goDelete(${review.writing_id})">[삭제]</a>
+<!-- 			<a href="javascript:goList()">[목록]</a> -->
 			</td>
 		</tr>
 		</table>
@@ -49,25 +49,21 @@
 
 
 <script language="JavaScript">
-function goReply(){
-	document.move.action="/qa/write";
-	document.move.submit();
-}
 function goUpdate(id){
-	document.move.action = "/qa/update/"+id;
+	document.move.action = "/review/update/"+id;
 	document.move.submit();
 }
 function goDelete(id){
-	document.move.action="/qa/delete/"+id;
+	document.move.action="/review/delete/"+id;
 	document.move.submit();
 }
 function goList(){
-	document.move.action="/qa/list/"+${pageNo};
+	document.move.action="";
 	document.move.submit();
 }
 </script>
 <form name="move" method="post">
-<input type="hidden" name="writing_id" value="${qaContentList.writing_id }"/>
+<input type="hidden" name="writing_id" value="${review.writing_id }"/>
 <input type="hidden" name="pageNo" value="${pageNo}" />
 </form>
 
