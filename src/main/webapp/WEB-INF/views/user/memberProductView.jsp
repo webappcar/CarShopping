@@ -7,53 +7,78 @@
 <title>memberProductView</title>
 
 <style type="text/css">
-	table {width:800px; margin:auto; border: 1px solid red;}
-	table tr {border: 1px solid red;}
+	table {width:800px; margin:auto;}
 </style>
 
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		$('#order').hide();
+	});
+
+	function orderButton(){
+		if(confirm("주문하시겠습니까?")!=0) {
+			$('#order').show();
+		}
+	}
+</script>
 </head>
 <body>
-	<table>
-		<tbody>
-			<tr>
-				<td rowspan="8" width="400px" align="center"><img src="/img/carimg/${oneProduct.car_image}"></td>
-				<td>상품명 : ${oneProduct.car_name}</td>
-			</tr>
-			<tr>
-				<td>연비 : ${oneProduct.efficiency}</td>
-			</tr>
-			<tr>
-				<td>사용연료 : ${oneProduct.fuel}</td>
-			</tr>
-			<tr>
-				<td>구분 : ${oneProduct.gubun}</td>
-			</tr>
-			<tr>
-				<td>회사명 : ${oneProduct.company}</td>
-			</tr>
-			<tr>
-				<td>출시년도 : ${oneProduct.year}</td>
-			</tr>
-			<tr>
-				<td>가격 : ${oneProduct.price}</td>
-			</tr>
-			<tr>
-				<td>수량 : ${oneProduct.stock}</td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input type="button" value="주문하기">
-					<input type="button" value="장바구니에 담기">
-					<input type="button" value="취소">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					제품설명<br>
-					${oneProduct.car_desc}
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<form>
+		<table>
+			<tbody>
+				<tr>
+					<td rowspan="8" width="400px" align="center"><img src="/img/carimg/${oneProduct.car_image}"></td>
+					<td>상품명 : ${oneProduct.car_name}</td>
+				</tr>
+				<tr>
+					<td>연비 : ${oneProduct.efficiency}</td>
+				</tr>
+				<tr>
+					<td>사용연료 : ${oneProduct.fuel}</td>
+				</tr>
+				<tr>
+					<td>구분 : ${oneProduct.gubun}</td>
+				</tr>
+				<tr>
+					<td>회사명 : ${oneProduct.company}</td>
+				</tr>
+				<tr>
+					<td>출시년도 : ${oneProduct.year}</td>
+				</tr>
+				<tr>
+					<td>가격 : ${oneProduct.price}</td>
+				</tr>
+				<tr>
+					<td>구매수량 : <input type="text" id="stock" name="stock" value="1"></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						제품설명<br>
+						${oneProduct.car_desc}
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="button" value="주문하기" onclick="orderButton();">
+						<input type="button" value="장바구니에 담기">
+						<input type="button" value="취소" onclick="history.back(-1);">
+					</td>
+				</tr>
+				<tr id="order">
+					<td align="center">
+						<br>
+						이름 : <input type="text"><br>
+						전화번호 : <input type="text"><br>
+						주소 : <input type="text"><br>
+					</td>
+					<td>
+						<br>
+						<input type="submit" value="주문하기">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
 </body>
 </html>

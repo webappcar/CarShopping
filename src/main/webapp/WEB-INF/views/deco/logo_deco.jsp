@@ -33,12 +33,12 @@
 
 <div id="topmenu">
 	<div class="col-sm-3">
-		<img src="/img/mainlogo.png"/>
+		<a href="/index"><img src="/img/mainlogo.png"/></a>
 	</div>
 	<div class="col-sm-6">
 		<form id="searchCar" action="">
 			<input type="text" id="search"/>
-			<button id="searchbtn">검색</button>
+			<img src="/img/search.jpg">
 		</form>
 	</div>
 	<div class="col-sm-3">

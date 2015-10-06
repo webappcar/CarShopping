@@ -10,13 +10,16 @@
 <%@ include file="/WEB-INF/views/common.jspf" %>
 
 <style type="text/css">
-	#divsize {height: auto; width: 900px; margin: auto;}
+	#divsize {width: 900px; margin: auto;}
 	#cssmenu {float: center;}
 	#cssmenu ul {float: center;}
 	#logindiv {margin: 10px;}
 	#loginbtn {width: 70px; height: auto;}
 	#widthDiv {height: 100px;}
+	#footerDiv {text-align: center; height: 100px; margin-top:100px; background-color: #EAEAEA;}
 </style>
+
+
 
 <sitemesh:write property="head"/>
 
@@ -53,11 +56,12 @@
 			</ul>
 		</div>
 		<div id="widthDiv">
-	<!-- 로그인 -->
-	<!-- 	<div class="form-group" id="logindiv"> -->
-	<!-- 		<div class="col-sm-9" > -->
-	<!-- 			AD or 아무거나 -->
-	<!-- 		</div> -->
+			<div class="form-group">
+				<div class="col-sm-9 slider autoplay">
+					<div><img src="/img/ad/ad1.jpg" ></div>
+					<div><img src="/img/ad/ad2.jpg" ></div>
+					<div><img src="/img/ad/ad3.jpg" ></div>
+				</div>
 	<!-- 		<div class="col-sm-3"> -->
 	<!-- 			<div> -->
 	<!-- 				<input type="text" class="form-control" id="loginid" placeholder="아이디"/> -->
@@ -68,12 +72,6 @@
 	<!-- 				<button id="loginbtn">로그인</button> -->
 	<!-- 			</div> -->
 	<!-- 		</div> -->
-	<!-- 	</div> -->
-			
-			<div class="form-group">
-				<div class="col-sm-9">
-					AD or 아무거나
-				</div>
 				<div class="col-sm-3">
 					<div>
 						NickName 님 환영합니다.
@@ -89,9 +87,20 @@
 	<sitemesh:write property="body"/>
 	
 	
-	<footer border="1" class="w3-container">
-		<h1>footer</h1>
+	<footer class="w3-container">
+		<div id="footerDiv">
+			<h1>Copyright (c) 2015</h1>
+		</div>
 	</footer>
 </div>
+
+<script type="text/javascript">
+ 	$('.autoplay').slick({
+ 		slidesToShow: 1,
+		slidesToScroll: 1,
+ 		autoplay: true,
+ 		autoplaySpeed: 2000,
+ 	});
+ </script>
 </body>
 </html>
