@@ -28,9 +28,5 @@ public class ShoppingMallController {
 		return "index";
 	}
 	
-	@RequestMapping("/memberJoin")
-	public String memberJoin(){
-		
-		return "user/memberJoin";
-	}
+	
 }

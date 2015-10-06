@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>memberProductView</title>
+<%@ include file="/WEB-INF/views/common.jspf" %>
 
 <style type="text/css">
 	table {width:800px; margin:auto;}
@@ -74,6 +75,10 @@
 					</td>
 					<td>
 						<br>
+						<c:if test="${sessionScope.ID ne null}">
+							<input type="checkbox" onclick="input();"/>회원의 정보랑 동일
+							<br><br>
+						</c:if>
 						<input type="submit" value="주문하기">
 					</td>
 				</tr>

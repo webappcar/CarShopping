@@ -11,5 +11,7 @@
 <h1>회원 가입 성공</h1>
 ${member}
 
+<a href="/index">메인으로</a>
+
 </body>
 </html>

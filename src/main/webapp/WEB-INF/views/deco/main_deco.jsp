@@ -19,7 +19,11 @@
 	#footerDiv {text-align: center; height: 100px; margin-top:100px; background-color: #EAEAEA;}
 </style>
 
-
+<script type="text/javascript">
+	function dologin(){
+		location.href = "/member/login";
+	}
+</script>
 
 <sitemesh:write property="head"/>
 
@@ -52,7 +56,9 @@
 					</ul>
 				</li>
 				<li><a href="/QA/list">QnA</a></li>
-				<li><a href="/admin/memberPage">AdminPage</a></li>
+				<c:if test="${ID eq 'admin'}">
+					<li><a href="/admin/memberPage">AdminPage</a></li>
+				</c:if>
 			</ul>
 		</div>
 		<div id="widthDiv">
@@ -62,26 +68,34 @@
 					<div><img src="/img/ad/ad2.jpg" ></div>
 					<div><img src="/img/ad/ad3.jpg" ></div>
 				</div>
-	<!-- 		<div class="col-sm-3"> -->
-	<!-- 			<div> -->
-	<!-- 				<input type="text" class="form-control" id="loginid" placeholder="아이디"/> -->
-	<!-- 				<input type="password" class="form-control" id="password" placeholder="비밀번호"/> -->
-	<!-- 			</div> -->
-	<!-- 			<div> -->
-	<!-- 				<span><a href="/memberJoin">회원가입</a></span> -->
-	<!-- 				<button id="loginbtn">로그인</button> -->
-	<!-- 			</div> -->
-	<!-- 		</div> -->
-				<div class="col-sm-3">
-					<div>
-						NickName 님 환영합니다.
+			<c:choose>
+				<c:when test="${ID eq null}">
+				<form action="/member/login" method="post">
+					<div class="col-sm-3">
+						<div>
+							<input type="text" class="form-control" name="id" id="id" placeholder="아이디"/>
+							<input type="password" class="form-control" name="password" id="password" placeholder="비밀번호"/>
+						</div>
+						<div>
+							<span><a href="/member/memberJoin">회원가입</a></span>
+							<input type="submit" value="로그인"/>
+						</div>
 					</div>
-					<div>
-						로그아웃
-						장바구니
-						정보수정
+				</form>
+				</c:when>
+				<c:otherwise>
+					<div class="col-sm-3">
+						<div>
+							NickName 님 환영합니다.
+						</div>
+						<div>
+							<a href="/member/logout">로그아웃</a>
+							장바구니
+							정보수정
+						</div>
 					</div>
-				</div>
+				</c:otherwise>
+			</c:choose>
 			</div>
 		</div>
 	<sitemesh:write property="body"/>
