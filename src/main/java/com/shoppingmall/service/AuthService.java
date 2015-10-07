@@ -33,6 +33,8 @@ public class AuthService {
 			}
 			info.setId(m.getId());
 			info.setName(m.getName());
+			info.setEmail(m.getEmail());
+			info.setNickname(m.getNickname());
 			
 		} catch (EmptyResultDataAccessException e) {
 			throw new IdPassswordNotMatchException(e);
