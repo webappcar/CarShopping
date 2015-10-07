@@ -123,12 +123,11 @@ public class AdminController {
 	
 	@RequestMapping("/orderPage")
 	public String adminOrderPage(Model model){
-		
-		List<Purchase> purchaseList = purchaseService.purchaseSelect();
-		
-		
-		model.addAttribute("purchaseList",purchaseList);
-		
+//		
+//		List<Purchase> purchaseList = purchaseService.purchaseSelect();
+//		
+//		model.addAttribute("purchaseList",purchaseList);
+//		
 		return "admin/adminOrderPage";
 	}
 	

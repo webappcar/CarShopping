@@ -26,6 +26,12 @@ public class MemberListService {
 		return dao.selectAll();
 	}
 	
+	@Transactional
+	public Member getSelectById(String id) {
+
+		return dao.selectById(id);
+	}
+	
 	PlatformTransactionManager tm;
 	
 	/*@Transactional(isolation=Isolation.READ_COMMITTED,

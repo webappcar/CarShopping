@@ -70,13 +70,13 @@ $(document).ready(function() {
 	<!-- Password -->
 	<div class="form-group">
 		<label for="password"><spring:message code="member.regist.password"/></label>
-		<form:input path="password" cssClass="form-control"/>
+		<form:password path="password" cssClass="form-control"/>
 		<form:errors path="password"/>
 	</div>
 	<!-- Nick -->
 	<div class="form-group">
 		<label for="nickname"><spring:message code="member.regist.nickname"/></label>
-		<form:input path="nickname" cssClass="form-control"/> <input type="button" value="중복확인">
+		<form:input path="nickname" cssClass="form-control"/>
 		<form:errors path="nickname"/>
 	</div>
 	<!-- Email -->

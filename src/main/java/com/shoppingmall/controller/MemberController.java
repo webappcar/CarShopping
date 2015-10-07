@@ -192,7 +192,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/productView")
-	public String productView(int car_id, Model model){
+	public String productView(int car_id, Model model, HttpSession session){
 		
 		Product product = service.selectOneProduct(car_id);
 		
@@ -201,6 +201,13 @@ public class MemberController {
 		//리뷰목록 가져오기
 		List<Review> reviewList = reviewDao.selectReviewList(car_id);
 		model.addAttribute("reviewList", reviewList);
+		
+		String session_id = (String)session.getAttribute("ID");
+		
+		if(session_id != null){
+			Member member = listService.getSelectById(session_id);
+			model.addAttribute("name", member.getNickname());
+		}
 		
 		return "member/memberProductView";
 	}

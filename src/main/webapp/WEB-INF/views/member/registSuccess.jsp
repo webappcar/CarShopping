@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>회원 가입 성공</h1>
-${member}
+${member}<br>
 
 <a href="/index">메인으로</a>
 
