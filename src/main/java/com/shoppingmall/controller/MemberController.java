@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -25,16 +26,23 @@ import com.shoppingmall.model.Product;
 import com.shoppingmall.model.Purchase;
 import com.shoppingmall.service.AuthService;
 import com.shoppingmall.service.MemberListService;
-import com.shoppingmall.service.MemberRegisterService;
+
 import com.shoppingmall.service.ProductService;
 import com.shoppingmall.service.PurchaseService;
 import com.shoppingmall.validator.MemberCommandValidator;
+
+import com.shoppingmall.service.MemberRegisterService;
+import com.shoppingmall.dao.MybatisMemberDao;
+
 
 @Controller
 @RequestMapping("/member")
 public class MemberController {
 	
 	static Log log = LogFactory.getLog(MemberController.class);
+	
+	@Autowired
+	MybatisMemberDao memberDao;
 	
 	@Autowired
 	MessageSource messageSource;
@@ -74,36 +82,27 @@ public class MemberController {
 	@RequestMapping(value={"/login"}, method=RequestMethod.POST)
 	public String login(@ModelAttribute("login") LoginCommand login, 
 												 Errors errors,
-												 HttpSession session) {
-		
-		log.info("login()... " + login);
-		/*
-		 * validation
-		 */
-		
-		/*if (errors.hasErrors()) {
-			errors.reject("idPasswordNotMatch");
-			return "member/loginForm1";
-		}*/
+												 HttpSession session, Model model) {
 		
 		/*
 		 * login process
-		 */
-		
+		 */		
 		System.out.println("login.getId() = "+login.getId());
 		System.out.println("login.getPassword() = "+login.getPassword());
 		try {
 			AuthInfo auth = authService.authenticate(login.getId(), login.getPassword());
 			
-			//session.setAttribute("auth", auth);
+			session.setAttribute("auth", auth);
 			session.setAttribute("ID", auth.getId());
 			session.setAttribute("NAME", auth.getName());
+			session.setAttribute("NICKNAME", auth.getNickname());
 			String session_id = (String) session.getAttribute("ID");
 			System.out.println("session ID -------------------> "+session_id);
 			
-		} catch (IdPassswordNotMatchException ex) {
-			
-			errors.reject("idPasswordNotMatch");
+		} catch (IdPassswordNotMatchException ex) {			
+			//errors.reject("idPasswordNotMatch");
+			String idPasswordNotMatch = "true";
+			model.addAttribute("idPasswordNotMatch", idPasswordNotMatch);
 			log.info("idPasswordNotMatch=====================================================");
 			
 			return "member/loginForm";
@@ -135,16 +134,6 @@ public class MemberController {
 		return "member/member_list";
 	}
 	
-	@RequestMapping("/productView")
-	public String productView(int car_id, Model model){
-		
-		Product product = service.selectOneProduct(car_id);
-		
-		model.addAttribute("oneProduct", product);
-		
-		return "user/memberProductView";
-	}
-
 	@RequestMapping(value="/memberJoin", method=RequestMethod.GET)
 	public String memberJoin(){
 		
@@ -177,6 +166,25 @@ public class MemberController {
 		}
 		
 		return "member/registSuccess";
+	}
+	
+	@RequestMapping("/view/{member_id}")
+	public String memberView(@PathVariable String member_id, Model model) {
+		Member member = memberDao.selectById(member_id);
+		
+		model.addAttribute("member", member);
+		
+		return "member/member_view";
+	}
+	
+	@RequestMapping("/productView")
+	public String productView(int car_id, Model model){
+		
+		Product product = service.selectOneProduct(car_id);
+		
+		model.addAttribute("oneProduct", product);
+		
+		return "user/memberProductView";
 	}
 
 	

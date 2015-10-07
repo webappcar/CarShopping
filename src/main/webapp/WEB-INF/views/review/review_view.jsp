@@ -6,12 +6,12 @@
 <meta charset="UTF-8">
 <title>리뷰보기</title>
 <%
-	String pageNo = "1";//(String)request.getAttribute("pageNo");
-	int currentPage = Integer.parseInt(pageNo);
+	//String pageNo = (String)request.getAttribute("pageNo");
+	//int currentPage = Integer.parseInt(pageNo);
 %>
 </head>
 <body>
-<c:set var="pageNo" value="<%= pageNo %>"/>
+<%-- <c:set var="pageNo" value="<%= pageNo %>"/> --%>
 <c:if test = "${empty review}">
 존재하지 않는 글입니다.
 </c:if>
@@ -44,9 +44,7 @@
 	</td></tr>
 	<tr><td></td></tr>
 </table>
-
 </c:if>
-
 
 <script language="JavaScript">
 function goUpdate(id){
@@ -64,7 +62,7 @@ function goList(){
 </script>
 <form name="move" method="post">
 <input type="hidden" name="writing_id" value="${review.writing_id }"/>
-<input type="hidden" name="pageNo" value="${pageNo}" />
+<%-- <input type="hidden" name="pageNo" value="${pageNo}" /> --%>
 </form>
 
 </body> 

@@ -95,9 +95,9 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("/update/{article_num}")
-	public String getUpdateForm(@PathVariable String article_num, @RequestParam("pageNo") String pageNo, Model model) {
+	public String getUpdateForm(@PathVariable String article_num, Model model) {
 	
-		System.out.println(article_num+", "+article_num);
+		System.out.println("article_num = "+article_num);
 		
 		int writing_id = Integer.parseInt(article_num);
 		
@@ -112,17 +112,13 @@ public class ReviewController {
 	
 	@RequestMapping("/updateReview")
 	public String reviewUpdate(Model model, HttpServletRequest request) {
-		String pageNo= request.getParameter("pageNo");
 		String writing_id= request.getParameter("writing_id");
 		String review_title = request.getParameter("review_title");
 		String review_content=request.getParameter("review_content");
 		
-		System.out.println("pageNo - "+pageNo);
 		System.out.println("writing_id - "+writing_id);
 		System.out.println("review_title - "+review_title);
 		System.out.println("review_content - "+review_content);
-		
-		model.addAttribute("pageNo", pageNo);
 		
 		Review review = new Review();
 		ReviewContent reviewContent = new ReviewContent();
@@ -135,6 +131,8 @@ public class ReviewController {
 		
 		reviewDao.updateReview(review);
 		reviewDao.updateReviewContent(reviewContent);
+		
+		model.addAttribute("writing_id", writing_id);
 			
 		return "review/review_update_result";
 	}

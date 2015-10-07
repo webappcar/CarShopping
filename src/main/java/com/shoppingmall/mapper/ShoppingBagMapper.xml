@@ -8,7 +8,8 @@
 	</resultMap>
 	
 	<select id="selectShoppingBag" resultMap="shoppingBagResultMap">
-		select * from shopping_bag
+		select a.*, b.* from shopping_bag a, car_info b
+		where a.code = b.car_id and id=#{id}
 	</select>
 	
 	<delete id="deleteShoppingBag" parameterType="int">

@@ -9,11 +9,15 @@
 <meta charset="UTF-8">
 <title>login.jsp</title>
 <%@ include file="/WEB-INF/views/common.jspf" %>
-<style type="text/css">
-	
-</style>
+<c:if test="${!empty idPasswordNotMatch}">
+<script Language="Javascript">
+	function idPasswordNotMatch() {
+		alert("아이디와 비밀번호를 확인하세요.");
+	}
+</script>
+</c:if>
 </head>
-<body>
+<body onload="idPasswordNotMatch();">
 <h1>Login</h1>
 
 <form:form commandName="login" action="login" method="post" cssClass="w3-container">

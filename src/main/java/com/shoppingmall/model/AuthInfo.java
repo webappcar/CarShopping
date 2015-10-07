@@ -4,6 +4,7 @@ public class AuthInfo {
 	String id;
 	String name;
 	String email;
+	String nickname;
 	
 	public String getId() {
 		return id;
@@ -22,6 +23,12 @@ public class AuthInfo {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
 }
