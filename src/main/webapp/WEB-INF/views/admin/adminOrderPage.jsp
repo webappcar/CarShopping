@@ -16,23 +16,25 @@
 				<tr>
 					<th>주문번호</th>
 					<th>상품코드</th>
-					<th>아이디</th>
+					<th>상품이름</th>
+					<th>이름</th>
 					<th>배달주소</th>
 					<th>전화번호</th>
-					<th>이름</th>
 					<th>주문날짜</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>2</td>
-					<td>3</td>
-					<td>4</td>
-					<td>5</td>
-					<td>6</td>
-					<td>7</td>
-				</tr>
+				<c:forEach var="purchaseList" items="${purchaseList}">
+					<tr>
+						<td>${purchaseList.purchase_no}</td>
+						<td>${purchaseList.code}</td>
+						<td>${purchaseList.id}</td>
+						<td>${purchaseList.address}</td>
+						<td>${purchaseList.telnum}</td>
+						<td>${purchaseList.name}</td>
+						<td>${purchaseList.purchase_date}</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

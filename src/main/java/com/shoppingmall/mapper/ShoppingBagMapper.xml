@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shoppingmall.mapper.ShoppingBagMapper">
+
+	<select id="selectShoppingBag">
+		select a.*, b.* from shopping_bag a, car_info b
+		where a.code = b.car_id and id=#{id}
+	</select>
+	
+	<delete id="deleteShoppingBag" parameterType="int">
+		delete * from shopping_bag where id=#{id}
+	</delete>
+</mapper>

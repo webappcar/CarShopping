@@ -13,15 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shoppingmall.command.Fuel;
 import com.shoppingmall.command.ProductCommand;
 import com.shoppingmall.model.Member;
 import com.shoppingmall.model.Product;
+import com.shoppingmall.model.Purchase;
 import com.shoppingmall.service.MemberListService;
 import com.shoppingmall.service.ProductService;
+import com.shoppingmall.service.PurchaseService;
 
 @Controller
 @RequestMapping("/admin")
@@ -32,6 +33,8 @@ public class AdminController {
 	
 	@Autowired
 	ProductService service;
+
+	PurchaseService purchaseService;
 	
 	@Autowired
 	MemberListService mservice;
@@ -119,7 +122,12 @@ public class AdminController {
 	
 	
 	@RequestMapping("/orderPage")
-	public String adminOrderPage(){
+	public String adminOrderPage(Model model){
+		
+		List<Purchase> purchaseList = purchaseService.purchaseSelect();
+		
+		
+		model.addAttribute("purchaseList",purchaseList);
 		
 		return "admin/adminOrderPage";
 	}

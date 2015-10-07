@@ -38,7 +38,14 @@
 						<c:forEach var="hotItemProduct" items="${hotItemProduct}">
 							<td>
 								<a href="/member/productView?car_id=${hotItemProduct.car_id}">
-									[${hotItemProduct.company}] ${hotItemProduct.car_name}
+									<c:choose>
+										<c:when test="${fn:length(hotItemProduct.car_name) > 8 }">
+											[${hotItemProduct.company}] ${fn:substring(hotItemProduct.car_name,0,7)}...
+										</c:when>
+										<c:otherwise>
+											[${hotItemProduct.company}] ${hotItemProduct.car_name}
+										</c:otherwise>
+									</c:choose>
 								</a>
 							</td>
 						</c:forEach>
@@ -65,7 +72,14 @@
 						<c:forEach var="newItemProduct" items="${newItemProduct}">
 							<td>
 								<a href="/member/productView?car_id=${newItemProduct.car_id}">
-									[${newItemProduct.company}] ${newItemProduct.car_name}
+									<c:choose>
+										<c:when test="${fn:length(newItemProduct.car_name) > 8 }">
+											[${newItemProduct.company}] ${fn:substring(newItemProduct.car_name,0,7)}...
+										</c:when>
+										<c:otherwise>
+											[${newItemProduct.company}] ${newItemProduct.car_name}
+										</c:otherwise>
+									</c:choose>
 								</a>
 							</td>
 						</c:forEach>
