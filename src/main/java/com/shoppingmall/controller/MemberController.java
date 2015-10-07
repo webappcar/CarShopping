@@ -22,12 +22,14 @@ import com.shoppingmall.exception.IdPassswordNotMatchException;
 import com.shoppingmall.model.AuthInfo;
 import com.shoppingmall.model.Member;
 import com.shoppingmall.model.Product;
+import com.shoppingmall.model.Review;
 import com.shoppingmall.service.AuthService;
 import com.shoppingmall.service.MemberListService;
 import com.shoppingmall.service.MemberRegisterService;
 import com.shoppingmall.validator.MemberCommandValidator;
 import com.shoppingmall.command.MemberCommand;
 import com.shoppingmall.dao.MybatisMemberDao;
+import com.shoppingmall.dao.MybatisReviewDao;
 import com.shoppingmall.service.ProductService;
 
 @Controller
@@ -56,6 +58,9 @@ public class MemberController {
 	
 	@Autowired
 	MemberCommandValidator validator;
+	
+	@Autowired
+	MybatisReviewDao reviewDao;
 	
 	@ModelAttribute("member")
 	public MemberCommand getMemberCommand() {
@@ -175,6 +180,10 @@ public class MemberController {
 		Product product = service.selectOneProduct(car_id);
 		
 		model.addAttribute("oneProduct", product);
+		
+		//리뷰목록 가져오기
+		List<Review> reviewList = reviewDao.selectReviewList(car_id);
+		model.addAttribute("reviewList", reviewList);
 		
 		return "user/memberProductView";
 	}

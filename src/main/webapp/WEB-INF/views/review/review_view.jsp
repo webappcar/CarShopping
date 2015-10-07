@@ -37,7 +37,7 @@
 			<td colspan="2">
 			<a href="javascript:goUpdate(${review.writing_id})">[수정]</a>
 			<a href="javascript:goDelete(${review.writing_id})">[삭제]</a>
-<!-- 			<a href="javascript:goList()">[목록]</a> -->
+			<a href="javascript:history.go(-1)"/>[뒤로]</a>
 			</td>
 		</tr>
 		</table>

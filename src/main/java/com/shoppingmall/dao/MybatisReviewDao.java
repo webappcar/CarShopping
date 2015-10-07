@@ -1,5 +1,7 @@
 package com.shoppingmall.dao;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import com.shoppingmall.model.Review;
@@ -19,6 +21,12 @@ public class MybatisReviewDao implements ReviewMapper {
 	}
 	
 	Sequence sequence = new Sequence();
+	
+	public List<Review> selectReviewList(int car_id) {
+		List<Review> review = reviewMapper.selectReviewList(car_id);
+		
+		return review;
+	}
 	
 	public Review selectReview(int writing_id) {
 		Review review = reviewMapper.selectReview(writing_id);

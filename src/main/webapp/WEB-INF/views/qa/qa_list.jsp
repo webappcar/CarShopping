@@ -134,8 +134,5 @@ int endRow = (Integer)request.getAttribute("endRow");
 <input type="hidden" name="pageNo" value="${pageNo}" />
 </form>
 
-<%-- <c:forEach var="qalist" items="${qalist}"> --%>
-<%-- 	${qalist.id} - ${qalist.title}<br> --%>
-<%-- </c:forEach> --%>
 </body>
 </html>

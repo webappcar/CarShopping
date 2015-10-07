@@ -60,6 +60,23 @@
 					</td>
 				</tr>
 				<tr>
+					<td colspan="2">
+						<br>리뷰<br>
+						<table width="100%" border="1">
+							<tr><td>제목</td><td>글쓴이</td><td>등록일</td></tr>
+							<c:forEach var="reviewlist" items="${reviewList}" varStatus="status">
+							<tr>
+							<td><a href="/review/view/${reviewlist.writing_id}">${reviewlist.title}</a></td>
+							<td>${reviewlist.name}</td>
+							<td>${reviewlist.register_date}</td>
+							</tr>
+						</c:forEach>
+						</tr>
+						</table>
+						<br><a href="/review/write/${oneProduct.car_id}">[리뷰쓰기]</a><br>
+					</td>
+				</tr>
+				<tr>
 					<td colspan="2" align="center">
 						<input type="button" value="주문하기" onclick="orderButton();">
 						<input type="button" value="장바구니에 담기">

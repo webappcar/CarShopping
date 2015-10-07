@@ -85,6 +85,8 @@ public class ReviewController {
 			reviewContent.setWriting_id(review.getWriting_id());
 			int insertContentResult = reviewDao.insertReviewContent(reviewContent);
 			
+			model.addAttribute("car_id", car_id);
+			
 			System.out.println("insertReviewResult = "+insertReviewResult);
 			System.out.println("insertContentResult = "+insertContentResult);
 		} catch(Exception e){

@@ -1,10 +1,14 @@
 package com.shoppingmall.mapper;
 
+import java.util.List;
+
 import com.shoppingmall.model.Review;
 import com.shoppingmall.model.ReviewContent;
 import com.shoppingmall.model.Sequence;
 
 public interface ReviewMapper {
+	
+	List<Review> selectReviewList(int car_id);
 	
 	Review selectReview(int writing_id);
 	ReviewContent selectReviewContent(int writing_id);

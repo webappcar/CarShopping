@@ -16,6 +16,12 @@
 		<id property="review_content" column="review_content"/>
 	</resultMap>
 	
+	<select id="selectReviewList" 
+			parameterType="int" 
+			resultMap="reviewResultMap" databaseId="oracle">		
+		select a.writing_id,a.id,a.title,a.code,a.register_date,b.name from review a, user_info b where a.id=b.id and code = #{car_id} order by a.writing_id
+	</select>
+	
 	<select id="selectReview" 
 			parameterType="Integer" 
 			resultMap="reviewResultMap" databaseId="oracle">		
