@@ -11,6 +11,10 @@
 <c:url value="/js/jquery-ui-1.11.4/external/jquery/jquery.js" var="jquery_core"/>
 <c:url value="/js/jquery-ui-1.11.4/jquery-ui.js" var="jquery_ui"/>
 
+<c:url value="/js/slick-1.5.7/slick/slick.css" var="slide_css"/>
+<c:url value="/js/slick-1.5.7/slick/slick-theme.css" var="slide_theme_css"/>
+<c:url value="/js/slick-1.5.7/slick/slick.min.js" var="slide_js"/>
+
 <c:url value="/css/styles.css" var="dropdown"/>
 
 <link rel="stylesheet" href="${bootstrap_css}"/>
@@ -19,5 +23,9 @@
 
 <script type="text/javascript" src="${jquery_core}"></script>
 <script type="text/javascript" src="${jquery_ui}"></script>
+
+<link rel="stylesheet" href="${slide_css}"/>
+<link rel="stylesheet" href="${slide_theme_css}"/>
+<script type="text/javascript" src="${slide_js}"></script>
 
 <link rel="stylesheet" href="${dropdown}"/>

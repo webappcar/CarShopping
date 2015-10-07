@@ -10,13 +10,20 @@
 <%@ include file="/WEB-INF/views/common.jspf" %>
 
 <style type="text/css">
-	#divsize {height: auto; width: 900px; margin: auto;}
+	#divsize {width: 900px; margin: auto;}
 	#cssmenu {float: center;}
 	#cssmenu ul {float: center;}
 	#logindiv {margin: 10px;}
 	#loginbtn {width: 70px; height: auto;}
 	#widthDiv {height: 100px;}
+	#footerDiv {text-align: center; height: 100px; margin-top:100px; background-color: #EAEAEA;}
 </style>
+
+<script type="text/javascript">
+	function dologin(){
+		location.href = "/member/login";
+	}
+</script>
 
 <sitemesh:write property="head"/>
 
@@ -49,49 +56,65 @@
 					</ul>
 				</li>
 				<li><a href="/QA/list">QnA</a></li>
-				<li><a href="/admin/memberPage">AdminPage</a></li>
+				<c:if test="${ID eq 'admin'}">
+					<li><a href="/admin/memberPage">AdminPage</a></li>
+				</c:if>
 			</ul>
 		</div>
 		<div id="widthDiv">
-	<!-- 로그인 -->
-	<!-- 	<div class="form-group" id="logindiv"> -->
-	<!-- 		<div class="col-sm-9" > -->
-	<!-- 			AD or 아무거나 -->
-	<!-- 		</div> -->
-	<!-- 		<div class="col-sm-3"> -->
-	<!-- 			<div> -->
-	<!-- 				<input type="text" class="form-control" id="loginid" placeholder="아이디"/> -->
-	<!-- 				<input type="password" class="form-control" id="password" placeholder="비밀번호"/> -->
-	<!-- 			</div> -->
-	<!-- 			<div> -->
-	<!-- 				<span><a href="/memberJoin">회원가입</a></span> -->
-	<!-- 				<button id="loginbtn">로그인</button> -->
-	<!-- 			</div> -->
-	<!-- 		</div> -->
-	<!-- 	</div> -->
-			
 			<div class="form-group">
-				<div class="col-sm-9">
-					AD or 아무거나
+				<div class="col-sm-9 slider autoplay">
+					<div><img src="/img/ad/ad1.jpg" ></div>
+					<div><img src="/img/ad/ad2.jpg" ></div>
+					<div><img src="/img/ad/ad3.jpg" ></div>
 				</div>
-				<div class="col-sm-3">
-					<div>
-						NickName 님 환영합니다.
+			<c:choose>
+				<c:when test="${ID eq null}">
+				<form action="/member/login" method="post">
+					<div class="col-sm-3">
+						<div>
+							<input type="text" class="form-control" name="id" id="id" placeholder="아이디"/>
+							<input type="password" class="form-control" name="password" id="password" placeholder="비밀번호"/>
+						</div>
+						<div>
+							<span><a href="/member/memberJoin">회원가입</a></span>
+							<input type="submit" value="로그인"/>
+						</div>
 					</div>
-					<div>
-						로그아웃
-						장바구니
-						정보수정
+				</form>
+				</c:when>
+				<c:otherwise>
+					<div class="col-sm-3">
+						<div>
+							NickName 님 환영합니다.
+						</div>
+						<div>
+							<a href="/member/logout">로그아웃</a>
+							장바구니
+							정보수정
+						</div>
 					</div>
-				</div>
+				</c:otherwise>
+			</c:choose>
 			</div>
 		</div>
 	<sitemesh:write property="body"/>
 	
 	
-	<footer border="1" class="w3-container">
-		<h1>footer</h1>
+	<footer class="w3-container">
+		<div id="footerDiv">
+			<h1>Copyright (c) 2015</h1>
+		</div>
 	</footer>
 </div>
+
+<script type="text/javascript">
+ 	$('.autoplay').slick({
+ 		slidesToShow: 1,
+		slidesToScroll: 1,
+ 		autoplay: true,
+ 		autoplaySpeed: 2000,
+ 	});
+ </script>
 </body>
 </html>

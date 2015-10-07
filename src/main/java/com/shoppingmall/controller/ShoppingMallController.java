@@ -19,16 +19,14 @@ public class ShoppingMallController {
 	@RequestMapping("/index")
 	public String mainPage(Model model){
 		
-		List<Product> product = service.selectProduct();
+		List<Product> hotItemProduct = service.selectHotItemProduct();
+		List<Product> newItemProduct = service.selectNewItemProduct();
 		
-		model.addAttribute("product", product);
+		model.addAttribute("hotItemProduct", hotItemProduct);
+		model.addAttribute("newItemProduct", newItemProduct);
 		
 		return "index";
 	}
 	
-	@RequestMapping("/memberJoin")
-	public String memberJoin(){
-		
-		return "user/memberJoin";
-	}
+	
 }

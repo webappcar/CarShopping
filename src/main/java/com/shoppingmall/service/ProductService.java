@@ -51,4 +51,16 @@ public class ProductService {
 		
 		return dao.deleteProduct(car_id);
 	}
+	
+	@Transactional
+	public List<Product> selectHotItemProduct(){
+		
+		return dao.selectHotItemProduct();
+	}
+	
+	@Transactional
+	public List<Product> selectNewItemProduct(){
+		
+		return dao.selectNewItemProduct();
+	}
 }

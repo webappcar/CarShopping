@@ -49,6 +49,18 @@ public class MybatisProductDao implements ProductDao{
 		return mapper.deleteProduct(car_id);
 	}
 
+	@Override
+	public List<Product> selectHotItemProduct() {
+		// TODO Auto-generated method stub
+		return mapper.selectHotItemProduct();
+	}
+
+	@Override
+	public List<Product> selectNewItemProduct() {
+		// TODO Auto-generated method stub
+		return mapper.selectNewItemProduct();
+	}
+
 	
 
 }

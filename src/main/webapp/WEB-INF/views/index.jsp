@@ -9,33 +9,69 @@
 <title>index.jsp</title>
 
 <%@ include file="/WEB-INF/views/common.jspf" %>
+
+<style>
+	table tr td img{border: 1px solid #EAEAEA; margin: 1px;}
+	#hotItemDiv table{margin:auto;}
+	#hotItemImage{margin-bottom: 10px; margin-top: 50px;}
+	#newItemImage{margin-bottom: 10px; margin-top: 80px;}
+</style>
 </head>
 <body>
-	<div class="w3-container form-group">
-		<div>
-			hot 이미지
+	<div class="w3-container form-group" id="mainProductDiv">
+		<div id="hotItemImage">
+			<img src="/img/hotItem.jpg">
 		</div>
-		<div>
+		<div id="hotItemDiv">
 			<table>
 				<tbody>
 					<tr>
-						<c:forEach var="product" items="${product}">
-							<td><img src="/img/carimg/${product.car_image}" width="220px" height="220px"></td>
+						<c:forEach var="hotItemProduct" items="${hotItemProduct}">
+							<td>
+								<a href="/member/productView?car_id=${hotItemProduct.car_id}">
+									<img src="/img/carimg/${hotItemProduct.car_image}" width="200px" height="200px">
+								</a>
+							</td>
 						</c:forEach>
 					</tr>
 					<tr>
-						<c:forEach var="product" items="${product}">
-							<td><a href="/member/productView?car_id=${product.car_id}">${product.car_name}</a></td>
+						<c:forEach var="hotItemProduct" items="${hotItemProduct}">
+							<td>
+								<a href="/member/productView?car_id=${hotItemProduct.car_id}">
+									[${hotItemProduct.company}] ${hotItemProduct.car_name}
+								</a>
+							</td>
 						</c:forEach>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<div>
-			new 이미지
+		<div id="newItemImage">
+			<img src="/img/newItem.jpg">
 		</div>
 		<div>
-			new 상품
+			<table>
+				<tbody>
+					<tr>
+						<c:forEach var="newItemProduct" items="${newItemProduct}">
+							<td>
+								<a href="/member/productView?car_id=${newItemProduct.car_id}">
+									<img src="/img/carimg/${newItemProduct.car_image}" width="200px" height="200px">
+								</a>
+							</td>
+						</c:forEach>
+					</tr>
+					<tr>
+						<c:forEach var="newItemProduct" items="${newItemProduct}">
+							<td>
+								<a href="/member/productView?car_id=${newItemProduct.car_id}">
+									[${newItemProduct.company}] ${newItemProduct.car_name}
+								</a>
+							</td>
+						</c:forEach>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </body>

@@ -12,4 +12,6 @@ public interface ProductMapper {
 	int insertProduct(Product product);
 	int modifyProduct(Product product);
 	int deleteProduct(int car_id);
+	List<Product> selectHotItemProduct();
+	List<Product> selectNewItemProduct();
 }

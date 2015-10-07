@@ -34,6 +34,18 @@
 		where car_id=#{car_id}
 	</select>
 	
+	<select id="selectHotItemProduct" resultMap="productResultMap">
+		select * from
+		(select * from car_info order by ceil(DBMS_RANDOM.VALUE(1,(select count(*) from car_info)))) rand
+		where rownum &lt; 5
+	</select>
+	
+	<select id="selectNewItemProduct" resultMap="productResultMap">
+		select * from
+		(select * from car_info order by insertday desc) insertday
+		where rownum &lt; 5
+	</select>
+	
 	<insert id="insertProduct" parameterType="com.shoppingmall.model.Product">
 		insert into car_info(car_id, car_name, price, efficiency, fuel, company, gubun, year, car_image, stock, car_desc, insertday)
 		values(#{car_id, jdbcType=INTEGER},

@@ -100,7 +100,7 @@ public class MemberController {
 			return "member/loginForm";
 		}
 		
-		return "/index";
+		return "redirect:/index";
 	}
 	
 	@RequestMapping("/logout")
@@ -114,7 +114,7 @@ public class MemberController {
 		
 		session.invalidate();  //세션삭제
 		
-		return "/index";
+		return "redirect:/index";
 	}
 	
 	@RequestMapping("/list")
