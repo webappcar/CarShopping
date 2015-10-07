@@ -25,7 +25,7 @@
 </script>
 </head>
 <body>
-	<form>
+	<form method="post" action="">
 		<table>
 			<tbody>
 				<tr>
@@ -62,7 +62,9 @@
 				<tr>
 					<td colspan="2" align="center">
 						<input type="button" value="주문하기" onclick="orderButton();">
-						<input type="button" value="장바구니에 담기">
+						<c:if test="${sessionScope.ID ne null}">
+							<input type="button" value="장바구니에 담기">
+						</c:if>
 						<input type="button" value="취소" onclick="history.back(-1);">
 					</td>
 				</tr>

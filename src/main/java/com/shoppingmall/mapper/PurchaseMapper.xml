@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shoppingmall.mapper.PurchaseMapper">
+
+	<resultMap type="com.shoppingmall.model.Purchase" id="purchaseResultMap">
+		<id property="purchase_no" column="purchase_no"/>
+		<id property="code" column="code"/>
+		<id property="id" column="id"/>
+		<id property="name" column="name"/>
+		<id property="purchase_date" column="purchase_date"/>
+		<id property="address" column="address"/>
+		<id property="gubun" column="gubun"/>
+		<id property="year" column="year"/>
+		<id property="telnum" column="telnum"/>
+	</resultMap>
+	
+	<select id="purchaseSelect" resultMap="purchaseResultMap">
+		select * from purchase
+	</select>
+	
+	<select id="purchaseSelectOne" resultMap="purchaseResultMap" parameterType="String">
+		select * from purchase where purchase_no=#{purchase_no}
+	</select>
+	
+	<select id="purchaseSelectOneId" resultMap="purchaseResultMap" parameterType="String">
+		select * from purchase where id=#{id}
+	</select>
+	
+	<insert id="purchaseInsert">
+		insert into purchase(purchase_no, code, id, name, purchase_date, address, telnum)
+		values(#{purchase_no}, #{code}, #{id}, #{name}, TO_DATE(SYSDATE, 'yyyy-mm-dd'), #{address}, #{telnum})
+	</insert>
+	
+	<update id="purchaseUpdate">
+		update purchase 
+		set name=#{name},
+			address=#{address}
+			telnum=#{telnum}
+		where purchase_no=#{purchase_no}
+	</update>
+	
+	<delete id="purchaseDelete">
+		delete * from purchase where purchase_no=#{purchase_no}
+	</delete>
+</mapper>

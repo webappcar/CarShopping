@@ -16,17 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.shoppingmall.command.LoginCommand;
+import com.shoppingmall.command.MemberCommand;
 import com.shoppingmall.exception.AlreadyExistingMemberException;
 import com.shoppingmall.exception.IdPassswordNotMatchException;
 import com.shoppingmall.model.AuthInfo;
 import com.shoppingmall.model.Member;
 import com.shoppingmall.model.Product;
+import com.shoppingmall.model.Purchase;
 import com.shoppingmall.service.AuthService;
 import com.shoppingmall.service.MemberListService;
 import com.shoppingmall.service.MemberRegisterService;
-import com.shoppingmall.validator.MemberCommandValidator;
-import com.shoppingmall.command.MemberCommand;
 import com.shoppingmall.service.ProductService;
+import com.shoppingmall.service.PurchaseService;
+import com.shoppingmall.validator.MemberCommandValidator;
 
 @Controller
 @RequestMapping("/member")
@@ -39,6 +41,9 @@ public class MemberController {
 	
 	@Autowired
 	ProductService service;
+	
+	@Autowired
+	PurchaseService purchaseService;
 	
 	@Autowired
 	MemberListService listService;
@@ -174,4 +179,13 @@ public class MemberController {
 		return "member/registSuccess";
 	}
 
+	
+	@RequestMapping("/memberShoppingBasket")
+	public String memberShoppingBasket(HttpSession session, Model model){
+		String session_id = (String) session.getAttribute("ID");
+		List<Purchase> purchase = purchaseService.purchaseSelectOneId(session_id);
+
+		
+		return "member/memberShoppingBasket";
+	}
 }
