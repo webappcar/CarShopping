@@ -55,7 +55,7 @@
 						<li class="has-sub"><a href="#">현대자동차</a></li>
 					</ul>
 				</li>
-				<li><a href="/QA/list">QnA</a></li>
+				<li><a href="/qa/list/1">QnA</a></li>
 				<c:if test="${ID eq 'admin'}">
 					<li><a href="/admin/memberPage">AdminPage</a></li>
 				</c:if>
