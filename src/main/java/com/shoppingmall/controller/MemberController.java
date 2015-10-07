@@ -18,21 +18,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.shoppingmall.command.LoginCommand;
 import com.shoppingmall.command.MemberCommand;
+import com.shoppingmall.dao.MybatisMemberDao;
 import com.shoppingmall.exception.AlreadyExistingMemberException;
 import com.shoppingmall.exception.IdPassswordNotMatchException;
 import com.shoppingmall.model.AuthInfo;
 import com.shoppingmall.model.Member;
 import com.shoppingmall.model.Product;
 import com.shoppingmall.model.Purchase;
+import com.shoppingmall.model.ShoppingBag;
 import com.shoppingmall.service.AuthService;
 import com.shoppingmall.service.MemberListService;
-
+import com.shoppingmall.service.MemberRegisterService;
 import com.shoppingmall.service.ProductService;
 import com.shoppingmall.service.PurchaseService;
+import com.shoppingmall.service.ShoppingBagService;
 import com.shoppingmall.validator.MemberCommandValidator;
-
-import com.shoppingmall.service.MemberRegisterService;
-import com.shoppingmall.dao.MybatisMemberDao;
 
 
 @Controller
@@ -49,9 +49,9 @@ public class MemberController {
 	
 	@Autowired
 	ProductService service;
-	
-	@Autowired
-	PurchaseService purchaseService;
+
+	PurchaseService pService;
+	ShoppingBagService sbService;
 	
 	@Autowired
 	MemberListService listService;
@@ -184,16 +184,40 @@ public class MemberController {
 		
 		model.addAttribute("oneProduct", product);
 		
-		return "user/memberProductView";
+		return "member/memberProductView";
 	}
 
 	
 	@RequestMapping("/memberShoppingBasket")
 	public String memberShoppingBasket(HttpSession session, Model model){
 		String session_id = (String) session.getAttribute("ID");
-		List<Purchase> purchase = purchaseService.purchaseSelectOneId(session_id);
-
+		List<ShoppingBag> sb = sbService.selectShoppingBag(session_id);
+		
+		model.addAttribute("sb", sb);
 		
 		return "member/memberShoppingBasket";
+	}
+	
+	@RequestMapping(value="/insertPurchase", method=RequestMethod.POST)
+	public String insertPurchase(HttpSession session,int car_id, Purchase purchase){
+		Product product = service.selectOneProduct(car_id);
+		String session_id = (String) session.getAttribute("ID");
+		
+		String purchaseNo = car_id+session_id+(int)(Math.random()*1000+1);
+		
+		purchase.setPurchase_no(purchaseNo);
+		purchase.setCode(String.valueOf(product.getCar_id()));
+		purchase.setId(session_id);
+
+		System.out.println(purchase.getPurchase_no());
+		System.out.println(purchase.getCode());
+		System.out.println(purchase.getId());
+		System.out.println(purchase.getName());
+		System.out.println(purchase.getAddress());
+		System.out.println(purchase.getTelnum());
+		
+		pService.purchaseInsert(purchase);
+		
+		return "redirect:/index";
 	}
 }

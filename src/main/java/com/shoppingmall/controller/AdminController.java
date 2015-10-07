@@ -33,8 +33,7 @@ public class AdminController {
 	
 	@Autowired
 	ProductService service;
-	
-	@Autowired
+
 	PurchaseService purchaseService;
 	
 	@Autowired

@@ -9,8 +9,6 @@
 		<id property="name" column="name"/>
 		<id property="purchase_date" column="purchase_date"/>
 		<id property="address" column="address"/>
-		<id property="gubun" column="gubun"/>
-		<id property="year" column="year"/>
 		<id property="telnum" column="telnum"/>
 	</resultMap>
 	
@@ -19,27 +17,33 @@
 	</select>
 	
 	<select id="purchaseSelectOne" resultMap="purchaseResultMap" parameterType="String">
-		select * from purchase where purchase_no=#{purchase_no}
+		select * from purchase where purchase_no=#{purchase_no, jdbcType=VARCHAR}
 	</select>
 	
 	<select id="purchaseSelectOneId" resultMap="purchaseResultMap" parameterType="String">
-		select * from purchase where id=#{id}
+		select * from purchase where id=#{id, jdbcType=VARCHAR}
 	</select>
 	
 	<insert id="purchaseInsert">
 		insert into purchase(purchase_no, code, id, name, purchase_date, address, telnum)
-		values(#{purchase_no}, #{code}, #{id}, #{name}, TO_DATE(SYSDATE, 'yyyy-mm-dd'), #{address}, #{telnum})
+		values(#{purchase_no, jdbcType=VARCHAR}, 
+				#{code, jdbcType=VARCHAR}, 
+				#{id, jdbcType=VARCHAR}, 
+				#{name, jdbcType=VARCHAR}, 
+				TO_DATE(SYSDATE, 'yyyy-mm-dd'), 
+				#{address, jdbcType=VARCHAR}, 
+				#{telnum, jdbcType=VARCHAR})
 	</insert>
 	
 	<update id="purchaseUpdate">
 		update purchase 
-		set name=#{name},
-			address=#{address}
-			telnum=#{telnum}
-		where purchase_no=#{purchase_no}
+		set name=#{name, jdbcType=VARCHAR},
+			address=#{address, jdbcType=VARCHAR}
+			telnum=#{telnum, jdbcType=VARCHAR}
+		where purchase_no=#{purchase_no, jdbcType=VARCHAR}
 	</update>
 	
 	<delete id="purchaseDelete">
-		delete * from purchase where purchase_no=#{purchase_no}
+		delete * from purchase where purchase_no=#{purchase_no, jdbcType=VARCHAR}
 	</delete>
 </mapper>

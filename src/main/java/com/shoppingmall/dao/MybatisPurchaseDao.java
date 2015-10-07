@@ -34,6 +34,7 @@ public class MybatisPurchaseDao implements PurchaseDao{
 	@Override
 	public int purchaseInsert(Purchase purchase) {
 		// TODO Auto-generated method stub
+		System.out.println("purchase : Mybatispurchase DAO");
 		return mapper.purchaseInsert(purchase);
 	}
 

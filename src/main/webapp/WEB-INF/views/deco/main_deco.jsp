@@ -90,7 +90,7 @@
 						</div>
 						<div>
 							<a href="/member/logout">로그아웃</a>
-							장바구니
+							<a href="/member/memberShoppingBasket">장바구니</a>
 							정보수정
 						</div>
 					</div>

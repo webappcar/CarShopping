@@ -6,5 +6,5 @@ import com.shoppingmall.model.ShoppingBag;
 
 public interface ShoppingBagMapper {
 	List<ShoppingBag> selectShoppingBag(String id);
-	int deleteShoppingBag(String id);
+	int deleteShoppingBag(String code);
 }

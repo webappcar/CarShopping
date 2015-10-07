@@ -22,10 +22,11 @@
 			$('#order').show();
 		}
 	}
+
 </script>
 </head>
 <body>
-	<form method="post" action="">
+	<form method="post" action="/member/insertPurchase?car_id=${oneProduct.car_id}">
 		<table>
 			<tbody>
 				<tr>
@@ -51,7 +52,7 @@
 					<td>가격 : ${oneProduct.price}</td>
 				</tr>
 				<tr>
-					<td>구매수량 : <input type="text" id="stock" name="stock" value="1"></td>
+					<td>구매수량 : <input type="text" value="1"></td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -61,8 +62,8 @@
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input type="button" value="주문하기" onclick="orderButton();">
 						<c:if test="${sessionScope.ID ne null}">
+							<input type="button" value="주문하기" onclick="orderButton();">
 							<input type="button" value="장바구니에 담기">
 						</c:if>
 						<input type="button" value="취소" onclick="history.back(-1);">
@@ -71,9 +72,9 @@
 				<tr id="order">
 					<td align="center">
 						<br>
-						이름 : <input type="text"><br>
-						전화번호 : <input type="text"><br>
-						주소 : <input type="text"><br>
+						이름 : <input type="text" id="name" name="name"><br>
+						전화번호 : <input type="text" id="telnum" name="telnum"><br>
+						주소 : <input type="text" id="address" name="address"><br>
 					</td>
 					<td>
 						<br>
