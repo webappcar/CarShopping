@@ -17,18 +17,22 @@
 	</select>
 	
 	<select id="purchaseSelectOne" resultMap="purchaseResultMap" parameterType="String">
-		select * from purchase where purchase_no=#{purchase_no}
+		select * from purchase where purchase_no=#{purchase_no, jdbcType=VARCHAR}
 	</select>
 	
 	<select id="purchaseSelectOneId" resultMap="purchaseResultMap" parameterType="String">
-		select * from purchase where id=#{id}
+		select * from purchase where id=#{id, jdbcType=VARCHAR}
 	</select>
 	
 	<insert id="purchaseInsert">
 		insert into purchase(purchase_no, code, id, name, purchase_date, address, telnum)
-		values(#{purchase_no, jdbcType=VARCHAR}, #{code, jdbcType=VARCHAR}, 
-		#{id, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, TO_DATE(SYSDATE, 'yyyy-mm-dd'), 
-		#{address, jdbcType=VARCHAR}, #{telnum, jdbcType=VARCHAR})
+		values(#{purchase_no, jdbcType=VARCHAR}, 
+				#{code, jdbcType=VARCHAR}, 
+				#{id, jdbcType=VARCHAR}, 
+				#{name, jdbcType=VARCHAR}, 
+				TO_DATE(SYSDATE, 'yyyy-mm-dd'), 
+				#{address, jdbcType=VARCHAR}, 
+				#{telnum, jdbcType=VARCHAR})
 	</insert>
 	
 	<update id="purchaseUpdate">
@@ -40,6 +44,6 @@
 	</update>
 	
 	<delete id="purchaseDelete">
-		delete * from purchase where purchase_no=#{purchase_no}
+		delete * from purchase where purchase_no=#{purchase_no, jdbcType=VARCHAR}
 	</delete>
 </mapper>

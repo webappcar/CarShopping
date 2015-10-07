@@ -2,7 +2,10 @@
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>   
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%
+	String car_id = request.getParameter("car_id");
+%>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +24,7 @@
 <h1>Login</h1>
 
 <form:form commandName="login" action="login" method="post" cssClass="w3-container">
-	
+	<input type="hidden" name="car_id" value="<%=car_id %>"/>
 	<form:errors element="div"/>
 	<!-- Id -->
 	<div class="w3-group">

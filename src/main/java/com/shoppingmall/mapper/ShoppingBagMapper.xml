@@ -8,6 +8,6 @@
 	</select>
 	
 	<delete id="deleteShoppingBag" parameterType="int">
-		delete * from shopping_bag where id=#{id}
+		delete * from shopping_bag where code=#{code}
 	</delete>
 </mapper>

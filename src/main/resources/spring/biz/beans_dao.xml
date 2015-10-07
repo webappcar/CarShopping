@@ -30,6 +30,8 @@
 			<value>classpath:com/shoppingmall/mapper/MemberMapper.xml</value>
 			<value>classpath:com/shoppingmall/mapper/QAMapper.xml</value>
 			<value>classpath:com/shoppingmall/mapper/ProductMapper.xml</value>
+			<value>classpath:com/shoppingmall/mapper/PurchaseMapper.xml</value>
+			<value>classpath:com/shoppingmall/mapper/ShoppingBagMapper.xml</value>
 		</list>
 	</property>
 	<property name="typeAliases">
@@ -63,7 +65,7 @@
 <bean id="idGeneratorMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
 	  p:mapperInterface="com.shoppingmall.mapper.IdGeneratorMapper"
 	  p:sqlSessionFactory-ref="sqlSessionFactory"/>	
-	  
+
 <!-- SpringMemberDao -->
 <!-- <bean id="springMemberDao" class="com.shoppingmall.dao.SpringMemberDao"> -->
 <!-- 	<property name="template" ref="jdbcTemplate"/> -->
@@ -119,6 +121,25 @@
 	<property name="productMapper" ref="productMapper"/>
 </bean>
 
+<!-- PurchaseMapper -->
+<bean id="purchaseMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+	  p:mapperInterface="com.shoppingmall.mapper.PurchaseMapper"
+	  p:sqlSessionFactory-ref="sqlSessionFactory"/>
+
+<!-- MybatisPurchaseDao -->
+<bean id="mybatisPurchaseDao" class="com.shoppingmall.dao.MybatisPurchaseDao">
+	<property name="purchaseMapper" ref="purchaseMapper"/>
+</bean>
+
+<!-- ShoppingBagMapper -->
+<bean id="shoppingBagMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"
+	  p:mapperInterface="com.shoppingmall.mapper.ShoppingBagMapper"
+	  p:sqlSessionFactory-ref="sqlSessionFactory"/>
+
+<!-- MybatisPurchaseDao -->
+<!-- <bean id="mybatisShoppingBagDao" class="com.shoppingmall.dao.MybatisShoppingBagDao"> -->
+<!-- 	<property name="shoppingBagMapper" ref="shoppingBagMapper"/> -->
+<!-- </bean> -->
 
 <tx:annotation-driven transaction-manager="transactionManager" order="10"/>
 <aop:aspectj-autoproxy proxy-target-class="true" />

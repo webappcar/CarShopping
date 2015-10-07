@@ -12,7 +12,7 @@
 <c:if test="${sessionScope.ID == null }">
 	<script>
 		alert("로그인을 해주세요");
-		location.href="/member/login";
+		location.href="/member/login?car_id="+${car_id};
 	</script>
 </c:if>
 <script type="text/javascript">
