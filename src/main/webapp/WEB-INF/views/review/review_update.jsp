@@ -6,9 +6,8 @@
 <meta charset="UTF-8">
 <title>글수정</title>
 <%
-//	String pageNo = "1";// (String)request.getAttribute("pageNo");
+	String car_id = (String)request.getAttribute("car_id");
 %>
-<%-- <c:set var="pageNo" value="<%= pageNo %>"/> --%>
 <c:choose>
      <c:when test="${sessionScope.ID == null}">
 	   <script>
@@ -29,7 +28,7 @@
 <body>
 
 <form action="/review/updateReview" method="post">
-<%-- <input type="hidden" name="pageNo" value="${pageNo}" /> --%>
+<input type="hidden" name="car_id" value="${car_id}" />
 <input type="hidden" name="writing_id" value="${review.writing_id}"/>
 	<table width="80%" align="center" border="0" cellpadding="10">
 		<tr><td>리 뷰</td></tr>		

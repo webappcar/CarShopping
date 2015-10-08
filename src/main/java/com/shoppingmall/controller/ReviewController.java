@@ -28,16 +28,18 @@ public class ReviewController {
 	@Autowired
 	MybatisReviewDao reviewDao;
 	
-	@RequestMapping("/view/{article_num}")
-	public String getView(@PathVariable String article_num, Model model) {
+	@RequestMapping("/view/{article_num}/{car_id}")
+	public String getView(@PathVariable String article_num, @PathVariable String car_id, Model model) {
 
 		System.out.println(article_num+", "+article_num);
+		System.out.println(car_id+", "+car_id);
 		
 		int writing_id = Integer.parseInt(article_num);
 		
 		Review review = reviewDao.selectReview(writing_id);
 		ReviewContent reviewContent = reviewDao.selectReviewContent(writing_id);
 		
+		model.addAttribute("car_id", car_id);
 		model.addAttribute("review", review);
 		model.addAttribute("reviewContent", reviewContent);
 		
@@ -97,8 +99,9 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("/update/{article_num}")
-	public String getUpdateForm(@PathVariable String article_num, Model model) {
-	
+	public String getUpdateForm(@PathVariable String article_num, Model model, HttpServletRequest request) {
+		String car_id= request.getParameter("car_id");
+		System.out.println("car_id ==============> "+car_id);
 		System.out.println("article_num = "+article_num);
 		
 		int writing_id = Integer.parseInt(article_num);
@@ -106,6 +109,7 @@ public class ReviewController {
 		Review review = reviewDao.selectReview(writing_id);
 		ReviewContent reviewContent = reviewDao.selectReviewContent(writing_id);
 		
+		model.addAttribute("car_id", car_id);
 		model.addAttribute("review", review);
 		model.addAttribute("reviewContent", reviewContent);
 		
@@ -114,10 +118,12 @@ public class ReviewController {
 	
 	@RequestMapping("/updateReview")
 	public String reviewUpdate(Model model, HttpServletRequest request) {
+		String car_id= request.getParameter("car_id");
 		String writing_id= request.getParameter("writing_id");
 		String review_title = request.getParameter("review_title");
 		String review_content=request.getParameter("review_content");
 		
+		System.out.println("car_id --------------------> "+car_id);
 		System.out.println("writing_id - "+writing_id);
 		System.out.println("review_title - "+review_title);
 		System.out.println("review_content - "+review_content);
@@ -134,15 +140,18 @@ public class ReviewController {
 		reviewDao.updateReview(review);
 		reviewDao.updateReviewContent(reviewContent);
 		
+		model.addAttribute("car_id", car_id);
 		model.addAttribute("writing_id", writing_id);
 			
 		return "review/review_update_result";
 	}
 	
 	@RequestMapping("/delete/{article_num}")
-	public String confirmDelete(@PathVariable String article_num, @RequestParam("pageNo") String pageNo, Model model) {
-	
-		System.out.println(article_num+", "+pageNo);
+	public String confirmDelete(@PathVariable String article_num, Model model,
+								HttpServletRequest request) {
+		
+		String car_id= request.getParameter("car_id");
+		model.addAttribute("car_id", car_id);
 		
 		int writing_id = Integer.parseInt(article_num);
 		
@@ -157,16 +166,17 @@ public class ReviewController {
 	
 	@RequestMapping("/deleteReview")
 	public String reviewDelete(Model model, HttpServletRequest request) {
-		//String pageNo= request.getParameter("pageNo");
+		
+		String car_id= request.getParameter("car_id");
+		model.addAttribute("car_id", car_id);
+		
 		String writing_id= request.getParameter("writing_id");
 		int id = Integer.parseInt(writing_id);
 		
-		//System.out.println("pageNo - "+pageNo);
+		System.out.println("car_id - "+car_id);
 		System.out.println("writing_id - "+writing_id);
 		
 		reviewDao.deleteReview(id);
-		
-		//model.addAttribute("pageNo", pageNo);
 		
 		return "review/review_delete_result";
 	}

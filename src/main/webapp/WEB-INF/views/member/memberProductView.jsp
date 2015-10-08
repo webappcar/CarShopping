@@ -72,7 +72,7 @@
 							<tr><td>제목</td><td>글쓴이</td><td>등록일</td></tr>
 							<c:forEach var="reviewlist" items="${reviewList}" varStatus="status">
 								<tr>
-									<td><a href="/review/view/${reviewlist.writing_id}">${reviewlist.title}</a></td>
+									<td><a href="/review/view/${reviewlist.writing_id}/${oneProduct.car_id}">${reviewlist.title}</a></td>
 									<td>${reviewlist.name}</td>
 									<td>${reviewlist.register_date}</td>
 								</tr>

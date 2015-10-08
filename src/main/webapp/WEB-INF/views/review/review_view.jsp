@@ -1,17 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+	String car_id = (String)request.getAttribute("car_id");
+%>
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <title>리뷰보기</title>
-<%
-	//String pageNo = (String)request.getAttribute("pageNo");
-	//int currentPage = Integer.parseInt(pageNo);
-%>
 </head>
 <body>
-<%-- <c:set var="pageNo" value="<%= pageNo %>"/> --%>
 <c:if test = "${empty review}">
 존재하지 않는 글입니다.
 </c:if>
@@ -37,7 +35,7 @@
 			<td colspan="2">
 			<a href="javascript:goUpdate(${review.writing_id})">[수정]</a>
 			<a href="javascript:goDelete(${review.writing_id})">[삭제]</a>
-			<a href="javascript:history.go(-1)"/>[뒤로]</a>
+			<a href="/member/productView?car_id=${car_id}"/>[상품정보]</a>
 			</td>
 		</tr>
 		</table>
@@ -61,8 +59,8 @@ function goList(){
 }
 </script>
 <form name="move" method="post">
-<input type="hidden" name="writing_id" value="${review.writing_id }"/>
-<%-- <input type="hidden" name="pageNo" value="${pageNo}" /> --%>
+	<input type="hidden" name="car_id" value="${car_id }"/>
+	<input type="hidden" name="writing_id" value="${review.writing_id }"/>
 </form>
 
 </body> 
