@@ -9,7 +9,13 @@
 </head>
 <body>
 <h1>회원 가입 성공</h1>
-${member}
+ID : ${member.id}<br>
+별명 : ${member.nickname}<br>
+이름 : ${member.name}<br>
+전화 : ${member.phone}<br>
+이메일 : ${member.email}<br>
+주소 : ${member.address}<br>
+<br>
 
 <a href="/index">메인으로</a>
 

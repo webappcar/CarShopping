@@ -27,27 +27,13 @@ int endRow = (Integer)request.getAttribute("endRow");
 </head>
 <body>
 <h1>Car Shopping Home...qa...</h1><br>
-
-<%-- ${requestScope.pageNo}, ${requestScope.count} --%>
-
 <br><br>
 
 <c:set var="pageNum" value="<%= pageNo %>"/>
 <c:set var="num" value="<%=number %>"/>
 
 <table width="80%" cellpadding="10" align="center" border="0">
-	<tr><td>QnA 게시판 &nbsp; <a href="/member/logout">[logout]</a></td></tr>
-	<tr><td>
-		<c:if test="<%= count > 0%>">
-		<table width="100%" cellpadding="1" cellspacing="0">
-			<%-- <tr>
-				<td align="right">
-					<b><%=startRow %>~<%=endRow %>&nbsp;/&nbsp;<%= count %></b>
-				</td>
-			</tr> --%>
-		</table>
-		</c:if>
-	</td></tr>
+	<tr><td>QnA 게시판 &nbsp; <a href="/index">[Home]</a> &nbsp; <a href="/member/logout">[logout]</a></td></tr>
 	<tr><td>	
 		<table width="100%" cellpadding="1" cellspacing="2">
 			<tr style="color: white;" bgcolor="#464646" align="center">	

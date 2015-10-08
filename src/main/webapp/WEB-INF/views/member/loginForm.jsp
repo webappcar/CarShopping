@@ -4,7 +4,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
-	String car_id = request.getParameter("car_id");
+	String car_id = (String)request.getAttribute("car_id");
+	String from_review = (String)request.getAttribute("from_review");
+	String from_write = (String)request.getAttribute("from_write");
 %>   
 <!DOCTYPE html>
 <html>
@@ -23,8 +25,10 @@
 <body onload="idPasswordNotMatch();">
 <h1>Login</h1>
 
-<form:form commandName="login" action="login" method="post" cssClass="w3-container">
+<form:form commandName="login" action="/member/login" method="POST" cssClass="w3-container">
 	<input type="hidden" name="car_id" value="<%=car_id %>"/>
+	<input type="hidden" name="from_review" value="<%=from_review %>"/>
+	<input type="hidden" name="from_write" value="<%=from_write %>"/>
 	<form:errors element="div"/>
 	<!-- Id -->
 	<div class="w3-group">

@@ -2,6 +2,7 @@ package com.shoppingmall.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
@@ -86,8 +87,23 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value={"/login"}, method=RequestMethod.GET)
-	public String loginForm(@ModelAttribute("login") LoginCommand command) {
+	public String loginForm(@ModelAttribute("login") LoginCommand command, 
+							HttpServletRequest request,
+							Model model) {
 		log.info("loginForm()...");
+		
+		String car_id = request.getParameter("car_id");
+		System.out.println("car_id = "+car_id);
+		model.addAttribute("car_id", car_id);
+		
+		String from_review = request.getParameter("from_review");
+		System.out.println("from_review = "+from_review);
+		model.addAttribute("from_review", from_review);
+		
+		String from_write = request.getParameter("from_write");
+		System.out.println("from_write = "+from_write);
+		model.addAttribute("from_write", from_write);
+		
 		command.setRemember(true);
 		
 		return "member/loginForm";
@@ -96,8 +112,20 @@ public class MemberController {
 	@RequestMapping(value={"/login"}, method=RequestMethod.POST)
 	public String login(@ModelAttribute("login") LoginCommand login, 
 												 Errors errors,
-												 HttpSession session, Model model) {
+												 HttpSession session, 
+												 Model model,
+												 HttpServletRequest request) {
 		
+		String car_id = request.getParameter("car_id");
+		System.out.println("car_id ====> "+car_id);
+		model.addAttribute("car_id", car_id);
+		
+		String from_review = request.getParameter("from_review");
+		System.out.println("from_review ====> "+from_review);
+		
+		String from_write = request.getParameter("from_write");
+		System.out.println("from_write ====> "+from_write);
+				
 		/*
 		 * login process
 		 */		
@@ -120,6 +148,27 @@ public class MemberController {
 			log.info("idPasswordNotMatch=====================================================");
 			
 			return "member/loginForm";
+		}
+		
+		if ("true".equals(from_write)) {
+			return "qa/qa_write";
+		}
+		
+		if ("true".equals(from_review)) {
+			model.addAttribute("from_review", from_review);
+			return "review/review_write";
+		}
+		
+		if (car_id != null && car_id.length() != 0) {
+			Product product = service.selectOneProduct(Integer.parseInt(car_id));
+			
+			model.addAttribute("oneProduct", product);
+
+			//리뷰목록 가져오기
+			List<Review> reviewList = reviewDao.selectReviewList(Integer.parseInt(car_id));
+			model.addAttribute("reviewList", reviewList);
+			
+			return  "member/memberProductView";
 		}
 		
 		return "redirect:/index";

@@ -85,7 +85,10 @@ public class QAController {
 	}
 	
 	@RequestMapping("/write")
-	public String writeQA(@RequestParam("pageNo") String pageNo, @RequestParam(value="parent_id", required=false) String parent_id, Model model) {
+	public String writeQA(@RequestParam("pageNo") String pageNo, 
+						  @RequestParam(value="parent_id", required=false) String parent_id, 
+						  HttpServletRequest request,
+						  Model model) {
 		
 		QA parentList = null;
 		String title = "";
@@ -102,6 +105,8 @@ public class QAController {
 		
 		model.addAttribute("parent_id", parent_id);
 		model.addAttribute("pageNo", pageNo);
+		
+		request.setAttribute("from_write", "true");
 		
 		return "qa/qa_write";
 	}
