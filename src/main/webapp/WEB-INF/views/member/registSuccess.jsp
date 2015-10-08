@@ -9,7 +9,6 @@
 </head>
 <body>
 <h1>회원 가입 성공</h1>
-<<<<<<< HEAD
 ID : ${member.id}<br>
 별명 : ${member.nickname}<br>
 이름 : ${member.name}<br>
