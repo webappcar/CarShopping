@@ -22,12 +22,17 @@
 			$('#order').show();
 		}
 	}
-
+	
+	function goindex(){
+		location.href="/index";
+	}
 </script>
 </head>
 <body>
+<div id="viewDiv">
 	<form method="post" action="/member/insertPurchase?car_id=${oneProduct.car_id}">
-		<table>
+		
+		<table class="table table-default">
 			<tbody>
 				<tr>
 					<td rowspan="8" width="400px" align="center"><img src="/img/carimg/${oneProduct.car_image}"></td>
@@ -63,16 +68,15 @@
 				<tr>
 					<td colspan="2">
 						<br>리뷰<br>
-						<table width="100%" border="1">
+						<table width="100%" id="reviewTable" class="table table-hover">
 							<tr><td>제목</td><td>글쓴이</td><td>등록일</td></tr>
 							<c:forEach var="reviewlist" items="${reviewList}" varStatus="status">
-							<tr>
-							<td><a href="/review/view/${reviewlist.writing_id}">${reviewlist.title}</a></td>
-							<td>${reviewlist.name}</td>
-							<td>${reviewlist.register_date}</td>
-							</tr>
-						</c:forEach>
-						</tr>
+								<tr>
+									<td><a href="/review/view/${reviewlist.writing_id}">${reviewlist.title}</a></td>
+									<td>${reviewlist.name}</td>
+									<td>${reviewlist.register_date}</td>
+								</tr>
+							</c:forEach>
 						</table>
 						<br><a href="/review/write/${oneProduct.car_id}">[리뷰쓰기]</a><br>
 					</td>
@@ -83,7 +87,7 @@
 							<input type="button" value="주문하기" onclick="orderButton();">
 							<input type="button" value="장바구니에 담기">
 						</c:if>
-						<input type="button" value="취소" onclick="history.back(-1);">
+						<input type="button" value="취소" onclick="goindex();">
 					</td>
 				</tr>
 				<tr id="order">
@@ -95,15 +99,12 @@
 					</td>
 					<td>
 						<br>
-						<c:if test="${sessionScope.ID ne null}">
-							<input type="checkbox" onclick="input();"/>회원의 정보랑 동일
-							<br><br>
-						</c:if>
-						<input type="submit" value="주문하기">
+						<input type="button" value="주문하기">
 					</td>
 				</tr>
 			</tbody>
 		</table>
 	</form>
+	</div>
 </body>
 </html>

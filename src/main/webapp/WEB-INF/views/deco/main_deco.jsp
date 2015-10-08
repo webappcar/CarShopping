@@ -86,11 +86,11 @@
 				<c:otherwise>
 					<div class="col-sm-3">
 						<div>
-							NickName 님 환영합니다.
+							${name} 님 환영합니다.
 						</div>
 						<div>
 							<a href="/member/logout">로그아웃</a>
-							<a href="/member/memberShoppingBasket">장바구니</a>
+							장바구니
 							정보수정
 						</div>
 					</div>

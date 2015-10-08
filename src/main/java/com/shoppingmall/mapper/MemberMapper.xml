@@ -61,7 +61,7 @@
 		resultMap="memberResultMap">
 		
 	<include refid="member"/>
-	 where id = #{id}
+	 where id = #{id, jdbcType=VARCHAR}
 </select>
 
 <select id="selectByEmail"  

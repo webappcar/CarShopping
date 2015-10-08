@@ -31,21 +31,13 @@ import com.shoppingmall.service.AuthService;
 import com.shoppingmall.service.MemberListService;
 import com.shoppingmall.service.MemberRegisterService;
 import com.shoppingmall.validator.MemberCommandValidator;
-import com.shoppingmall.dao.MybatisMemberDao;
 import com.shoppingmall.dao.MybatisReviewDao;
 import com.shoppingmall.service.ProductService;
 
 import com.shoppingmall.model.Purchase;
 import com.shoppingmall.service.PurchaseService;
-import com.shoppingmall.model.Purchase;
 import com.shoppingmall.model.ShoppingBag;
-import com.shoppingmall.service.AuthService;
-import com.shoppingmall.service.MemberListService;
-import com.shoppingmall.service.MemberRegisterService;
-import com.shoppingmall.service.ProductService;
-import com.shoppingmall.service.PurchaseService;
 import com.shoppingmall.service.ShoppingBagService;
-import com.shoppingmall.validator.MemberCommandValidator;
 
 @Controller
 @RequestMapping("/member")
@@ -241,7 +233,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/productView")
-	public String productView(int car_id, Model model){
+	public String productView(int car_id, Model model, HttpSession session){
 		
 		Product product = service.selectOneProduct(car_id);
 		
@@ -250,6 +242,13 @@ public class MemberController {
 		//리뷰목록 가져오기
 		List<Review> reviewList = reviewDao.selectReviewList(car_id);
 		model.addAttribute("reviewList", reviewList);
+		
+		String session_id = (String)session.getAttribute("ID");
+		
+		if(session_id != null){
+			Member member = listService.getSelectById(session_id);
+			model.addAttribute("name", member.getNickname());
+		}
 		
 		return "member/memberProductView";
 	}
