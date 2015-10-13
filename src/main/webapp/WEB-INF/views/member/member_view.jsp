@@ -21,6 +21,11 @@
          </c:if>     
      </c:otherwise>
 </c:choose>
+<c:if test="${modify_success == 'ok' }">
+	<script>
+		alert("정보를 수정했습니다.");
+	</script>
+</c:if>
 </head>
 <body>
 	<table cellpadding="20" border="0"  width="80%" align="center">
@@ -47,7 +52,7 @@
 			</tr>
 		</table>
 	</td></tr>
-	<tr><td><a href="javascript:goHome()">[Home]</a></td></tr>
+	<tr><td><a href="javascript:goHome()">[Home]</a> <a href="/member/modify/${member.id}">[회원정보수정]</a></td></tr>
 </table>
 
 <script language="JavaScript">

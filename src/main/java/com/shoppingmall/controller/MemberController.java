@@ -204,10 +204,10 @@ public class MemberController {
 
 		//validator.validate(command, errors);
 		
-		if (errors.hasErrors()) {
+		/*if (errors.hasErrors()) {
 			command.setPassword("");
 			return "member/registForm";
-		}
+		}*/
 		
 		/*
 		 * DB 등록
@@ -227,6 +227,28 @@ public class MemberController {
 	public String memberView(@PathVariable String member_id, Model model) {
 		Member member = memberDao.selectById(member_id);
 		
+		model.addAttribute("member", member);
+		
+		return "member/member_view";
+	}
+	
+	@RequestMapping(value="/modify/{member_id}", method=RequestMethod.GET)
+	public String memberModify(@PathVariable String member_id, Model model) {
+		Member member = memberDao.selectById(member_id);
+		
+		model.addAttribute("member", member);
+		
+		return "member/member_modify_form";
+	}
+	
+	@RequestMapping(value="/modify/{member_id}", method=RequestMethod.POST)
+	public String modify(@ModelAttribute("member") MemberCommand command, @PathVariable String member_id, Model model) {
+		registerService.update(command.getMember());
+		
+		String modify_success = "ok";
+		model.addAttribute("modify_success", modify_success);
+		
+		Member member = memberDao.selectById(member_id);
 		model.addAttribute("member", member);
 		
 		return "member/member_view";

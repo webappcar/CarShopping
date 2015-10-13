@@ -131,9 +131,12 @@
 		<if test="name != null">
 			name	= #{name},
 		</if>
+		nickname = #{nickname},
+		email 	 = #{email},
+		phone 	 = #{phone},
+		address  = #{address}		
 	</set>
 	 where id 		= #{id}
-	   and email	= #{email}
 </update>
 
 <delete id="deleteById" parameterType="int">

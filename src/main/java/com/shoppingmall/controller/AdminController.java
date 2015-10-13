@@ -152,6 +152,7 @@ public class AdminController {
 	@RequestMapping(value="/insertProduct", method = RequestMethod.POST)
 	public String insert(MultipartFile fileData, ProductCommand command){
 		String path = "C:\\03_src\\Spring\\CarShopping\\src\\main\\webapp\\WEB-INF\\img\\carimg";
+		path = "C:\\03_src\\SpringWorkSpace\\CarShopping\\src\\main\\webapp\\WEB-INF\\img\\carimg";
 		File convFile = new File(path+"\\"+fileData.getOriginalFilename());
 		
 		String car_image = fileData.getOriginalFilename();
@@ -176,6 +177,7 @@ public class AdminController {
 	@RequestMapping("/deleteProduct")
 	public String delete(int car_id, Product p){
 		String path = "C:\\03_src\\Spring\\CarShopping\\src\\main\\webapp\\WEB-INF\\img\\carimg";
+		path = "C:\\03_src\\SpringWorkSpace\\CarShopping\\src\\main\\webapp\\WEB-INF\\img\\carimg";
 		
 		p = service.selectOneProduct(car_id);
 		

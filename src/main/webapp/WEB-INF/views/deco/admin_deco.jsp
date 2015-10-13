@@ -8,7 +8,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>admin_deco</title>
 <%@ include file="/WEB-INF/views/common.jspf" %>
-
+<c:if test="${sessionScope.ID != 'admin' }">
+	<script>
+		alert("비정상적인 접근입니다.");
+		location.href="javascript:history.go(-1)";
+	</script>
+</c:if>
 <style type="text/css">
 	#adminmain {margin-left: 180px !important;}
 </style>

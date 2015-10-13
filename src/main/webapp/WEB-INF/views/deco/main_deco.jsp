@@ -85,14 +85,27 @@
 				</c:when>
 				<c:otherwise>
 					<div class="col-sm-3">
-						<div>
-							${name} 님 환영합니다.
-						</div>
-						<div>
-							<a href="/member/logout">로그아웃</a>
-							장바구니
-							정보수정
-						</div>
+						<c:choose>
+							<c:when test="${sessionScope.ID == 'admin'}">
+								<div>
+									관리자님 환영합니다.
+								</div>
+								<div>
+									<a href="/member/logout">로그아웃</a>
+									<a href="/admin/memberPage">관리자홈</a>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div>
+									${name} 님 환영합니다.
+								</div>
+								<div>
+									<a href="/member/logout">로그아웃</a>
+									<a href="/member/view/${sessionScope.ID}">회원정보</a>
+									장바구니
+								</div>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</c:otherwise>
 			</c:choose>

@@ -24,6 +24,11 @@ public class MemberRegisterService {
 			throw new AlreadyExistingMemberException(e);
 		}
 	}
+	
+	@Transactional
+	public void update(Member member) {
+		memberDao.update(member);
+	}
 }
 
 
